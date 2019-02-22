@@ -49,6 +49,8 @@ export default {
     height 0
     padding-bottom 50%
   .icons
+    // box-shadow 0 1px 1px rgba(0,0,0,.1)
+    padding-bottom .2rem
     margin-top .1rem
     .icon
       float left
