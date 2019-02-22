@@ -2,12 +2,18 @@
   <div class="icons">
     <swiper :options="swiperOption">
       <swiper-slide v-for="(page, index) of pages" :key="index">
-        <div class="icon" v-for='item of page' :key='item.id'>
+        <router-link
+          tag="div"
+          class="icon"
+          v-for='item of page'
+          :key='item.id'
+          :to="'/detail/' + item.id"
+        >
           <div class="icon-image">
             <img class="icon-image-content" :src="item.imgUrl">  <!-- src前必须加冒号 -->
           </div>
           <p class="icon-desc">{{item.desc}}</p>
-        </div>
+        </router-link>
       </swiper-slide>
   </swiper>
   </div>
@@ -23,6 +29,11 @@ export default {
     return {
       swiperOption: {
         autoplay: false // 阻止自动滚动
+        // onClick (swiper) {
+        //   // alert('点击', swiper.clickedIndex)
+        //   console.log('当前点击索引：', swiper.clickedSlide)
+        //   // vm.handleClickSlide(swiper.clickIndex)
+        // }
       }
     }
   },
@@ -39,6 +50,11 @@ export default {
       return pages
     }
   }
+  // methods: {
+  //   handleClickSlide (index) {
+  //     console.log('当前点击索引：', index)
+  //   }
+  // }
 }
 </script>
 
