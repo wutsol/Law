@@ -28,6 +28,7 @@ export default {
 
 <style lang="stylus" scoped>
   @import '~styles/mixins.styl'
+  @import '~styles/variables.styl'
   .title
     margin-top .3rem
     height 1rem
@@ -39,18 +40,18 @@ export default {
     // box-shadow 0 1px 1px rgba(0,0,0,.1)
   .item-info
     height 1.1rem
-    padding .4rem .35rem
+    padding $textPadding .35rem
     .item-title
-      color #333
+      color #414141
       line-height .56rem
       height .56rem
-      font-size .3rem
+      font-size $titleSize
       ellipsis()
     .item-desc
       margin-top .17rem
       line-height .44rem
-      font-size .25rem
-      color #ccc
+      font-size $detailSize
+      color #757575
       ellipsis()
 .item-more
     height 1rem
