@@ -1,7 +1,7 @@
 <template>
   <div>
     <home-header :title="title"></home-header>
-    <home-pictures></home-pictures>
+    <home-pictures :imgUrl="imgUrl"></home-pictures>
     <home-icons :list="iconList"></home-icons>
     <home-recommend :list="recommendList"></home-recommend>
     <div class="home-info"></div>
@@ -26,7 +26,8 @@ export default{
     return {
       title: '法务通',
       iconList: [],
-      recommendList: []
+      recommendList: [],
+      imgUrl: ''
     }
   },
   methods: {
@@ -40,6 +41,7 @@ export default{
         const data = res.data
         this.iconList = data.iconList
         this.recommendList = data.recommendList
+        this.imgUrl = data.imgUrl
       }
     }
   },

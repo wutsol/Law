@@ -7,10 +7,8 @@
 <script>
 export default {
   name: 'Pictures',
-  data () {
-    return {
-      imgUrl: 'http://img.smzy.com/Soft/UploadPic/2016-10/2016102516415011331.jpg'
-    }
+  props: {
+    imgUrl: String
   }
   // props: {
   //   imgUrl: String
