@@ -8,15 +8,14 @@
       > <!-- 一级标题 -->
         <div class="item-title border-bottom">{{item.title}}</div>
         <ul class="item-info" :style="changeHeight">
-          <router-link
-            tag="li"
+          <li
             class="item-info-li"
             v-for="smallItem of item.class"
             :key="smallItem.id"
-            :to="{path:'/caseDetail/' + smallItem.id, query: {bigTitle: smallItem.upperclass,smallTitle: smallItem.title, list: [smallItem.list]}}"
+            @click="handleCaseClick(smallItem.id, smallItem.upperclass, smallItem.title, smallItem.list)"
           > <!-- 二级标题 query传递小标题 -->
             <p class="item-info-title">{{smallItem.title}}</p>
-          </router-link>
+          </li>
         </ul>
         <div class="item-more border-top" @click="handleMoreClick"> <!-- 显示更多 -->
           <div class="iconfont" v-show="isActivated">&#xe7a9;</div>
@@ -28,6 +27,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex' // vuex高级一些的API
 export default {
   name: 'CaseClassify',
   props: {
@@ -45,7 +45,12 @@ export default {
     handleMoreClick () {
       this.changeHeight.height = this.changeHeight.height === '2rem' ? '3rem' : '2rem'
       this.isActivated = !this.isActivated
-    }
+    },
+    handleCaseClick (id, bigTitle, smallTitle, list) {
+      this.$router.push({path: '/caseDetail/' + id, query: {bigTitle: bigTitle, smallTitle: smallTitle}}) // 用编程式导航，传递数据
+      this.pushCaseList(list) // 借助vuex实现案例数据的传递
+    },
+    ...mapMutations(['pushCaseList']) // 该方法相当于commit一个请求
   }
 }
 
