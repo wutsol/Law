@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/pages/home/Home'
 import Decision from '@/pages/decision/Decision'
 import Case from '@/pages/case/Case'
+import CaseDetail from '@/pages/case/components/CaseDetail'
 import DecisionReport from '@/pages/decision/components/report'
 
 Vue.use(Router)
@@ -25,5 +26,9 @@ export default new Router({
       path: '/report',
       name: 'DecisionReport',
       component: DecisionReport
+    }, {
+      path: '/caseDetail/:id',
+      name: 'CaseDetail',
+      component: CaseDetail
     }]
 })
