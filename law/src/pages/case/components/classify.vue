@@ -13,7 +13,7 @@
             class="item-info-li"
             v-for="smallItem of item.class"
             :key="smallItem.id"
-            :to="{path:'/caseDetail/' + smallItem.id, query: {smallTitle: smallItem.title, bigTitle: smallItem.inherit}}"
+            :to="{path:'/caseDetail/' + smallItem.id, query: {bigTitle: smallItem.upperclass,smallTitle: smallItem.title, list: [smallItem.list]}}"
           > <!-- 二级标题 query传递小标题 -->
             <p class="item-info-title">{{smallItem.title}}</p>
           </router-link>

@@ -1,9 +1,16 @@
 <template>
   <div class="banner border-bottom">
-    <!-- <p>案例</p> -->
-    <span class="iconfont icon"></span>
-    <p>{{bigTitle}}</p>
-    <p>{{smallTitle}}</p>
+    <i>案例</i>
+    <i class="iconfont banner-icon">&#xe7ab;</i>
+    <router-link
+      tag="p"
+      class="banner-bigTitle"
+      to="/detail/0002"
+     >
+      {{bigTitle}}
+   </router-link>
+    <i class="iconfont banner-icon">&#xe7ab;</i>
+    <i>{{smallTitle}}</i>
   </div>
 </template>
 
@@ -22,6 +29,16 @@ export default {
   .banner
     height .4rem
     line-height .4rem
-    padding .5rem
+    padding .45rem
     font-size $titleSize
+    background-color: #FFF
+    .banner-icon
+      height .4rem
+      line-height .4rem
+      margin .05rem
+      color #666
+      text-align center
+      font-size .4rem
+    .banner-bigTitle
+      display inline
 </style>
