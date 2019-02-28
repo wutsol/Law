@@ -5,6 +5,7 @@ import Decision from '@/pages/decision/Decision'
 import Case from '@/pages/case/Case'
 import CaseHome from '@/pages/case/components/caseHome'
 import DecisionReport from '@/pages/decision/components/report'
+import CaseAccusation from '@/pages/case/components/secondClassify'
 
 Vue.use(Router)
 
@@ -30,6 +31,10 @@ export default new Router({
       path: '/caseDetail/:id',
       name: 'CaseHome',
       component: CaseHome
+    }, {
+      path: '/accusation/:id',
+      name: 'CaseAccusation',
+      component: CaseAccusation
     }],
   scrollBehavior (to, from, savedPosition) { // 使页面跳转时每次都在顶部出现
     return { x: 0, y: 0 }

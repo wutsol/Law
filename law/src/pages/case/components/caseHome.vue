@@ -1,7 +1,16 @@
 <template>
   <div class="wraper">
     <case-header :title="headerTitle"></case-header>
-    <case-banner :smallTitle="smallTitle" :bigTitle="bigTitle"></case-banner>
+    <!-- <case-banner :smallTitle="smallTitle" :bigTitle="bigTitle"></case-banner> -->
+    <crime-concept :name="accu_name" :concept="accu_gainian"></crime-concept>
+    <case-tab
+      :accu_goucheng="accu_goucheng"
+      :accu_jieshi="accu_jieshi"
+      :accu_lian="accu_lian"
+      :accu_rending="accu_rending"
+      :list="list"
+    ><!-- :accu_gainian="accu_gainian" :accu_name="accu_name" -->
+    </case-tab>
     <case-list :list="list"></case-list>
   </div>
 </template>
@@ -10,25 +19,31 @@
 // import { mapState } from 'vuex' // vuex高级一些的API
 import axios from 'axios'
 import CaseHeader from 'common/Header'
-import CaseBanner from './detailBanner'
+// import CaseBanner from 'common/Banner'
 import CaseList from 'common/Case'
+import CrimeConcept from './crimeConcept'
+import CaseTab from 'common/Tab2'
 export default {
   name: 'CaseHome',
   components: {
     CaseHeader,
-    CaseBanner,
-    CaseList
+    // CaseBanner,
+    CrimeConcept,
+    CaseList,
+    CaseTab
   },
   data () {
     return {
       headerTitle: '案例库',
-      bigTitle: '',
-      smallTitle: '',
+      accu_name: '',
+      accu_gainian: [],
+      accu_goucheng: [],
+      accu_jieshi: [],
+      accu_lian: [],
+      // accu_liangxing: [],
+      accu_rending: [],
       list: [],
       lastId: ''
-      // change: {
-      //   background-color: '#fff'
-      // }
     }
   },
   methods: {
@@ -43,9 +58,16 @@ export default {
       res = res.data
       if (res.ret && res.data) {
         const data = res.data
+        this.accu_name = data.accu_name
+        this.accu_gainian = data.accu_gainian
+        this.accu_goucheng = data.accu_goucheng
+        this.accu_jieshi = data.accu_jieshi
+        this.accu_lian = data.accu_lian
+        this.accu_rending = data.accu_rending
+        // this.accu_liangxing = data.accu_liangxing
         this.list = data.caseList
-        this.bigTitle = data.upperclass
-        this.smallTitle = data.title
+        // this.bigTitle = data.upperclass
+        // this.smallTitle = data.title
       }
     }
   },

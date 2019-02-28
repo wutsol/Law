@@ -13,8 +13,8 @@
             class="item-info-li"
             v-for="smallItem of item.class"
             :key="smallItem.id"
-            :to="'/caseDetail/' + smallItem.id"
-          > <!-- 二级标题 query传递小标题 @click="handleCaseClick(smallItem.id, smallItem.upperclass, smallItem.title, smallItem.list)"-->
+            :to="'/accusation/' + smallItem.id"
+          > <!-- 二级标题 query传递小标题 @click="handleCaseClick(smallItem.id, smallItem.upperclass, smallItem.title, smallItem.list)" -->
             <p class="item-info-title">{{smallItem.title}}</p>
           </router-link>
         </ul>
