@@ -30,5 +30,8 @@ export default new Router({
       path: '/caseDetail/:id',
       name: 'CaseHome',
       component: CaseHome
-    }]
+    }],
+  scrollBehavior (to, from, savedPosition) { // 使页面跳转时每次都在顶部出现
+    return { x: 0, y: 0 }
+  }
 })

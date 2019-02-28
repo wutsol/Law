@@ -11,7 +11,7 @@ import axios from 'axios'
 import CaseHeader from 'common/Header'
 import CasePictures from 'common/Pictures'
 import CaseClassify from './components/classify'
-import { mapState } from 'vuex'
+// import { mapState } from 'vuex'
 export default {
   name: 'Case',
   components: {
@@ -24,8 +24,8 @@ export default {
       title: '案例库',
       imgUrl: '',
       classifyList: [],
-      showAlpha: true,
-      lastList: []
+      showAlpha: true
+      // lastList: []
     }
   },
   methods: {
@@ -42,19 +42,22 @@ export default {
       }
     }
   },
-  computed: {
-    ...mapState(['list'])
-  },
   mounted () {
-    this.lastList = this.list
     this.getCaseInfo()
-  },
-  activated () { // 当城市发生变化时要重新发送ajax请求
-    if (this.lastList !== this.list) {
-      this.lastList = this.list
-      this.getCaseInfo()
-    }
   }
+  // computed: {
+  //   ...mapState(['list'])
+  // },
+  // mounted () {
+  //   this.lastList = this.list
+  //   this.getCaseInfo()
+  // }
+  // activated () { // 当城市发生变化时要重新发送ajax请求
+  //   if (this.lastList !== this.list) {
+  //     this.lastList = this.list
+  //     this.getCaseInfo()
+  //   }
+  // }
 }
 
 </script>

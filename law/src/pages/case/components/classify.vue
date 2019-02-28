@@ -8,16 +8,17 @@
       > <!-- 一级标题 -->
         <div class="item-title border-bottom">{{item.title}}</div>
         <ul class="item-info" :style="changeHeight">
-          <li
+          <router-link
+            tag="li"
             class="item-info-li"
             v-for="smallItem of item.class"
             :key="smallItem.id"
-            @click="handleCaseClick(smallItem.id, smallItem.upperclass, smallItem.title, smallItem.list)"
-          > <!-- 二级标题 query传递小标题 -->
+            :to="'/caseDetail/' + smallItem.id"
+          > <!-- 二级标题 query传递小标题 @click="handleCaseClick(smallItem.id, smallItem.upperclass, smallItem.title, smallItem.list)"-->
             <p class="item-info-title">{{smallItem.title}}</p>
-          </li>
+          </router-link>
         </ul>
-        <div class="item-more border-top" @click="handleMoreClick"> <!-- 显示更多 -->
+        <div class="item-more border-top" @click.self="handleMoreClick"> <!-- 显示更多 -->
           <div class="iconfont" v-show="isActivated">&#xe7a9;</div>
           <div class="iconfont" v-show="!isActivated">&#xe7aa;</div>
         </div>
@@ -27,7 +28,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex' // vuex高级一些的API
+// import { mapMutations } from 'vuex' // vuex高级一些的API
 export default {
   name: 'CaseClassify',
   props: {
@@ -45,12 +46,12 @@ export default {
     handleMoreClick () {
       this.changeHeight.height = this.changeHeight.height === '2rem' ? '3rem' : '2rem'
       this.isActivated = !this.isActivated
-    },
-    handleCaseClick (id, bigTitle, smallTitle, list) {
-      this.$router.push({path: '/caseDetail/' + id, query: {bigTitle: bigTitle, smallTitle: smallTitle}}) // 用编程式导航，传递数据
-      this.pushCaseList(list) // 借助vuex实现案例数据的传递
-    },
-    ...mapMutations(['pushCaseList']) // 该方法相当于commit一个请求
+    }
+    // handleCaseClick (id, bigTitle, smallTitle, list) {
+    //   this.$router.push({path: '/caseDetail/' + id, query: {bigTitle: bigTitle, smallTitle: smallTitle}}) // 用编程式导航，传递数据
+    //   this.pushCaseList(list) // 借助vuex实现案例数据的传递
+    // },
+    // ...mapMutations(['pushCaseList']) // 该方法相当于commit一个请求
   }
 }
 
