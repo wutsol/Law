@@ -2,8 +2,8 @@
   <div class="composition">
     <ul>
       <li
-        :class="{title: item.length === 4, text: item.length !== 4}"
-        v-for="(item, index) of composition"
+        :class="{title: index === 0, text: index !== 0}"
+        v-for="(item, index) of list"
         :key="index"
       >
         {{item}}
@@ -14,9 +14,9 @@
 
 <script>
 export default {
-  name: 'CrimeComposition',
+  name: 'CrimeIFiling',
   props: {
-    composition: Array
+    list: Array
   }
 }
 </script>

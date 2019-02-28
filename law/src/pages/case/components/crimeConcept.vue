@@ -21,6 +21,7 @@ export default {
 
 <style lang="stylus" scoped>
   .container
+    height 2.8rem
     margin-top .2rem
     padding .4rem
     background-color: #FFF

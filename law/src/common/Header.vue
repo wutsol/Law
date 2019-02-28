@@ -1,7 +1,7 @@
 <template>
   <div class="header" :class="{headerfixed: showfixed}"> <!-- 为了页面向下滚动时header部分不动 -->
     <div class="header-left">
-      <div class="iconfont back-icon" @click="hendleClick">&#xe622;</div>
+      <div class="iconfont back-icon" @click="handleClick">&#xe622;</div>
     </div>
     <div class="header-middle">{{title}}</div>
     <router-link
@@ -26,7 +26,7 @@ export default{
     }
   },
   methods: {
-    hendleClick () {
+    handleClick () {
       this.$router.go(-1) // 返回上一页
     },
     handleScroll () {

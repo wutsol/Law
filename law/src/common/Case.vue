@@ -27,8 +27,8 @@ export default {
 <style lang="stylus" scoped>
   @import '~styles/mixins.styl'
   @import '~styles/variables.styl'
-  .wrapper
-    margin-top .2rem
+  // .wrapper
+  //   margin-top .2rem
     .item
       background-color: #fff
       .item-info

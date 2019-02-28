@@ -11,7 +11,7 @@
       :list="list"
     ><!-- :accu_gainian="accu_gainian" :accu_name="accu_name" -->
     </case-tab>
-    <case-list :list="list"></case-list>
+    <!-- <case-list :list="list"></case-list> -->
   </div>
 </template>
 
@@ -20,7 +20,7 @@
 import axios from 'axios'
 import CaseHeader from 'common/Header'
 // import CaseBanner from 'common/Banner'
-import CaseList from 'common/Case'
+// import CaseList from 'common/Case'
 import CrimeConcept from './crimeConcept'
 import CaseTab from 'common/Tab2'
 export default {
@@ -29,7 +29,7 @@ export default {
     CaseHeader,
     // CaseBanner,
     CrimeConcept,
-    CaseList,
+    // CaseList,
     CaseTab
   },
   data () {
