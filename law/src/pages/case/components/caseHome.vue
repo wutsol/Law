@@ -25,7 +25,7 @@ export default {
       bigTitle: '',
       smallTitle: '',
       list: [],
-      lastTitle: ''
+      lastId: ''
       // change: {
       //   background-color: '#fff'
       // }
@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     getDetailInfo () {
-      axios.get('/api/caseDetail.json', {
+      axios.get('/api/caseDetail.json', { // 这里用动态路由，获取不同案例，取代之前所有案例与罪名放在同一文件下，
         params: {
           id: this.$route.params.id
         }
@@ -50,12 +50,12 @@ export default {
     }
   },
   mounted () {
-    this.lastTitle = this.smallTitle
+    this.lastId = this.$route.params.id
     this.getDetailInfo()
   },
   activated () { // 当城市发生变化时要重新发送ajax请求
-    if (this.lastTitle !== this.smallTitle) {
-      this.lastTitle = this.smallTitle
+    if (this.lastId !== this.$route.params.id) {
+      this.lastId = this.$route.params.id
       this.getDetailInfo()
     }
   }

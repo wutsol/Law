@@ -1,5 +1,5 @@
 <template>
-  <div> <!-- 使用组件时最外层必须包裹一个div -->
+  <div class="wrapper"> <!-- 使用组件时最外层必须包裹一个div -->
     <ul>
       <li
         class="item border-bottom"
@@ -27,26 +27,23 @@ export default {
 <style lang="stylus" scoped>
   @import '~styles/mixins.styl'
   @import '~styles/variables.styl'
-  .title
-    margin-top .3rem
-    height 1rem
-    line-height 1rem
-    font-size .4rem
-    text-align center
-    background-color: #eee
-  .item-info
-    height 1.1rem
-    padding $textPadding .35rem
-    .item-title
-      color #414141
-      line-height .56rem
-      height .56rem
-      font-size $titleSize
-      ellipsis()
-    .item-desc
-      margin-top .17rem
-      line-height .44rem
-      font-size $detailSize
-      color #757575
-      ellipsis()
+  .wrapper
+    margin-top .2rem
+    .item
+      background-color: #fff
+      .item-info
+        height 1.1rem
+        padding $textPadding .35rem
+        .item-title
+          color #414141
+          line-height .56rem
+          height .56rem
+          font-size $titleSize
+          ellipsis()
+        .item-desc
+          margin-top .17rem
+          line-height .44rem
+          font-size $detailSize
+          color #757575
+          ellipsis()
 </style>
