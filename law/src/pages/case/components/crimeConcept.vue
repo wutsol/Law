@@ -29,7 +29,7 @@ export default {
       line-height .5rem
       font-size .44rem
     .container-concept
-      margin-top .25rem
+      margin-top .4rem
       line-height .5rem
       text-indent 2em
       font-size .3rem

@@ -15,7 +15,7 @@
   </div>
 </template>
 
-<script>
+<script> // 罪名详情页
 // import { mapState } from 'vuex' // vuex高级一些的API
 import axios from 'axios'
 import CaseHeader from 'common/Header'
@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     getDetailInfo () {
-      axios.get('/api/caseDetail.json', { // 这里用动态路由，获取不同案例，取代之前所有案例与罪名放在同一文件下，
+      axios.get('/api/crimeDetail.json', { // 这里用动态路由，获取不同案例，取代之前所有案例与罪名放在同一文件下，
         params: {
           id: this.$route.params.id
         }

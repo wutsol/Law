@@ -11,7 +11,7 @@
           class="wrapper-item border-bottom"
           v-for='item of page'
           :key='item.id'
-          :to="'/caseDetail/' + item.id"
+          :to="'/crimeDetail/' + item.id"
         >
           <div class="item-title">
             {{item.title}}

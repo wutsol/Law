@@ -28,7 +28,7 @@ export default new Router({
       name: 'DecisionReport',
       component: DecisionReport
     }, {
-      path: '/caseDetail/:id',
+      path: '/crimeDetail/:id',
       name: 'CaseHome',
       component: CaseHome
     }, {
