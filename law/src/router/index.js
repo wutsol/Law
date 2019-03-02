@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/pages/home/Home'
 import Decision from '@/pages/decision/Decision'
 import Case from '@/pages/case/Case'
+import LawHome from '@/pages/law/Home'
 import CaseHome from '@/pages/case/components/caseHome'
 import DecisionReport from '@/pages/decision/components/report'
 import CaseAccusation from '@/pages/case/components/secondClassify'
@@ -23,6 +24,10 @@ export default new Router({
       path: '/detail/0002',
       name: 'Case',
       component: Case
+    }, {
+      path: '/detail/0003',
+      name: 'LawHome',
+      component: LawHome
     }, {
       path: '/report',
       name: 'DecisionReport',

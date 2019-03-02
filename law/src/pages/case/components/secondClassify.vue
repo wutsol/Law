@@ -25,7 +25,7 @@
   </div>
 </template>
 
-<script> // 该Gallery为公用图片画廊,数据都为外部传递
+<script> // 二级标题
 import axios from 'axios'
 import CaseHeader from 'common/Header'
 import CaseBanner from 'common/Banner'

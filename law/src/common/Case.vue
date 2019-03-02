@@ -15,7 +15,7 @@
   </div>
 </template>
 
-<script>
+<script> // 案例
 export default {
   name: 'Case',
   props: {
