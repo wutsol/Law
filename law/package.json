@@ -13,7 +13,12 @@
   "dependencies": {
     "axios": "^0.18.0",
     "better-scroll": "^1.14.1",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
     "fastclick": "^1.0.6",
+    "module": "^1.2.5",
+    "mongodb": "^2.2.33",
+    "mongoose": "^5.4.17",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "vue": "^2.5.2",
