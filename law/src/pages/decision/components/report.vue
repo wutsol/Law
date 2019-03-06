@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 import ReportHeader from 'common/Header'
 import ReportLaw from './law'
 import ReportCase from './case'
@@ -38,25 +38,25 @@ export default {
       lawList: [],
       caseList: []
     }
-  },
-  methods: {
-    getReportInfo () {
-      axios.get('/api/report.json')
-        .then(this.getReportInfoSuc)
-    },
-    getReportInfoSuc (res) {
-      res = res.data
-      if (res.ret && res.data) { // 打字都给打错咯
-        const data = res.data
-        this.list = data.result
-        this.lawList = data.lawList
-        this.caseList = data.caseList
-      }
-    }
-  },
-  mounted () {
-    this.getReportInfo()
   }
+  // methods: {
+  //   getReportInfo () {
+  //     axios.get('/api/report.json')
+  //       .then(this.getReportInfoSuc)
+  //   },
+  //   getReportInfoSuc (res) {
+  //     res = res.data
+  //     if (res.ret && res.data) { // 打字都给打错咯
+  //       const data = res.data
+  //       this.list = data.result
+  //       this.lawList = data.lawList
+  //       this.caseList = data.caseList
+  //     }
+  //   }
+  // },
+  // mounted () {
+  //   this.getReportInfo()
+  // }
 }
 </script>
 

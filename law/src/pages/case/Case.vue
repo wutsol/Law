@@ -25,40 +25,52 @@ export default {
   data () {
     return {
       title: '案例库',
-      imgUrl: '',
+      imgUrl: 'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1551018518&di=370e53fb5e39f42594a6009f0513fa39&src=http://img3.iyiou.com/Cover/2016-12-04/hangye-falvfuwu1204.jpg',
       classifyList: [],
       nameList: []
       // lastList: []
+      // {
+      //   'id': '00010',
+      //   'title': '军人违反职业罪'
+      // }, {
+      //   'id': '00014',
+      //   'title': '路冲一次'
+      // }],
+      // nameList: [{
+      //   'id': '0001',
+      //   'title': '虐待俘虏罪'
+      // }
     }
   },
   methods: {
     getCaseInfo () {
-      axios.get('/api/case.json') // 获取二级标题
-        .then(this.getCaseInfoSucc)
-    },
-    getCaseInfoSucc (res) { // 数据的获取
-      res = res.data
-      if (res.ret && res.data) {
-        const data = res.data
-        this.imgUrl = data.imgUrl
-        this.classifyList = data.classifyList
-      }
-    },
-    getCrimeName () {
-      axios.get('/api/crimeName.json') // 获取202个罪名
-        .then(this.getCrimeNameSucc)
-    },
-    getCrimeNameSucc (res) {
-      res = res.data
-      if (res.ret && res.data) {
-        const data = res.data
-        this.nameList = data.nameList
-      }
+      axios.get('/api/classify') // 获取二级标题
+        .then(res => {
+          this.classifyList = res.data
+        })
     }
+  //   getCaseInfoSucc (res) { // 数据的获取
+  //     res = res.data
+  //     if (res.ret && res.data) {
+  //       const data = res.data
+  //       this.imgUrl = data.imgUrl
+  //       this.classifyList = data.classifyList
+  //     }
+  //   },
+  //   getCrimeName () {
+  //     axios.get('/api/crimeName.json') // 获取202个罪名
+  //       .then(this.getCrimeNameSucc)
+  //   },
+  //   getCrimeNameSucc (res) {
+  //     res = res.data
+  //     if (res.ret && res.data) {
+  //       const data = res.data
+  //       this.nameList = data.nameList
+  //     }
+  //   }
   },
   mounted () {
     this.getCaseInfo()
-    this.getCrimeName()
   }
   // computed: {
   //   ...mapState(['list'])
