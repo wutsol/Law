@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     getCaseInfo () {
-      axios.get('/api/case.json') // 获取二级标题
+      axios.get('/home/law.json') // 获取二级标题
         .then(this.getCaseInfoSucc)
     },
     getCaseInfoSucc (res) { // 数据的获取
