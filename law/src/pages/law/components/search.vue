@@ -32,7 +32,7 @@
 import Bscroll from 'better-scroll'
 import axios from 'axios'
 export default {
-  name: 'CaseSearch',
+  name: 'LawSearch',
   data () {
     return {
       keyword: '',

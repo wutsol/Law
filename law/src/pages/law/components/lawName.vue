@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <case-header :title="headerTitle"></case-header>
-    <case-banner :bigTitle="bigTitle" :title="accuTitle"></case-banner> <!-- :smallTitle="smallTitle" -->
+    <law-header :title="headerTitle"></law-header>
+    <law-banner :bigTitle="bigTitle" :title="lawTitle"></law-banner> <!-- :smallTitle="smallTitle" -->
     <div class="wrapper">
       <swiper :options="swiperOptions"> <!--  v-if="showSwiper" -->
         <!-- slides -->
@@ -11,10 +11,10 @@
             class="wrapper-item border-bottom"
             v-for='item of page'
             :key='item.id'
-            :to="'/crimeDetail/' + item.accu_name"
+            :to="'/lawDetail/' + item.law"
           >
             <div class="item-title">
-             {{item.accu_name}}
+             {{item.law}}
             </div>
           </router-link>
         </swiper-slide>
@@ -27,13 +27,13 @@
 
 <script> // 二级标题
 import axios from 'axios'
-import CaseHeader from 'common/Header'
-import CaseBanner from 'common/Banner'
+import LawHeader from 'common/Header'
+import LawBanner from 'common/Banner'
 export default {
-  name: 'CaseAccusation',
+  name: 'LawName',
   components: {
-    CaseHeader,
-    CaseBanner
+    LawHeader,
+    LawBanner
   },
   data () {
     return {
@@ -43,9 +43,9 @@ export default {
         observeParents: true, // 下面两行解决加载时尺寸出错的问题
         observer: true
       },
-      accusationList: [],
-      headerTitle: '案例库',
-      accuTitle: '罪名',
+      lawList: [],
+      headerTitle: '法条库',
+      lawTitle: '条例',
       bigTitle: '',
       // smallTitle: '',
       lastId: ''
@@ -54,7 +54,7 @@ export default {
   methods: {
     getDetailInfo () {
       // console.log(this.$route.params._id)
-      axios.get('/api/getAccusation/' + this.$route.params._id // 这里用动态路由，获取不同案例，取代之前所有案例与罪名放在同一文件下，不要使用下面注释的内容！！否则mongoose无法正确查找！！
+      axios.get('/api/getLaw/' + this.$route.params.title // 这里用动态路由，获取不同案例，取代之前所有案例与罪名放在同一文件下，不要使用下面注释的内容！！否则mongoose无法正确查找！！
         // params: {
         //   name: this.$route.params._id
         // }
@@ -62,7 +62,7 @@ export default {
     },
     getDetailInfoSucc (res) {
       if (res && res.data) {
-        this.accusationList = res.data
+        this.lawList = res.data
       }
       // res = res.data
       // if (res.ret && res.data) {
@@ -76,7 +76,7 @@ export default {
   computed: { // 实现多余的icon出现在第二张page上
     pages () {
       const pages = []
-      this.accusationList.forEach((item, index) => {
+      this.lawList.forEach((item, index) => {
         const page = Math.floor(index / 10)
         if (!pages[page]) {
           pages[page] = []
@@ -85,19 +85,16 @@ export default {
       })
       return pages
     }
-    // showSwiper () { // 解决轮播图加载后不是第一张图片的问题
-    //   return this.accusationList.length
-    // }
   },
   mounted () {
-    this.bigTitle = this.$route.params._id
-    this.lastId = this.$route.params._id
+    this.bigTitle = this.$route.params.title
+    this.lastId = this.$route.params.title
     this.getDetailInfo()
   },
   activated () { // 当城市发生变化时要重新发送ajax请求
-    if (this.lastId !== this.$route.params._id) {
-      this.bigTitle = this.$route.params._id
-      this.lastId = this.$route.params._id
+    if (this.lastId !== this.$route.params.title) {
+      this.bigTitle = this.$route.params.title
+      this.lastId = this.$route.params.title
       this.getDetailInfo()
     }
   }

@@ -4,6 +4,8 @@ import Home from '@/pages/home/Home'
 import Decision from '@/pages/decision/Decision'
 import Case from '@/pages/case/Case'
 import LawHome from '@/pages/law/Home'
+import LawName from '@/pages/law/components/lawName'
+import LawDetail from '@/pages/law/components/lawDetail'
 import CaseHome from '@/pages/case/components/caseHome'
 import CaseDetail from '@/pages/case/components/caseDetail'
 import DecisionReport from '@/pages/decision/components/report'
@@ -45,6 +47,14 @@ export default new Router({
       path: '/caseDetail/:item',
       name: 'CaseDetail',
       component: CaseDetail
+    }, {
+      path: '/lawName/:title',
+      name: 'LawName',
+      component: LawName
+    }, {
+      path: '/lawDetail/:law',
+      name: 'LawDetail',
+      component: LawDetail
     }],
   scrollBehavior (to, from, savedPosition) { // 使页面跳转时每次都在顶部出现
     return { x: 0, y: 0 }

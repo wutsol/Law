@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     getDetailInfo () {
-      axios.get('/api/getDeatil/' + this.$route.params.accu_name)
+      axios.get('/api/getAccusationDeatil/' + this.$route.params.accu_name)
       // { // 这里用动态路由，获取不同案例，取代之前所有案例与罪名放在同一文件下，
       //   params: {
       //     id: this.$route.params.id
@@ -72,7 +72,7 @@ export default {
         this.list = data.accu_fact
         // this.bigTitle = data.upperclass
         // this.smallTitle = data.title
-        console.log(this.list)
+        // console.log(this.list)
       }
     }
   },

@@ -1,6 +1,6 @@
 <template>
   <div class="banner border-bottom">
-    <i>罪名</i>
+    <i>{{this.title}}</i>
     <i class="iconfont banner-icon">&#xe7ab;</i>
     <router-link
       tag="p"
@@ -19,6 +19,7 @@ export default {
   name: 'Banner',
   props: {
     // smallTitle: String,
+    title: String,
     bigTitle: String
   }
 }
@@ -30,7 +31,7 @@ export default {
     height .38rem
     line-height .38rem
     padding .45rem
-    font-size .3rem
+    font-size .32rem
     background-color: #FFF
     .banner-icon
       height .4rem
@@ -38,7 +39,7 @@ export default {
       margin .05rem
       color #666
       text-align center
-      font-size .4rem
+      font-size .38rem
     .banner-bigTitle
       display inline
 </style>
