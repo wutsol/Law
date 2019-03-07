@@ -4,7 +4,7 @@
       {{this.name}}
     </p>
     <p class="container-concept">
-      {{this.concept[0]}}
+      {{this.concept}}
     </p>
   </div>
 </template>
@@ -21,7 +21,6 @@ export default {
 
 <style lang="stylus" scoped>
   .container
-    height 2.8rem
     margin-top .2rem
     padding .4rem
     background-color: #FFF

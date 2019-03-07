@@ -45,18 +45,22 @@ export default {
   methods: {
     getCaseInfo () {
       axios.get('/api/classify') // 获取二级标题
-        .then(res => {
-          this.classifyList = res.data
-        })
+        .then(this.getCaseInfoSucc)
+    },
+    getCaseInfoSucc (res) { // 数据的获取
+      if (res && res.data) {
+        this.classifyList = res.data
+      }
+      // res = res.data
+      // if (res.ret && res.data) {
+      //   const data = res.data
+      //   this.imgUrl = data.imgUrl
+      //   this.classifyList = data.classifyList
+      // }
     }
-  //   getCaseInfoSucc (res) { // 数据的获取
-  //     res = res.data
-  //     if (res.ret && res.data) {
-  //       const data = res.data
-  //       this.imgUrl = data.imgUrl
-  //       this.classifyList = data.classifyList
+  // res => {
+  //    this.classifyList = res.data
   //     }
-  //   },
   //   getCrimeName () {
   //     axios.get('/api/crimeName.json') // 获取202个罪名
   //       .then(this.getCrimeNameSucc)

@@ -7,8 +7,14 @@
         :key="item.id"
       > <!-- 跳转到detail页面，并防止router-link使字体变色 -->
         <div class="item-info">
-          <p class="item-title">{{item.title}}</p>
-          <p class="item-desc">{{item.desc}}</p>
+         <!--  <p class="item-title">{{item.title}}</p> -->
+          <router-link
+            tag="p"
+            class="item-desc"
+            :to="'/caseDetail/' + item.fact"
+          >
+            {{item.fact}}
+          </router-link>
         </div>
       </li>
     </ul>

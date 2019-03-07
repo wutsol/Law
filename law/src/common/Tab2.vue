@@ -57,7 +57,8 @@ export default {
     accu_lian: Array,
     // accu_liangxing: [],
     accu_rending: Array,
-    list: Array
+    list: Array,
+    topHeight: Number
   },
   components: {
     CrimeComposition,
@@ -87,7 +88,8 @@ export default {
     },
     handleScroll () {
       const top = document.documentElement.scrollTop // 获得距离页面顶部的距离
-      if (top >= 132) {
+      // console.log(top)
+      if (top >= this.topHeight) {
         this.showfixed = true
       } else {
         this.showfixed = false

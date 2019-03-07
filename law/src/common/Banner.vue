@@ -1,6 +1,6 @@
 <template>
   <div class="banner border-bottom">
-    <i>案例</i>
+    <i>罪名</i>
     <i class="iconfont banner-icon">&#xe7ab;</i>
     <router-link
       tag="p"
@@ -9,8 +9,8 @@
      >
       {{bigTitle}}
    </router-link>
-    <i class="iconfont banner-icon">&#xe7ab;</i>
-    <i>{{smallTitle}}</i>
+    <!-- <i class="iconfont banner-icon">&#xe7ab;</i>
+    <i>{{smallTitle}}</i> -->
   </div>
 </template>
 
@@ -18,19 +18,19 @@
 export default {
   name: 'Banner',
   props: {
-    smallTitle: String,
+    // smallTitle: String,
     bigTitle: String
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-  @import '~styles/variables.styl'
+  // @import '~styles/variables.styl'
   .banner
-    height .4rem
-    line-height .4rem
+    height .38rem
+    line-height .38rem
     padding .45rem
-    font-size $titleSize
+    font-size .3rem
     background-color: #FFF
     .banner-icon
       height .4rem

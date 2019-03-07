@@ -5,6 +5,7 @@ import Decision from '@/pages/decision/Decision'
 import Case from '@/pages/case/Case'
 import LawHome from '@/pages/law/Home'
 import CaseHome from '@/pages/case/components/caseHome'
+import CaseDetail from '@/pages/case/components/caseDetail'
 import DecisionReport from '@/pages/decision/components/report'
 import CaseAccusation from '@/pages/case/components/secondClassify'
 
@@ -33,13 +34,17 @@ export default new Router({
       name: 'DecisionReport',
       component: DecisionReport
     }, {
-      path: '/crimeDetail/:id',
+      path: '/crimeDetail/:accu_name',
       name: 'CaseHome',
       component: CaseHome
     }, {
-      path: '/accusation/:id',
+      path: '/accusation/:_id',
       name: 'CaseAccusation',
       component: CaseAccusation
+    }, {
+      path: '/caseDetail/:item',
+      name: 'CaseDetail',
+      component: CaseDetail
     }],
   scrollBehavior (to, from, savedPosition) { // 使页面跳转时每次都在顶部出现
     return { x: 0, y: 0 }
