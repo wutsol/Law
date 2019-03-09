@@ -2,7 +2,7 @@
   <div class="composition">
     <ul>
       <li
-        :class="{title: index === 0, text: index !== 0}"
+        :class="{title: (item.indexOf('[') != -1 || item.indexOf('【') != -1) && item.length <= 6, text: index !== 0}"
         v-for="(item, index) of list"
         :key="index"
       >

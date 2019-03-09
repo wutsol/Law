@@ -2,7 +2,7 @@
   <div class="composition">
     <ul>
       <li
-        :class="{title: item.length === 4, text: item.length !== 4}"
+        :class="{title: item.length <= 10 , text: item.length > 10}"
         v-for="(item, index) of composition"
         :key="index"
       >

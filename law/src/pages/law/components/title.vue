@@ -21,7 +21,7 @@
   </div>
 </template>
 
-<script> // 案例
+<script>
 export default {
   name: 'Title',
   data () {

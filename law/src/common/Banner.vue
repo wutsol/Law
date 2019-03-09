@@ -27,12 +27,14 @@ export default {
 
 <style lang="stylus" scoped>
   // @import '~styles/variables.styl'
+  @import '~styles/mixins.styl'
   .banner
     height .38rem
     line-height .38rem
     padding .45rem
     font-size .32rem
     background-color: #FFF
+    ellipsis()
     .banner-icon
       height .4rem
       line-height .4rem

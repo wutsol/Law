@@ -2,7 +2,8 @@
   <div class="composition">
     <ul>
       <li
-        :class="{title: item.length <= 30, text: item.length > 30}"
+        :class="{title: item.indexOf('（') != -1 || item.indexOf('界限') != -1,
+          text: item.length > 25}"
         v-for="(item, index) of list"
         :key="index"
       >
