@@ -1,6 +1,6 @@
 <template>
   <div class="wraper">
-    hi
+    {{this.$route.params.item}}
   </div>
 </template>
 
@@ -14,7 +14,7 @@ export default {
   },
   mounted () {
     // this.list = this.$route.params.item
-    // console.log(this.$route.params.item)
+    console.log(this.$route.params.item)
   }
 }
 </script>

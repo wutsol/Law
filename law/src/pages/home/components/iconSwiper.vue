@@ -63,15 +63,15 @@ export default {
   @import '~styles/mixins.styl'
   .icons >>> .swiper-container // 实现icons区域整体可轮播
     height 0
-    padding-bottom 50%
+    padding-bottom 25%
   .icons
     // box-shadow 0 1px 1px rgba(0,0,0,.1)
     padding-bottom .2rem
-    margin-top .1rem
+    margin-top .4rem
     .icon
       float left
       position relative
-      width 25%
+      width 33.3%
       height 0
       padding-bottom 25%
       .icon-image

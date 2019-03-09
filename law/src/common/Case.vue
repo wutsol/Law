@@ -11,7 +11,7 @@
           <router-link
             tag="p"
             class="item-desc"
-            :to="'/caseDetail/' + item.fact"
+            :to="'/caseDetail/' + item"
           >
             {{item.fact}}
           </router-link>
@@ -26,6 +26,12 @@ export default {
   name: 'Case',
   props: {
     list: Array
+  },
+  mounted () {
+    console.log(this.list)
+  },
+  activated () {
+    console.log(this.list)
   }
 }
 </script>

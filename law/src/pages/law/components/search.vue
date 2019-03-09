@@ -16,9 +16,9 @@
           class="search-item border-bottom"
           v-for="item of list"
           :key="item.id"
-          :to="'/crimeDetail/' + item.accu_name"
+          :to="'/lawDetail/' + item.law"
         >
-          {{item.accu_name}}
+          {{item.law}}
         </router-link>
         <li class="search-item border-bottom" v-show="hasNoData">
           无匹配数据
@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     getNameinfo () {
-      axios.get('/api/getAllAccusation')
+      axios.get('/api/getAllLaw')
         .then(this.getNameInfoSucc)
     },
     getNameInfoSucc (res) {
@@ -80,7 +80,7 @@ export default {
           // console.log(this.belong)
           // this.belong.indexOf(this.keyword) > -1
           // 下面要先判断accu_name是否存在，否则会使undefined，不知道为什么
-          if (value.accu_name && value.accu_name.indexOf(this.keyword) > -1) {
+          if (value.law && value.law.indexOf(this.keyword) > -1) {
             result.push(value)
           }
         })

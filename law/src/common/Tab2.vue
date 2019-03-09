@@ -35,6 +35,7 @@
       </crime-filing>
       <case-list
         :list="list"
+        v-if="list"
         v-show="isActive===4"
       >
       </case-list>
