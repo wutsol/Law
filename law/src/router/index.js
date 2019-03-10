@@ -44,7 +44,7 @@ export default new Router({
       name: 'CaseAccusation',
       component: CaseAccusation
     }, {
-      path: '/caseDetail/:item',
+      path: '/caseDetail/:index',
       name: 'CaseDetail',
       component: CaseDetail
     }, {
