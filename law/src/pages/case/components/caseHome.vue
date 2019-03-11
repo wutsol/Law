@@ -77,16 +77,16 @@ export default {
     }
   },
   mounted () {
+    this.getDetailInfo()
     this.topHeight = this.$refs.cons.$el.scrollHeight + 56 // 获取concept的高度
     this.lastId = this.$route.params.accu_name
-    this.getDetailInfo()
     // console.log(this.topHeight)
   },
   activated () { // 当城市发生变化时要重新发送ajax请求
     if (this.lastId !== this.$route.params.accu_name) {
+      this.getDetailInfo()
       this.topHeight = this.$refs.cons.$el.scrollHeight + 56 // 目前数据加载过慢导致出错
       this.lastId = this.$route.params.accu_name
-      this.getDetailInfo()
       // console.log(this.topHeight)
     }
   }

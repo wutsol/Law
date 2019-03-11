@@ -39,7 +39,12 @@ export default {
       list: {type: Object}
     }
   },
-  created () {
+  // created () {
+  //   this.list = JSON.parse(sessionStorage.getItem('obbj')) // 转化为对象，否则是数组
+  //   this.death = this.list.prison.death_penalty ? '是' : '否'
+  //   this.life = this.list.prison.life_imprisonment ? '是' : '否'
+  // },
+  activated () { // 因为使用了keep-alive，所以要使用这个钩子取代上面的
     this.list = JSON.parse(sessionStorage.getItem('obbj')) // 转化为对象，否则是数组
     this.death = this.list.prison.death_penalty ? '是' : '否'
     this.life = this.list.prison.life_imprisonment ? '是' : '否'

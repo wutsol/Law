@@ -41,7 +41,8 @@ export default {
         pagination: '.swiper-pagination', // 配置swiper,详情见swiper官网
         paginationType: 'fraction', // 使滚动形式变成1/30的类型
         observeParents: true, // 下面两行解决加载时尺寸出错的问题
-        observer: true
+        observer: true,
+        initialSlide: 0
       },
       accusationList: [],
       headerTitle: '案例库',
@@ -99,6 +100,7 @@ export default {
       this.bigTitle = this.$route.params._id
       this.lastId = this.$route.params._id
       this.getDetailInfo()
+      this.swiperOptions.Slide = 0
     }
   }
 }

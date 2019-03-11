@@ -27,23 +27,23 @@ export default {
   props: {
     list: Array
   },
-  data () {
-    return {
-      lastFact: ''
-    }
-  },
+  // data () {
+  //   return {
+  //     lastFact: ''
+  //   }
+  // },
   methods: {
     handleCaseDetail (index, item) { // 使用动态路由的时候使用query要写成 path: '/caseDetail/' + index的形式。而且传递item对象时也不要使用router-link
-      this.lastFact = item.fact
-      let fact = JSON.stringify(item.fact)
+      // this.lastFact = item.fact
+      // let fact = JSON.stringify(item.fact)
       let str = JSON.stringify(item)// 把对象转化为字符串（stringify）存放进sessionStorage
       sessionStorage.setItem('obbj', str) // 使用localStorage没起作用，待解
-      sessionStorage.setItem('fact', fact)
-      if (this.lastFact !== JSON.parse(sessionStorage.getItem(fact))) {
-        sessionStorage.removeItem('obbj')
-        let str = JSON.stringify(item)
-        sessionStorage.setItem('obbj', str)
-      }
+      // sessionStorage.setItem('fact', fact)
+      // if (this.lastFact !== JSON.parse(sessionStorage.getItem('fact'))) {
+      //   sessionStorage.clear('obbj')
+      //   let str = JSON.stringify(item)
+      //   sessionStorage.setItem('obbj', str)
+      // }
       this.$router.push({path: '/caseDetail/' + index, query: {item: item}})
     }
     // ...mapMutations(['pushCaseList']) // 该方法相当于commit一个请求

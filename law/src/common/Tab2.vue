@@ -100,6 +100,7 @@ export default {
   activated () { // 使tab初始为0
     this.isActive = 0
     window.addEventListener('scroll', this.handleScroll)
+    // console.log(this.topHeight)
   },
   deactivated () { // 页面更新时解绑,防止所有页面都添加scroll事件
     window.removeEventListener('scroll', this.handleScroll)
