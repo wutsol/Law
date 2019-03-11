@@ -10,7 +10,7 @@
       <div class="prison-content">
         是否死刑： {{this.death}} <br>
         是否无期徒刑： {{this.life}} <br>
-        刑期： {{this.list.prison.imprisonment}}  年
+        刑期： {{this.imprisonment}}  年
       </div>
     </div>
     <div class="fine">
@@ -36,7 +36,8 @@ export default {
       headerTitle: '案例库',
       death: '',
       life: '',
-      list: {type: Object}
+      list: {type: Object},
+      imprisonment: ''
     }
   },
   // created () {
@@ -48,6 +49,7 @@ export default {
     this.list = JSON.parse(sessionStorage.getItem('obbj')) // 转化为对象，否则是数组
     this.death = this.list.prison.death_penalty ? '是' : '否'
     this.life = this.list.prison.life_imprisonment ? '是' : '否'
+    this.imprisonment = this.list.prison.imprisonment
   }
   // computed: {
   //   // ...mapState(['item']) // 将vuex公用数据映射给计算属性并命名为city,用this.city取代html中this.$store.state.city
