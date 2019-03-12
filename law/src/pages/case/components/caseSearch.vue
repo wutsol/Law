@@ -97,53 +97,60 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  .search
+  .wraper
     position absolute
-    top 3.2rem
-    left .25rem
-    right .25rem
-    font-size .3rem
-    // .search-icon
-    //   position absolute
-    //   top 0
-    //   bottom 0
-    //   left .1rem
-    //   text-align center
-    //   font-size .4rem
-    //   background-color: #eee
-    .search-input
-      box-sizing border-box
-      padding  0 .1rem
-      height .8rem
-      line-height .8rem
-      width 7rem
-      background-color: #eee
-      color #333
-      border-radius .1rem
-      opacity .8
-    // .search-btn
-    //   position absolute
-    //   top 0
-    //   left 5.8rem
-    //   width 1.3rem
-    //   height .8rem
-    //   line-height .8rem
-    //   text-align center
-    //   border-radius 0 .1rem .1rem 0
-    //   background-color: #c86d60f5
-  .search-content
-    z-index 2 // 覆盖search区域
-    overflow hidden
-    position absolute
-    top 4rem
+    top 0
+    left 0
+    right 0
     bottom 0
-    left .25rem
-    right .25rem
-    background-color: #eee
-    .search-item
-      height 1rem
-      line-height 1rem
-      padding-left .4rem
-      color #666
-      background-color: #FFF
+    height 4.28rem
+    .search
+      position absolute
+      top 3.2rem
+      left .25rem
+      right .25rem
+      font-size .3rem
+      // .search-icon
+      //   position absolute
+      //   top 0
+      //   bottom 0
+      //   left .1rem
+      //   text-align center
+      //   font-size .4rem
+      //   background-color: #eee
+      .search-input
+        box-sizing border-box
+        padding  0 .1rem
+        height .8rem
+        line-height .8rem
+        width 7rem
+        background-color: #eee
+        color #333
+        border-radius .1rem
+        opacity .8
+      // .search-btn
+      //   position absolute
+      //   top 0
+      //   left 5.8rem
+      //   width 1.3rem
+      //   height .8rem
+      //   line-height .8rem
+      //   text-align center
+      //   border-radius 0 .1rem .1rem 0
+      //   background-color: #c86d60f5
+    .search-content
+      z-index 100 // 覆盖search区域
+      overflow hidden
+      position absolute
+      top 4rem
+      bottom 0
+      left .25rem
+      right .25rem
+      background-color: #eee
+      .search-item
+        height 1rem
+        line-height 1rem
+        padding-left .4rem
+        color #666
+        background-color: #FFF
 </style>

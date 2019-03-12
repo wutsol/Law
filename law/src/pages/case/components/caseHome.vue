@@ -2,8 +2,9 @@
   <div class="wraper">
     <case-header :title="headerTitle"></case-header>
     <!-- <case-banner :smallTitle="smallTitle" :bigTitle="bigTitle"></case-banner> -->
-    <crime-concept ref="cons" :name="accu_name" :concept="accu_gainian"></crime-concept>
+    <crime-concept ref="cont" :name="accu_name" :concept="accu_gainian"></crime-concept>
     <case-tab
+      ref="tab"
       :accu_goucheng="accu_goucheng"
       :accu_jieshi="accu_jieshi"
       :accu_lian="accu_lian"
@@ -45,7 +46,7 @@ export default {
       accu_rending: [],
       list: [],
       lastId: '',
-      topHeight: 0
+      topHeight: 150
     }
   },
   methods: {
@@ -78,16 +79,16 @@ export default {
   },
   mounted () {
     this.getDetailInfo()
-    this.topHeight = this.$refs.cons.$el.scrollHeight + 56 // 获取concept的高度
+    this.topHeight = this.$refs.tab.$el.offsetTop // 获取concept和title的高度
     this.lastId = this.$route.params.accu_name
-    // console.log(this.topHeight)
+    console.log(this.topHeight)
   },
   activated () { // 当城市发生变化时要重新发送ajax请求
     if (this.lastId !== this.$route.params.accu_name) {
       this.getDetailInfo()
-      this.topHeight = this.$refs.cons.$el.scrollHeight + 56 // 目前数据加载过慢导致出错
+      this.topHeight = this.$refs.tab.$el.offsetTop // 目前数据加载过慢导致出错
       this.lastId = this.$route.params.accu_name
-      // console.log(this.topHeight)
+      console.log(this.topHeight)
     }
   }
   // computed: {

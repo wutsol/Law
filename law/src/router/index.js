@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/pages/home/Home'
-import Decision from '@/pages/decision/Decision'
-import Case from '@/pages/case/Case'
-import LawHome from '@/pages/law/Home'
-import LawName from '@/pages/law/components/lawName'
-import LawDetail from '@/pages/law/components/lawDetail'
-import CaseHome from '@/pages/case/components/caseHome'
-import CaseDetail from '@/pages/case/components/caseDetail'
-import DecisionReport from '@/pages/decision/components/report'
-import CaseAccusation from '@/pages/case/components/secondClassify'
+const Home = r => require.ensure([], () => r(require('@/pages/home/Home')), 'group-home')
+const Decision = r => require.ensure([], () => r(require('@/pages/decision/Decision')), 'group-decision')
+const DecisionReport = r => require.ensure([], () => r(require('@/pages/decision/components/report')), 'group-decision')
+const Case = r => require.ensure([], () => r(require('@/pages/case/Case')), 'group-case')
+const CaseDetail = r => require.ensure([], () => r(require('@/pages/case/components/caseDetail')), 'group-case')
+const CaseHome = r => require.ensure([], () => r(require('@/pages/case/components/caseHome')), 'group-case')
+const CaseAccusation = r => require.ensure([], () => r(require('@/pages/case/components/secondClassify')), 'group-case')
+const LawHome = r => require.ensure([], () => r(require('@/pages/law/Home')), 'group-law')
+const LawName = r => require.ensure([], () => r(require('@/pages/law/components/lawName')), 'group-law')
+const LawDetail = r => require.ensure([], () => r(require('@/pages/law/components/lawDetail')), 'group-law')
 
 Vue.use(Router)
 

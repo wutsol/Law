@@ -59,7 +59,10 @@ export default {
     // accu_liangxing: [],
     accu_rending: Array,
     list: Array,
-    topHeight: Number
+    topHeight: {
+      type: Number,
+      default: 100
+    }
   },
   components: {
     CrimeComposition,
@@ -72,13 +75,11 @@ export default {
       items: [
         '构成条件',
         '认定条件',
-        // '量刑标准',
         '立案标准',
         '相关法条',
         '相关案例'
       ],
       showfixed: false,
-      // lastIndex: 0,
       isActive: 0 // 索引值默认为0，即item1为默认激活的选项卡
     }
   },

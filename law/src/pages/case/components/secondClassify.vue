@@ -100,7 +100,6 @@ export default {
       this.bigTitle = this.$route.params._id
       this.lastId = this.$route.params._id
       this.getDetailInfo()
-      this.swiperOptions.Slide = 0
     }
   }
 }

@@ -10,7 +10,7 @@
       <div class="prison-content">
         是否死刑： {{this.death}} <br>
         是否无期徒刑： {{this.life}} <br>
-        刑期： {{this.imprisonment}}  年
+        刑期： {{this.imprisonment}}  个月
       </div>
     </div>
     <div class="fine">

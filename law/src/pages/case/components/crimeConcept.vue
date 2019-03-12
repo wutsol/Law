@@ -4,7 +4,7 @@
       {{this.name}}
     </p>
     <p class="container-concept">
-      {{this.concept}}
+      {{this.concept[0]}}
     </p>
   </div>
 </template>
@@ -24,6 +24,7 @@ export default {
     margin-top .2rem
     padding .4rem
     background-color: #FFF
+    min-height 1rem
     .container-name
       line-height .5rem
       font-size .44rem
