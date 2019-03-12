@@ -14,6 +14,7 @@ import 'swiper/dist/css/swiper.css'
 Vue.config.productionTip = false
 fastClick.attach(document.body)
 Vue.use(VueAwesomeSwiper) // 使用swiper组件
+Vue.prototype.bus = new Vue()
 
 /* eslint-disable no-new */
 new Vue({

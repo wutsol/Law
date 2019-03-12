@@ -77,7 +77,7 @@ export default {
         if (!pages[page]) {
           pages[page] = []
         }
-        if (item !== null) {
+        if (index !== 4) { // 去掉那个null
           pages[page].push(item)
         }
       })

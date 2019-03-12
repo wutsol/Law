@@ -78,6 +78,9 @@ export default {
     }
   },
   mounted () {
+    //  this.bus.cont.onload = () =>{
+    //   console.log('bus')
+    // }
     this.getDetailInfo()
     this.topHeight = this.$refs.tab.$el.offsetTop // 获取concept和title的高度
     this.lastId = this.$route.params.accu_name

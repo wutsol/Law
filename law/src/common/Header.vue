@@ -1,16 +1,21 @@
 <template>
-  <div class="header" :class="{headerfixed: showfixed}"> <!-- 为了页面向下滚动时header部分不动 -->
-    <div class="header-left">
-      <div class="iconfont back-icon" @click="handleClick">&#xe622;</div>
+  <div class="header"> <!-- 为了页面向下滚动时header部分不动 -->
+    <div class="header-abs" v-show="showfixed" @click="handleClick">
+      <div class="iconfont header-abs-back">&#xe622;</div>
     </div>
-    <div class="header-middle">{{title}}</div>
-    <router-link
-      tag="div"
-      class="header-right"
-      to="/"
-     >
-      <div class="iconfont home-icon">&#xe61e;</div>
-    </router-link>
+    <div class="header-show" v-show="!showfixed" :style="opacityStyle">
+      <div class="header-left">
+        <div class="iconfont back-icon" @click="handleClick">&#xe622;</div>
+      </div>
+      <div class="header-middle">{{title}}</div>
+      <router-link
+        tag="div"
+        class="header-right"
+        to="/"
+       >
+        <div class="iconfont home-icon">&#xe61e;</div>
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -22,7 +27,10 @@ export default{
   },
   data () {
     return {
-      showfixed: false
+      showfixed: true,
+      opacityStyle: {
+        opacity: 0
+      }
     }
   },
   methods: {
@@ -31,10 +39,13 @@ export default{
     },
     handleScroll () {
       const top = document.documentElement.scrollTop // 获得距离页面顶部的距离
-      if (top > 0) {
-        this.showfixed = true
-      } else {
+      if (top > 56) {
+        let opacity = top / 140 // 通过修改透明度增加渐隐渐现的效果
+        opacity = opacity > 1 ? 1 : opacity
+        this.opacityStyle = { opacity }
         this.showfixed = false
+      } else {
+        this.showfixed = true
       }
     }
   },
@@ -44,27 +55,46 @@ export default{
   deactivated () { // 页面更新时解绑,防止所有页面都添加scroll事件
     window.removeEventListener('scroll', this.handleScroll)
   }
-  // mounted () { // 由于在App.vue中的keep-alive组件中排除了Detail部分，导致上面的两个钩子不再该组件存在，所以要借助这两个钩子实现同样的效果
-  //   window.addEventListener('scroll', this.handleScroll)
-  // },
-  // unmounted () {
-  //   window.removeEventListener('scroll', this.handleScroll)
-  // }
 }
 </script>
 
 <style lang="stylus" scoped>
   @import '~styles/variables.styl'
-  .headerfixed
+  // .headerfixed
+  //   position fixed
+  //   top 0
+  //   width 100%
+  //   z-index 10
+  // .header
+  //   height $headerHeight
+  //   line-height: $headerHeight
+  //   background-color: $bgColor
+  //   color: #fff
+  .header-abs
+    z-index 10
+    position absolute
+    left .2rem
+    top .2rem
+    width .8rem
+    height .8rem
+    line-height .8rem
+    text-align center
+    border-radius .4rem
+    background rgba(0, 0, 0, .8)
+    .header-abs-back
+      color #fff
+      font-size .4rem
+  .header-show
+    z-index 2
+    display flex
+    overflow hidden
     position fixed
     top 0
-    width 100%
-    z-index 10
-  .header
-    display flex
+    left 0
+    right 0
+    background-color: $bgColor
     height $headerHeight
     line-height: $headerHeight
-    background-color: $bgColor
     color: #fff
     .header-left
       width: .86rem

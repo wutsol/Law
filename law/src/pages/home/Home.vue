@@ -1,6 +1,6 @@
 <template>
   <div>
-    <home-header :title="title"></home-header>
+    <home-header></home-header>
     <home-pictures :imgUrl="imgUrl"></home-pictures>
     <home-icons :list="iconList"></home-icons>
     <home-recommend :list="recommendList"></home-recommend>
@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import HomeHeader from 'common/Header'
+import HomeHeader from './components/Header'
 import HomePictures from 'common/Pictures'
 import HomeIcons from './components/iconSwiper'
 import HomeRecommend from './components/Recommend'

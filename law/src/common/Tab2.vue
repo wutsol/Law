@@ -50,25 +50,22 @@ import CrimeFiling from '@/pages/case/components/crimeFiling'
 import CaseList from 'common/Case'
 export default {
   name: 'Tab2',
+  components: {
+    CrimeComposition,
+    CrimeIdentification,
+    CrimeFiling,
+    CaseList
+  },
   props: {
-    // accu_name: String,
-    // accu_gainian: Array,
     accu_goucheng: Array,
     accu_jieshi: Array,
     accu_lian: Array,
-    // accu_liangxing: [],
     accu_rending: Array,
     list: Array,
     topHeight: {
       type: Number,
       default: 100
     }
-  },
-  components: {
-    CrimeComposition,
-    CrimeIdentification,
-    CrimeFiling,
-    CaseList
   },
   data () {
     return {
@@ -80,23 +77,26 @@ export default {
         '相关案例'
       ],
       showfixed: false,
-      isActive: 0 // 索引值默认为0，即item1为默认激活的选项卡
+      isActive: 0, // 索引值默认为0，即item1为默认激活的选项卡
+      inheritHeight: 100
     }
   },
   methods: {
     change (index) {
       this.isActive = index
-      // this.lastIndex = index
     },
     handleScroll () {
       const top = document.documentElement.scrollTop // 获得距离页面顶部的距离
-      // console.log(top)
-      if (top >= this.topHeight) {
+      console.log(top)
+      if (top > this.inheritHeight) {
         this.showfixed = true
       } else {
         this.showfixed = false
       }
     }
+  },
+  mounted () {
+    this.inheritHeight = this.topHeight
   },
   activated () { // 使tab初始为0
     this.isActive = 0
