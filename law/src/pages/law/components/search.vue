@@ -12,7 +12,7 @@
     > <!-- 当输入后才会显示该列表 -->
       <ul>
         <router-link
-          tag="div"
+          tag="li"
           class="search-item border-bottom"
           v-for="item of list"
           :key="item.id"
@@ -125,7 +125,7 @@ export default {
     .search-item
       height 1rem
       line-height 1rem
-      padding-left .4rem
+      padding 0 .4rem
       color #666
       background-color: #FFF
       ellipsis()

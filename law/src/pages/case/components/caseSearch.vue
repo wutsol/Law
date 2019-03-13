@@ -68,18 +68,12 @@ export default {
       }
       this.timer = setTimeout(() => {
         const result = []
-        this.nameList.forEach((value) => { // 遍历cities
-          // console.log(value.accu_name)
-          // this.name = value.accu_name
-          // this.belong = value.accu_belong_to
-          // console.log(this.belong)
-          // this.belong.indexOf(this.keyword) > -1
+        this.nameList.forEach((value) => {
           // 下面要先判断accu_name是否存在，否则会使undefined，不知道为什么
           if (value.accu_name && value.accu_name.indexOf(this.keyword) > -1) {
             result.push(value)
           }
         })
-        // }
         this.list = result
       }, 100)
     }
@@ -87,6 +81,9 @@ export default {
   mounted () {
     this.scroll = new Bscroll(this.$refs.search) // 加载搜索列表中的滑动条
     this.getNameinfo()
+  },
+  activated () { // 防止回到该页面时留有搜索字
+    this.keyword = ''
   }
 }
 </script>

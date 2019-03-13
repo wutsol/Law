@@ -1,13 +1,8 @@
 <template>
   <div class="container"> <!-- 使用组件时最外层必须包裹一个div -->
-     <!-- <ul>
-      <li
-        class="item"
-        v-for="(item, index) of classifyList"
-        :key="item.id"
-      > --> <!-- 一级标题
-        <div class="item-title border-bottom">{{item.title}}</div> -->
-    <div class="accusation">所有罪名</div>
+    <div class="accusation">
+      所有罪名
+    </div>
     <div class="wrapper">
       <swiper :options="swiperOptions">
         <!-- slides -->
@@ -100,9 +95,9 @@ export default {
   .container
     background-color: #eee
     .accusation
-      height .4rem
-      line-height .4rem
-      padding .32rem
+      height 1rem
+      line-height 1rem
+      padding .1rem .4rem
       font-size $titleSize
       background-color: #FFF
     .wrapper

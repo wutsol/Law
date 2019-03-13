@@ -48,13 +48,11 @@ export default {
       headerTitle: '案例库',
       accuTitle: '罪名',
       bigTitle: '',
-      // smallTitle: '',
       lastId: ''
     }
   },
   methods: {
     getDetailInfo () {
-      // console.log(this.$route.params._id)
       axios.get('/api/getAccusation/' + this.$route.params._id // 这里用动态路由，获取不同案例，取代之前所有案例与罪名放在同一文件下，不要使用下面注释的内容！！否则mongoose无法正确查找！！
         // params: {
         //   name: this.$route.params._id
@@ -65,13 +63,6 @@ export default {
       if (res && res.data) {
         this.accusationList = res.data
       }
-      // res = res.data
-      // if (res.ret && res.data) {
-      //   const data = res.data
-      //   this.accusationList = data.accusationList
-      //   this.bigTitle = data.upperclass
-      //   this.smallTitle = data.title
-      // }
     }
   },
   computed: { // 实现多余的icon出现在第二张page上
@@ -86,9 +77,6 @@ export default {
       })
       return pages
     }
-    // showSwiper () { // 解决轮播图加载后不是第一张图片的问题
-    //   return this.accusationList.length
-    // }
   },
   mounted () {
     this.bigTitle = this.$route.params._id

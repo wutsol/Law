@@ -54,8 +54,9 @@ export default {
     .item
       background-color: #fff
       .item-info
-        height .4rem
-        padding $textPadding .35rem
+        // height .4rem
+        // line-height .4rem
+        padding .3rem $textPadding
         .item-title
           color #414141
           line-height .56rem

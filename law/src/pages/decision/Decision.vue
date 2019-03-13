@@ -4,13 +4,18 @@
     <div class="decision-input border-bottom">
         <textarea class="decision-input-textarea" placeholder="请详细描述案情..."></textarea>
     </div>
-    <router-link
+    <Spin fix v-show="isSpinShow">
+      <Icon type="load-c" size="30" class="demo-spin-icon-load"></Icon>
+      <div>Loading...</div>
+    </Spin>
+    <div class="decision-submit" @click="sendRequest">发送请求</div>
+    <!-- <router-link
       tag="div"
       class="decision-submit"
       to="/report"
     >
       提交
-    </router-link>
+    </router-link> -->
   </div>
 </template>
 
@@ -23,12 +28,18 @@ export default{
   },
   data () {
     return {
-      title: '智能决策'
+      title: '智能决策',
+      isSpinShow: false
     }
   },
   methods: {
     handleSubmit () {
       this.title = '分析报告'
+    },
+    sendRequest () {
+      if (this.isSpinShow === false) {
+        this.isSpinShow = true
+      }
     }
   }
 }
@@ -51,4 +62,11 @@ export default{
     text-align center
     background-color: #ccc
     border-radius .1rem
+  /* 旋转效果 */
+  .demo-spin-icon-load
+    animation: ani-demo-spin 1s linear infinite
+  @keyframes ani-demo-spin
+    from { transform: rotate(0deg)}
+    50% { transform: rotate(180deg)}
+    to { transform: rotate(360deg)}
 </style>

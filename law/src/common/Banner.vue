@@ -30,9 +30,9 @@ export default {
   @import '~styles/mixins.styl'
   .banner
     margin-top $headerHeight
-    height .38rem
-    line-height .38rem
-    padding .32rem
+    height 1rem
+    line-height 1rem
+    padding .1rem .32rem
     font-size .32rem
     background-color: #FFF
     ellipsis()

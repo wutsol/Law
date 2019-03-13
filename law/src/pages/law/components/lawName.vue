@@ -121,7 +121,7 @@ export default {
       .item-title
         position absolute // 解决轮播中长度超过屏幕的问题
         left .4rem
-        right .4rem
+        right 1rem
         top 0
         ellipsis()
       .swiper-pagination
