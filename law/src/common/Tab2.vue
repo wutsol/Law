@@ -62,10 +62,7 @@ export default {
     accu_lian: Array,
     accu_rending: Array,
     list: Array,
-    topHeight: {
-      type: Number,
-      default: 100
-    }
+    topHeight: Number
   },
   data () {
     return {
@@ -78,7 +75,14 @@ export default {
       ],
       showfixed: false,
       isActive: 0, // 索引值默认为0，即item1为默认激活的选项卡
-      inheritHeight: 100
+      inheritHeight: 300
+    }
+  },
+  watch: {
+    topHeight () { // 监听topHeight才可以实现数据实时更新
+      this.$nextTick(function () {
+        this.getHeight()
+      })
     }
   },
   methods: {
@@ -87,21 +91,21 @@ export default {
     },
     handleScroll () {
       const top = document.documentElement.scrollTop // 获得距离页面顶部的距离
-      console.log(top)
+      // console.log(this.inheritHeight)
       if (top > this.inheritHeight) {
         this.showfixed = true
       } else {
         this.showfixed = false
       }
+    },
+    getHeight () {
+      this.inheritHeight = this.topHeight
     }
   },
-  mounted () {
-    this.inheritHeight = this.topHeight
-  },
   activated () { // 使tab初始为0
+    this.showfixed = false // 防止缓存将showfixed保留为true
     this.isActive = 0
     window.addEventListener('scroll', this.handleScroll)
-    // console.log(this.topHeight)
   },
   deactivated () { // 页面更新时解绑,防止所有页面都添加scroll事件
     window.removeEventListener('scroll', this.handleScroll)

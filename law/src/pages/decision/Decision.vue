@@ -35,17 +35,19 @@ export default{
 </script>
 
 <style lang="stylus" scoped>
-  .decision-input-textarea
-    width 100%
-    height 10.7rem
-    line-height .44rem
-    text-indent .2em
-    font-size .3rem
+  .decision-input
+    margin-top 1.12rem
+    .decision-input-textarea
+      width 100%
+      height 10.7rem
+      line-height .44rem
+      text-indent .2em
+      font-size .3rem
   .decision-submit
     margin .28rem 1rem
     width 5rem
-    height 1rem
-    line-height 1rem
+    height .95rem
+    line-height .95rem
     text-align center
     background-color: #ccc
     border-radius .1rem

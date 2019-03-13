@@ -31,23 +31,6 @@
         <div class="swiper-pagination"  slot="pagination"></div>
       </swiper>
     </div>
-    <!-- <ul class="item-info"> --> <!-- :class="{changeHeight: item.isActivated}" -->
-      <!-- <router-link
-        tag="li"
-        class="item-info-li"
-        v-for="smallItem of classifyList"
-        :key="smallItem.id"
-        :to="'/accusation/' + smallItem.id"
-      > --> <!-- 二级标题 query传递小标题 @click="handleCaseClick(smallItem.id, smallItem.upperclass, smallItem.title, smallItem.list)" -->
-        <!-- <p class="item-info-title">{{smallItem.title}}</p>
-      </router-link>
-    </ul> -->
-    <!-- <div class="item-more border-top" @click="handleMoreClick(index)"> --> <!-- 显示更多 -->
-      <!-- <div class="iconfont" v-show="!item.isActivated">&#xe7a9;</div>
-      <div class="iconfont" v-show="item.isActivated">&#xe7aa;</div>
-    </div> -->
-     <!--  </li>
-    </ul> -->
   </div>
 </template>
 
@@ -119,7 +102,7 @@ export default {
     .accusation
       height .4rem
       line-height .4rem
-      padding .45rem
+      padding .32rem
       font-size $titleSize
       background-color: #FFF
     .wrapper

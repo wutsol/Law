@@ -15,8 +15,9 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+  @import '~styles/variables.styl'
   .wraper // 防止页面加载时有明显跳动
-    position relative
+    margin-top $headerHeight
     overflow hidden
     width 100%
     height 0

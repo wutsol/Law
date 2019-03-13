@@ -26,12 +26,13 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  // @import '~styles/variables.styl'
+  @import '~styles/variables.styl'
   @import '~styles/mixins.styl'
   .banner
+    margin-top $headerHeight
     height .38rem
     line-height .38rem
-    padding .45rem
+    padding .32rem
     font-size .32rem
     background-color: #FFF
     ellipsis()

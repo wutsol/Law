@@ -63,7 +63,7 @@ export default {
     background-color: #eee
     .fact
       background-color: #FFF
-      margin-top .2rem
+      margin-top 1.12rem
       .fact-title
         casetitle()
       .fact-content

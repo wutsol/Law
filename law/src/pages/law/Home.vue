@@ -1,7 +1,7 @@
 <template>
   <div>
     <home-header :title="title"></home-header>
-    <home-pictures :imgUrl="imgUrl"></home-pictures>
+    <!-- <home-pictures :imgUrl="imgUrl"></home-pictures> -->
     <home-search></home-search>
     <home-law></home-law>
   </div>
@@ -9,7 +9,7 @@
 
 <script>
 import HomeHeader from 'common/Header'
-import HomePictures from 'common/Pictures'
+// import HomePictures from 'common/Pictures'
 import HomeSearch from './components/search'
 import HomeLaw from './components/title'
 // import axios from 'axios'
@@ -17,7 +17,7 @@ export default{
   name: 'LawHome',
   components: {
     HomeHeader,
-    HomePictures,
+    // HomePictures,
     HomeSearch,
     HomeLaw
   },

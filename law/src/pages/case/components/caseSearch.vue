@@ -2,12 +2,12 @@
   <div class="wraper">
     <div class="search">
       <!-- <i class="iconfont search-icon" v-show="!keyword">&#xe632;</i> -->
-      <input class="search-input" v-model="keyword" placeholder="请输入罪名关键词...">
+      <input class="search-input" v-model="keyword" type="text" placeholder="输入罪名关键词">
       <!-- <button class="search-btn">提交</button> -->
     </div>
     <div
-      class="search-content"
       ref="search"
+      class="search-content"
       v-show="keyword"
     > <!-- 当输入后才会显示该列表 -->
       <ul>
@@ -51,10 +51,6 @@ export default {
         this.nameList = res.data
       }
     }
-    // handleCityClick (id) {
-    //   // this.changeCity(city) // 相当于this.$store.commit('changeCity', city)
-    //   // this.$router.push('/') // 跳转到Home界面
-    // }
   },
   computed: {
     hasNoData () { // 当没找到匹配项时才显示
@@ -72,7 +68,6 @@ export default {
       }
       this.timer = setTimeout(() => {
         const result = []
-        // for (let i in this.cities) {
         this.nameList.forEach((value) => { // 遍历cities
           // console.log(value.accu_name)
           // this.name = value.accu_name
@@ -97,37 +92,42 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  .wraper // 防止搜索框抖动，并且搜索出来的内容可以正确滚动
-    height 0
-    .search
-      position relative
-      top -2rem
-      left .25rem
-      right .25rem
-      font-size .3rem
-      .search-input
-        box-sizing border-box
-        padding  0 .1rem
-        height .8rem
-        line-height .8rem
-        width 7rem
-        background-color: #eee
-        color #333
-        border-radius .1rem
-        opacity .8
-    .search-content
-      z-index 100 // 覆盖search区域
-      overflow hidden
-      position absolute
-      top 4rem
-      bottom 0
-      left .25rem
-      right .25rem
-      background-color: #eee
-      .search-item
-        height 1rem
-        line-height 1rem
-        padding-left .4rem
-        color #666
-        background-color: #FFF
+  // .wraper // 防止搜索框抖动，并且搜索出来的内容可以正确滚动
+  //   height 0
+  .search
+    margin-top 1.12rem
+    height 1rem
+    line-height 1rem
+    padding 0 .2rem
+    background-color #1da7ba
+    // position relative
+    // top -2rem
+    // left .25rem
+    // right .25rem
+    font-size .3rem
+    .search-input
+      box-sizing border-box
+      padding  0 .1rem
+      height .8rem
+      line-height .8rem
+      width 100%
+      color #666
+      border-radius .1rem
+      opacity .8
+      text-align center
+  .search-content
+    z-index 99 // 覆盖search区域
+    overflow hidden
+    position absolute
+    top 2rem
+    bottom 0
+    left 0
+    right 0
+    background-color: #ccc
+    .search-item
+      height 1rem
+      line-height 1rem
+      padding-left .4rem
+      color #666
+      background-color: #FFF
 </style>

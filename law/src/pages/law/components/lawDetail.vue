@@ -52,7 +52,10 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  .item
-    padding: .4rem
-    line-height .5rem
+  @import '~styles/variables.styl'
+  .container
+    margin-top $headerHeight
+    .item
+      padding: .4rem
+      line-height .5rem
 </style>

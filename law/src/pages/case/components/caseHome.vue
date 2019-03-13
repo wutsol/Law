@@ -21,17 +21,13 @@
 // import { mapState } from 'vuex' // vuex高级一些的API
 import axios from 'axios'
 import CaseHeader from 'common/Header'
-// import CaseBanner from 'common/Banner'
-// import CaseList from 'common/Case'
 import CrimeConcept from './crimeConcept'
 import CaseTab from 'common/Tab2'
 export default {
   name: 'CaseHome',
   components: {
     CaseHeader,
-    // CaseBanner,
     CrimeConcept,
-    // CaseList,
     CaseTab
   },
   data () {
@@ -42,11 +38,17 @@ export default {
       accu_goucheng: [],
       accu_jieshi: [],
       accu_lian: [],
-      // accu_liangxing: [],
       accu_rending: [],
       list: [],
       lastId: '',
-      topHeight: 150
+      topHeight: 0
+    }
+  },
+  watch: {
+    list () { // 在数据加载完成后再获取高度
+      this.$nextTick(function () {
+        this.getHeight()
+      })
     }
   },
   methods: {
@@ -60,7 +62,6 @@ export default {
         .then(this.getDetailInfoSucc)
     },
     getDetailInfoSucc (res) {
-      // res = res.data
       if (res && res.data) {
         const data = res.data[0] // 由于数据是个只包含一个对象的数组，所以加【0】
         this.accu_name = data.accu_name
@@ -69,38 +70,23 @@ export default {
         this.accu_jieshi = data.accu_jieshi
         this.accu_lian = data.accu_lian
         this.accu_rending = data.accu_rending
-        // this.accu_liangxing = data.accu_liangxing
         this.list = data.accu_fact
-        // this.bigTitle = data.upperclass
-        // this.smallTitle = data.title
-        // console.log(this.list)
       }
+    },
+    getHeight () {
+      this.topHeight = this.$refs.cont.$el.offsetHeight // 获取concept的高度
     }
   },
   mounted () {
-    //  this.bus.cont.onload = () =>{
-    //   console.log('bus')
-    // }
     this.getDetailInfo()
-    this.topHeight = this.$refs.tab.$el.offsetTop // 获取concept和title的高度
     this.lastId = this.$route.params.accu_name
-    console.log(this.topHeight)
   },
   activated () { // 当城市发生变化时要重新发送ajax请求
     if (this.lastId !== this.$route.params.accu_name) {
       this.getDetailInfo()
-      this.topHeight = this.$refs.tab.$el.offsetTop // 目前数据加载过慢导致出错
       this.lastId = this.$route.params.accu_name
-      console.log(this.topHeight)
     }
   }
-  // computed: {
-  //   ...mapState(['list']) // 将vuex公用数据映射给计算属性并命名为city,用this.city取代html中this.$store.state.city
-  // },
-  // created () {
-  //   this.bigTitle = this.$route.query.bigTitle
-  //   this.smallTitle = this.$route.query.smallTitle // 接受传递过来的数据
-  // }
 }
 </script>
 

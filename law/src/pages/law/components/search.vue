@@ -2,7 +2,7 @@
   <div class="wraper">
     <div class="search">
       <!-- <i class="iconfont search-icon" v-show="!keyword">&#xe632;</i> -->
-      <input class="search-input" v-model="keyword" placeholder="请输入罪名关键词...">
+      <input class="search-input" v-model="keyword" type="text" placeholder="输入条文关键词">
       <!-- <button class="search-btn">提交</button> -->
     </div>
     <div
@@ -72,13 +72,7 @@ export default {
       }
       this.timer = setTimeout(() => {
         const result = []
-        // for (let i in this.cities) {
-        this.nameList.forEach((value) => { // 遍历cities
-          // console.log(value.accu_name)
-          // this.name = value.accu_name
-          // this.belong = value.accu_belong_to
-          // console.log(this.belong)
-          // this.belong.indexOf(this.keyword) > -1
+        this.nameList.forEach((value) => {
           // 下面要先判断accu_name是否存在，否则会使undefined，不知道为什么
           if (value.law && value.law.indexOf(this.keyword) > -1) {
             result.push(value)
@@ -97,53 +91,42 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+  @import '~styles/mixins.styl'
   .search
-    position absolute
-    top 3.2rem
-    left .25rem
-    right .25rem
+    margin-top 1.12rem
+    height 1rem
+    line-height 1rem
+    padding 0 .2rem
+    background-color #1da7ba
+    // position relative
+    // top -2rem
+    // left .25rem
+    // right .25rem
     font-size .3rem
-    // .search-icon
-    //   position absolute
-    //   top 0
-    //   bottom 0
-    //   left .1rem
-    //   text-align center
-    //   font-size .4rem
-    //   background-color: #eee
     .search-input
       box-sizing border-box
       padding  0 .1rem
       height .8rem
       line-height .8rem
-      width 7rem
-      background-color: #eee
-      color #333
+      width 100%
+      color #666
       border-radius .1rem
       opacity .8
-    // .search-btn
-    //   position absolute
-    //   top 0
-    //   left 5.8rem
-    //   width 1.3rem
-    //   height .8rem
-    //   line-height .8rem
-    //   text-align center
-    //   border-radius 0 .1rem .1rem 0
-    //   background-color: #c86d60f5
+      text-align center
   .search-content
-    z-index 2 // 覆盖search区域
+    z-index 99 // 覆盖search区域
     overflow hidden
     position absolute
-    top 4rem
+    top 2rem
     bottom 0
-    left .25rem
-    right .25rem
-    background-color: #eee
+    left 0
+    right 0
+    background-color: #ccc
     .search-item
       height 1rem
       line-height 1rem
       padding-left .4rem
       color #666
       background-color: #FFF
+      ellipsis()
 </style>

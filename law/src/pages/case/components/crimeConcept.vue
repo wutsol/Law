@@ -20,8 +20,9 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+  @import '~styles/variables.styl'
   .container
-    margin-top .2rem
+    margin-top .2 + $headerHeight
     padding .4rem
     background-color: #FFF
     min-height 1rem

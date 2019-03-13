@@ -1,7 +1,7 @@
 <template>
   <div class="case"> <!-- 使用组件时最外层必须包裹一个div -->
     <case-header :title="title"></case-header>
-    <case-pictures :imgUrl="imgUrl"></case-pictures>
+    <!-- <case-pictures :imgUrl="imgUrl"></case-pictures> -->
     <case-search></case-search>
     <case-classify :classifyList="classifyList"></case-classify>
   </div>
@@ -10,7 +10,7 @@
 <script>
 import axios from 'axios'
 import CaseHeader from 'common/Header'
-import CasePictures from 'common/Pictures'
+// import CasePictures from 'common/Pictures'
 import CaseSearch from './components/caseSearch'
 import CaseClassify from './components/classify'
 // import { mapState } from 'vuex'
@@ -18,7 +18,7 @@ export default {
   name: 'Case',
   components: {
     CaseHeader,
-    CasePictures,
+    // CasePictures,
     CaseSearch,
     CaseClassify
   },
