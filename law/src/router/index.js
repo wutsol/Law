@@ -32,7 +32,7 @@ export default new Router({
       name: 'LawHome',
       component: LawHome
     }, {
-      path: '/report',
+      path: '/report/:fact',
       name: 'DecisionReport',
       component: DecisionReport
     }, {

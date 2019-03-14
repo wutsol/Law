@@ -1,13 +1,17 @@
 <template>
   <div class="report"> <!-- 使用组件时最外层必须包裹一个div -->
+    <Spin fix v-show="isSpinShow">
+      <Icon type="load-c" size="30" class="demo-spin-icon-load"></Icon>
+      <div>Loading...</div>
+    </Spin>
     <report-header :title="title"></report-header>
-    <ul>
+    <!-- <ul>
       <li
         class="item"
         v-for="item of list"
         :key="item.id"
-      > <!-- 跳转到detail页面，并防止router-link使字体变色 -->
-        <div class="item-info">
+      > --> <!-- 跳转到detail页面，并防止router-link使字体变色 -->
+        <!-- <div class="item-info">
           <p class="item-title">{{item.title}}</p>
           <div class="item-border"></div>
           <p class="item-desc">{{item.desc}}</p>
@@ -15,12 +19,12 @@
       </li>
     </ul>
     <report-law :lawList="lawList"></report-law>
-    <report-case :caseList="caseList"></report-case>
+    <report-case :caseList="caseList"></report-case> -->
   </div>
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from 'axios'
 import ReportHeader from 'common/Header'
 import ReportLaw from './law'
 import ReportCase from './case'
@@ -34,29 +38,49 @@ export default {
   data () {
     return {
       title: '分析报告',
-      list: [],
-      lawList: [],
-      caseList: []
+      isSpinShow: false,
+      accu: [], // 罪名
+      accu_prob: [], // 罪名概率
+      accu_rele: [], // 每个罪名相关案例
+      impr: [], // 刑期
+      tiaoli: [], // 法条
+      tiaoli_prob: [] // 法条概率
+      // list: [],
+      // lawList: [],
+      // caseList: []
     }
+  },
+  methods: {
+    getReportInfo () {
+      if (this.isSpinShow === false) {
+        this.isSpinShow = true
+        axios.request({ // 向django发送请求
+          url: 'http://3.16.128.130:8050/predict',
+          method: 'post',
+          data: this.$route.params.fact
+        }).then(this.getReportInfoSuc)
+          .catch((response) => {
+            console.log(response)
+          })
+      }
+    },
+    getReportInfoSuc (res) {
+      if (res.status === 200) {
+        const data = res.data
+        this.accu = data.accu
+        this.accu_prob = data.accu_prob
+        this.accu_rele = data.accu_rele
+        this.impr = data.impr
+        this.tiaoli = data.tiaoli
+        this.tiaoli_prob = data.tiaoli_prob
+        this.isSpinShow = false
+        console.log(this.accu)
+      }
+    }
+  },
+  mounted () {
+    this.getReportInfo()
   }
-  // methods: {
-  //   getReportInfo () {
-  //     axios.get('/api/report.json')
-  //       .then(this.getReportInfoSuc)
-  //   },
-  //   getReportInfoSuc (res) {
-  //     res = res.data
-  //     if (res.ret && res.data) { // 打字都给打错咯
-  //       const data = res.data
-  //       this.list = data.result
-  //       this.lawList = data.lawList
-  //       this.caseList = data.caseList
-  //     }
-  //   }
-  // },
-  // mounted () {
-  //   this.getReportInfo()
-  // }
 }
 </script>
 
@@ -64,6 +88,13 @@ export default {
   @import '~styles/mixins.styl'
   .report
     background-color: #eee
+    /* 旋转效果 */
+    .demo-spin-icon-load
+      animation: ani-demo-spin 1s linear infinite
+    @keyframes ani-demo-spin
+      from { transform: rotate(0deg)}
+      50% { transform: rotate(180deg)}
+      to { transform: rotate(360deg)}
     .item-info
       padding .2rem
       background-color: #fff
