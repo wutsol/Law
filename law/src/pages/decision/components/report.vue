@@ -5,6 +5,12 @@
       <div>Loading...</div>
     </Spin>
     <report-header :title="title"></report-header>
+    <report-name
+      :accu="accu"
+      :accu_prob="accu_prob"
+      :accu_rele="accu_rele"
+    >
+    </report-name>
     <!-- <ul>
       <li
         class="item"
@@ -28,12 +34,14 @@ import axios from 'axios'
 import ReportHeader from 'common/Header'
 import ReportLaw from './law'
 import ReportCase from './case'
+import ReportName from './nameAndCase'
 export default {
   name: 'DecisionReport',
   components: {
     ReportHeader,
     ReportLaw,
-    ReportCase
+    ReportCase,
+    ReportName
   },
   data () {
     return {
