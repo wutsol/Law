@@ -12,5 +12,8 @@ export default {
 }
 </script>
 
-<style>
+<style lang="stylus">
+  .ivu-collapse-header // 修改折叠板样式
+    height 1.3rem !important
+    line-height 1.3rem !important
 </style>

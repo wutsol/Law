@@ -27,18 +27,6 @@ export default {
       title: '案例库',
       imgUrl: 'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1551018518&di=370e53fb5e39f42594a6009f0513fa39&src=http://img3.iyiou.com/Cover/2016-12-04/hangye-falvfuwu1204.jpg',
       classifyList: []
-      // lastList: []
-      // {
-      //   'id': '00010',
-      //   'title': '军人违反职业罪'
-      // }, {
-      //   'id': '00014',
-      //   'title': '路冲一次'
-      // }],
-      // nameList: [{
-      //   'id': '0001',
-      //   'title': '虐待俘虏罪'
-      // }
     }
   },
   methods: {

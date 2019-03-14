@@ -1,21 +1,38 @@
 <template>
   <div class="decision">
     <decision-header :title="title"></decision-header>
-    <div class="decision-input border-bottom">
+    <!-- <div class="decision-input border-bottom">
         <textarea v-model="fact" class="decision-input-textarea" placeholder="请详细描述案情..."></textarea>
-    </div>
+    </div> -->
+    <Input
+      class="decision-input-textarea"
+      v-model="fact"
+      type="textarea"
+      :rows="25.5"
+      placeholder="请详细描述案情..."
+    />
+    <Alert type="error" show-icon v-if="showErr">请输入长度大于5</Alert>
     <!-- <Spin fix v-show="isSpinShow">
       <Icon type="load-c" size="30" class="demo-spin-icon-load"></Icon>
       <div>Loading...</div>
     </Spin>
     <div class="decision-submit" @click="sendRequest">发送请求</div> -->
-    <router-link
+    <!-- <router-link
       tag="div"
       class="decision-submit"
       :to="'/report/' + this.fact"
     >
       提交
-    </router-link>
+    </router-link> -->
+    <div class="decision-submit" :class="{changeColor: changeColor}" @click="handleSubmit">
+      提交
+    </div>
+    <!-- <Alert type="error" show-icon >
+      An error prompt
+      <span slot="desc">
+          Custom error description copywriting.
+      </span>
+    </Alert> -->
   </div>
 </template>
 
@@ -30,7 +47,9 @@ export default{
   data () {
     return {
       title: '智能决策',
-      fact: ''
+      fact: '',
+      changeColor: false,
+      showErr: false
       // isSpinShow: false,
       // accu: [], // 罪名
       // accu_prob: [], // 罪名概率
@@ -40,9 +59,20 @@ export default{
       // tiaoli_prob: [] // 法条概率
     }
   },
+  watch: {
+    fact () {
+      if (this.fact.length >= 5) {
+        this.changeColor = true
+      }
+    }
+  },
   methods: {
     handleSubmit () {
-      this.title = '分析报告'
+      if (this.fact.length < 5) {
+        this.showErr = true
+      } else {
+        this.$router.push({path: '/report/' + this.fact})
+      }
     }
     // sendRequest () {
     //   if (this.isSpinShow === false) {
@@ -72,14 +102,17 @@ export default{
 </script>
 
 <style lang="stylus" scoped>
+  .changeColor
+    background-color: #19be6b
   .decision-input
     margin-top 1.12rem
-    .decision-input-textarea
-      width 100%
-      height 10.7rem
-      line-height .44rem
-      text-indent .2em
-      font-size .3rem
+  .decision-input-textarea
+    margin-top 1.12rem
+    width 100%
+    height 10.7rem
+    line-height .44rem
+    // text-indent .2em
+    font-size .3rem
   .decision-submit
     margin .28rem 1rem
     width 5rem

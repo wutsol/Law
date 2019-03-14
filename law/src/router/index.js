@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+// import iView from 'iview'
 const Home = r => require.ensure([], () => r(require('@/pages/home/Home')), 'group-home')
 const Decision = r => require.ensure([], () => r(require('@/pages/decision/Decision')), 'group-decision')
 const DecisionReport = r => require.ensure([], () => r(require('@/pages/decision/components/report')), 'group-decision')
@@ -12,6 +13,15 @@ const LawName = r => require.ensure([], () => r(require('@/pages/law/components/
 const LawDetail = r => require.ensure([], () => r(require('@/pages/law/components/lawDetail')), 'group-law')
 
 Vue.use(Router)
+// Vue.use(iView)
+// Router.beforeEach((to, from, next) => {
+//     iView.LoadingBar.start()
+//     next()
+// })
+
+// Router.afterEach(route => {
+//     iView.LoadingBar.finish()
+// })
 
 export default new Router({
   routes: [

@@ -1,9 +1,5 @@
 <template>
   <div class="report"> <!-- 使用组件时最外层必须包裹一个div -->
-    <Spin fix v-show="isSpinShow">
-      <Icon type="load-c" size="30" class="demo-spin-icon-load"></Icon>
-      <div>Loading...</div>
-    </Spin>
     <report-header :title="title"></report-header>
     <report-name
       :accu="accu"
@@ -11,6 +7,10 @@
       :accu_rele="accu_rele"
     >
     </report-name>
+    <Spin fix v-show="isSpinShow">
+      <Icon type="load-c" size="30" class="demo-spin-icon-load"></Icon>
+      <div>Loading...</div>
+    </Spin>
     <!-- <ul>
       <li
         class="item"
@@ -94,29 +94,26 @@ export default {
 
 <style lang="stylus" scoped>
   @import '~styles/mixins.styl'
+  /* 旋转效果 */
+  .demo-spin-icon-load
+    animation: ani-demo-spin 1s linear infinite
+  @keyframes ani-demo-spin
+    from { transform: rotate(0deg);}
+    50% { transform: rotate(180deg);}
+    to { transform: rotate(360deg);}
   .report
     background-color: #eee
-    /* 旋转效果 */
-    .demo-spin-icon-load
-      animation: ani-demo-spin 1s linear infinite
-    @keyframes ani-demo-spin
-      from { transform: rotate(0deg)}
-      50% { transform: rotate(180deg)}
-      to { transform: rotate(360deg)}
-    .item-info
-      padding .2rem
-      background-color: #fff
-      .item-title
-        height .8rem
-        line-height .8rem
-        font-size .4rem
-        font-weight 400
-        padding-left .2rem
-      .item-border
-        itemborder()
-      .item-desc
-        margin .1rem 0
-        padding 0 .2rem
-        font-size .3rem
-        line-height .5rem
+    .item-title
+      height .8rem
+      line-height .8rem
+      font-size .4rem
+      font-weight 400
+      padding-left .2rem
+    .item-border
+      itemborder()
+    .item-desc
+      margin .1rem 0
+      padding 0 .2rem
+      font-size .3rem
+      line-height .5rem
   </style>

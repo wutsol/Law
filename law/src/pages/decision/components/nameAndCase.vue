@@ -1,7 +1,17 @@
 <template>
   <div class="name">
     <div class="title border-bottom">罪名预测与案例推荐</div>
-    <ul>
+    <Collapse simple accordion>
+      <Panel v-for="(item, index) of accu_rele"
+      :key="index">
+        <span class="test">{{item[0].meta.accusation[0]}}</span>
+        <p slot="content">
+          <Divider orientation="center" size="small">相关案例
+          </Divider>
+          <report-case :list="item"></report-case></p>
+      </Panel>
+    </Collapse>
+    <!-- <ul>
       <li
         class="accu-name"
         v-for="(item, index) of accu_rele"
@@ -9,11 +19,22 @@
       >
       <div class="item-info">
         <p class="item-name">{{item[0].meta.accusation[0]}}</p>
-        <div class="item-border"></div>
       </div>
-      <report-case :list="item"></report-case>
+      <Divider orientation="center" size="small">相关案例</Divider> -->
+
+      <!-- <i-circle :percent="80">
+        <span class="demo-Circle-inner">
+          <Icon type="ios-checkmark" style="font-size:5px" size="50">80%</Icon>
+        </span>
+      </i-circle>
+      <i-circle :percent="35" stroke-color="#ff5500">
+        <span class="demo-Circle-inner">
+            <Icon size="90" style="color:#ff5500">80</Icon>
+        </span>
+      </i-circle> -->
+      <!-- <report-case :list="item"></report-case>
       </li>
-    </ul>
+    </ul> -->
     <!-- <div class="case-title border-bottom">
       <span class="iconfont case-title-cion">&#xe611;</span>
       相关案例
@@ -52,26 +73,25 @@ export default {
   .name
     margin-top $headerHeight
     background-color: #FFF
+    .test
+      font-size .32rem
+      color #333
     .title
       height 1.2rem
       line-height 1.2rem
       font-size .4rem
       font-weight 400
       text-align center
-    // .accu-name
-      // height 1.3rem
-      // line-height 1.3rem
     .item-info
-      padding-left .4rem
-      height 1.25rem
+      // height 1.25rem
       line-height 1.1rem
       background-color: #fff
       ellipsis()
       .item-name
-        height 1rem
-        font-size .3rem
-      .item-border
-        itemborder()
+        padding-left .4rem
+        height .8rem
+        font-size .32rem
+        font-weight 450
   // @import '~styles/mixins.styl'
   // .case
   //   margin .37rem 0 1rem

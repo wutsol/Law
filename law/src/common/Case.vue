@@ -23,7 +23,7 @@
 <script> // 案例
 // import { mapMutations } from 'vuex' // vuex高级一些的API
 export default {
-  name: 'Case',
+  name: 'CaseList',
   props: {
     list: Array
   },
