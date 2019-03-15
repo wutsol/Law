@@ -16,7 +16,13 @@
     <div class="fine">
       <div class="fine-title border-bottom">罚金</div>
       <div class="fine-content">
-        罚款金额： {{this.list.meta.punish_of_money}}
+        罚款金额： {{this.list.meta.punish_of_money}} 元
+      </div>
+    </div>
+    <div class="law">
+      <div class="law-title border-bottom">相关法条</div>
+      <div class="law-content">
+        刑法: 第 {{this.list.meta.relevant_articles[0]}}  条
       </div>
     </div>
   </div>
@@ -40,9 +46,9 @@ export default {
   },
   activated () { // 因为使用了keep-alive，所以要使用这个钩子取代上面的
     this.list = JSON.parse(sessionStorage.getItem('case')) // 转化为对象，否则是数组
-    this.death = this.list.prison.death_penalty ? '是' : '否'
-    this.life = this.list.prison.life_imprisonment ? '是' : '否'
-    this.imprisonment = this.list.prison.imprisonment
+    this.death = this.list.meta.term_of_imprisonment.death_penalty ? '是' : '否'
+    this.life = this.list.meta.term_of_imprisonment.life_imprisonment ? '是' : '否'
+    this.imprisonment = this.list.meta.term_of_imprisonment.imprisonment
   }
 }
 </script>
@@ -62,21 +68,28 @@ export default {
         font-size .3rem
         line-height .55rem
     .prison
+    .fine
+    .law
       background-color: #FFF
       margin-top .2rem
       .prison-title
+      .fine-title
+      .law-title
         casetitle()
       .prison-content
-        padding .4rem
-        font-size .3rem
-        line-height .58rem
-    .fine
-      background-color: #FFF
-      margin-top .2rem
-      .fine-title
-        casetitle()
       .fine-content
+      .law-content
         padding .4rem
         font-size .3rem
         line-height .58rem
+    // .fine
+    //   background-color: #FFF
+    //   margin-top .2rem
+    //   .fine-title
+    //     casetitle()
+    //   .fine-content
+    //     padding .4rem
+    //     font-size .3rem
+    //     line-height .58rem
+
 </style>

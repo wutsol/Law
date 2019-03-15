@@ -74,29 +74,6 @@ export default{
         this.$router.push({path: '/report/' + this.fact})
       }
     }
-    // sendRequest () {
-    //   if (this.isSpinShow === false) {
-    //     this.isSpinShow = true
-    //     axios.request({ // 向django发送请求
-    //       url: 'http://3.16.128.130:8050/predict',
-    //       method: 'post',
-    //       data: this.fact
-    //     }).then((response) => {
-    //       if (response.status === 200) {
-    //         const data = response.data
-    //         this.accu = data.accu
-    //         this.accu_prob = data.accu_prob
-    //         this.accu_rele = data.accu_rele
-    //         this.impr = data.impr
-    //         this.tiaoli = data.tiaoli
-    //         this.tiaoli_prob = data.tiaoli_prob
-    //         this.isSpinShow = false
-    //       }
-    //     }).catch((response) => {
-    //       console.log(response)
-    //     })
-    //   }
-    // }
   }
 }
 </script>

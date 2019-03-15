@@ -7,8 +7,9 @@
       :accu_rele="accu_rele"
     >
     </report-name>
+    <report-punishment :list="impr"></report-punishment>
     <Spin fix v-show="isSpinShow">
-      <Icon type="load-c" size="30" class="demo-spin-icon-load"></Icon>
+      <Icon type="ios-loading" size=30 class="demo-spin-icon-load"></Icon>
       <div>Loading...</div>
     </Spin>
     <!-- <ul>
@@ -23,9 +24,9 @@
           <p class="item-desc">{{item.desc}}</p>
         </div>
       </li>
-    </ul>
-    <report-law :lawList="lawList"></report-law>
-    <report-case :caseList="caseList"></report-case> -->
+    </ul> -->
+    <report-law :lawList="tiaoli" :probList="tiaoli_prob"></report-law>
+    <!-- <report-case :caseList="caseList"></report-case> -->
   </div>
 </template>
 
@@ -33,18 +34,19 @@
 import axios from 'axios'
 import ReportHeader from 'common/Header'
 import ReportLaw from './law'
-import ReportCase from './case'
 import ReportName from './nameAndCase'
+import ReportPunishment from './reportPunishment'
 export default {
   name: 'DecisionReport',
   components: {
     ReportHeader,
     ReportLaw,
-    ReportCase,
-    ReportName
+    ReportName,
+    ReportPunishment
   },
   data () {
     return {
+      fact: '',
       title: '分析报告',
       isSpinShow: false,
       accu: [], // 罪名
@@ -53,9 +55,6 @@ export default {
       impr: [], // 刑期
       tiaoli: [], // 法条
       tiaoli_prob: [] // 法条概率
-      // list: [],
-      // lawList: [],
-      // caseList: []
     }
   },
   methods: {
@@ -82,12 +81,18 @@ export default {
         this.tiaoli = data.tiaoli
         this.tiaoli_prob = data.tiaoli_prob
         this.isSpinShow = false
-        console.log(this.accu)
       }
     }
   },
   mounted () {
+    this.fact = this.$route.params.fact
     this.getReportInfo()
+  },
+  activatde () { // 防止缓存后无法重新发送ajax
+    if (this.fact !== this.$route.params.fact) {
+      this.fact = this.$route.params.fact
+      this.getReportInfo()
+    }
   }
 }
 </script>
