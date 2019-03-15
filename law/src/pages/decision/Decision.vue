@@ -104,8 +104,6 @@ export default{
 <style lang="stylus" scoped>
   .changeColor
     background-color: #19be6b
-  .decision-input
-    margin-top 1.12rem
   .decision-input-textarea
     margin-top 1.12rem
     width 100%

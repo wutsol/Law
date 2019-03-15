@@ -4,6 +4,7 @@ import Router from 'vue-router'
 const Home = r => require.ensure([], () => r(require('@/pages/home/Home')), 'group-home')
 const Decision = r => require.ensure([], () => r(require('@/pages/decision/Decision')), 'group-decision')
 const DecisionReport = r => require.ensure([], () => r(require('@/pages/decision/components/report')), 'group-decision')
+const DecisionCaseDetail = r => require.ensure([], () => r(require('@/pages/decision/components/decisionCaseDetail')), 'group-decision')
 const Case = r => require.ensure([], () => r(require('@/pages/case/Case')), 'group-case')
 const CaseDetail = r => require.ensure([], () => r(require('@/pages/case/components/caseDetail')), 'group-case')
 const CaseHome = r => require.ensure([], () => r(require('@/pages/case/components/caseHome')), 'group-case')
@@ -57,6 +58,10 @@ export default new Router({
       path: '/caseDetail/:index',
       name: 'CaseDetail',
       component: CaseDetail
+    }, {
+      path: '/decisionCaseDetail/:index',
+      name: 'DecisionCaseDetail',
+      component: DecisionCaseDetail
     }, {
       path: '/lawName/:title',
       name: 'LawName',

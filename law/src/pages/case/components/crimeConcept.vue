@@ -2,6 +2,17 @@
   <div class="container">
     <p class="container-name">
       {{this.name}}
+      <i-circle
+        :size="25"
+        :trail-width="4"
+        :stroke-width="5"
+        :percent="75"
+        stroke-linecap="square"
+        stroke-color="#43a3fb">
+        <div class="demo-Circle-custom">
+          <span>75%</span>
+        </div>
+      </i-circle>
     </p>
     <p class="container-concept">
       {{this.concept[0]}}
@@ -29,6 +40,14 @@ export default {
     .container-name
       line-height .5rem
       font-size .44rem
+      .ivu-chart-circle
+        float right
+        .demo-Circle-custom
+          text-align center
+          & span
+            display block
+            color #657180
+            font-size .08rem
     .container-concept
       margin-top .4rem
       line-height .5rem

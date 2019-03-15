@@ -75,7 +75,7 @@ export default {
           }
         })
         this.list = result
-      }, 100)
+      }, 40)
     }
   },
   mounted () {
@@ -89,6 +89,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+  @import '~styles/mixins.styl'
   // .wraper // 防止搜索框抖动，并且搜索出来的内容可以正确滚动
   //   height 0
   .search
@@ -125,6 +126,8 @@ export default {
       height 1rem
       line-height 1rem
       padding-left .4rem
+      padding-right .1rem
       color #666
       background-color: #FFF
+      ellipsis()
 </style>

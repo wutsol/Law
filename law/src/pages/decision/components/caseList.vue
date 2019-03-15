@@ -28,7 +28,7 @@ export default {
   methods: {
     handleCaseDetail (index, item) { // 使用动态路由的时候使用query要写成 path: '/caseDetail/' + index的形式。而且传递item对象时也不要使用router-link
       let str = JSON.stringify(item)// 把对象转化为字符串（stringify）存放进sessionStorage
-      sessionStorage.setItem('obbj', str) // 使用localStorage没起作用，待解
+      sessionStorage.setItem('case', str) // 使用localStorage没起作用，待解
       this.$router.push({path: '/caseDetail/' + index, query: {item: item}})
     }
   }

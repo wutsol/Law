@@ -109,8 +109,9 @@ export default {
         line-height 1rem
         padding-left .4rem
         padding-right .1rem
-        font-size .25rem
+        font-size .29rem
       .item-title
+        letter-spacing .005rem
         position absolute // 解决轮播中长度超过屏幕的问题
         left .4rem
         right .4rem

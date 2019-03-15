@@ -80,7 +80,7 @@ export default {
         })
         // }
         this.list = result
-      }, 100)
+      }, 20)
     }
   },
   mounted () {

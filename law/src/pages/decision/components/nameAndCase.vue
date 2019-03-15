@@ -1,14 +1,22 @@
 <template>
   <div class="name">
     <div class="title border-bottom">罪名预测与案例推荐</div>
-    <Collapse simple accordion>
-      <Panel v-for="(item, index) of accu_rele"
-      :key="index">
-        <span class="test">{{item[0].meta.accusation[0]}}</span>
+    <Collapse simple accordion> <!-- 折叠面板 -->
+      <Panel
+        v-for="(item, index) of accu_rele"
+        :key="index"
+      >
+        <span
+          class="test"
+        >
+          {{item[0].meta.accusation[0]}} <!-- 罪名 -->
+        </span>
         <p slot="content">
-          <Divider orientation="center" size="small">相关案例
+          <Divider orientation="center" size="small">
+            相关案例
           </Divider>
-          <report-case :list="item"></report-case></p>
+          <report-case :list="item"></report-case> <!-- 案例 -->
+        </p>
       </Panel>
     </Collapse>
     <!-- <ul>
@@ -20,19 +28,7 @@
       <div class="item-info">
         <p class="item-name">{{item[0].meta.accusation[0]}}</p>
       </div>
-      <Divider orientation="center" size="small">相关案例</Divider> -->
-
-      <!-- <i-circle :percent="80">
-        <span class="demo-Circle-inner">
-          <Icon type="ios-checkmark" style="font-size:5px" size="50">80%</Icon>
-        </span>
-      </i-circle>
-      <i-circle :percent="35" stroke-color="#ff5500">
-        <span class="demo-Circle-inner">
-            <Icon size="90" style="color:#ff5500">80</Icon>
-        </span>
-      </i-circle> -->
-      <!-- <report-case :list="item"></report-case>
+      <report-case :list="item"></report-case>
       </li>
     </ul> -->
     <!-- <div class="case-title border-bottom">
