@@ -42,31 +42,31 @@ export default new Router({
       path: '/detail/0003',
       name: 'LawHome',
       component: LawHome
-    }, {
+    }, { // 智能决策
       path: '/report/:fact',
       name: 'DecisionReport',
       component: DecisionReport
-    }, {
+    }, { // 罪名解释主页
       path: '/crimeDetail/:accu_name',
       name: 'CaseHome',
       component: CaseHome
-    }, {
+    }, { // 二级罪名
       path: '/accusation/:_id',
       name: 'CaseAccusation',
       component: CaseAccusation
-    }, {
+    }, { // 罪名库中的案例内容
       path: '/caseDetail/:index',
       name: 'CaseDetail',
       component: CaseDetail
-    }, {
+    }, { // 智能决策中的案例内容
       path: '/decisionCaseDetail/:index',
       name: 'DecisionCaseDetail',
       component: DecisionCaseDetail
-    }, {
+    }, { // 二级法条
       path: '/lawName/:title',
       name: 'LawName',
       component: LawName
-    }, {
+    }, { // 法条内容
       path: '/lawDetail/:law',
       name: 'LawDetail',
       component: LawDetail

@@ -4,6 +4,7 @@
     <!-- <case-pictures :imgUrl="imgUrl"></case-pictures> -->
     <case-search></case-search>
     <case-classify :classifyList="classifyList"></case-classify>
+    <loading :isSpinShow="isSpinShow"></loading>
   </div>
 </template>
 
@@ -13,6 +14,7 @@ import CaseHeader from 'common/Header'
 // import CasePictures from 'common/Pictures'
 import CaseSearch from './components/caseSearch'
 import CaseClassify from './components/classify'
+import Loading from 'common/Loading'
 // import { mapState } from 'vuex'
 export default {
   name: 'Case',
@@ -20,23 +22,29 @@ export default {
     CaseHeader,
     // CasePictures,
     CaseSearch,
-    CaseClassify
+    CaseClassify,
+    Loading
   },
   data () {
     return {
-      title: '案例库',
+      title: '罪名库',
       imgUrl: 'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1551018518&di=370e53fb5e39f42594a6009f0513fa39&src=http://img3.iyiou.com/Cover/2016-12-04/hangye-falvfuwu1204.jpg',
-      classifyList: []
+      classifyList: [],
+      isSpinShow: false
     }
   },
   methods: {
     getCaseInfo () {
-      axios.get('/api/classify') // 获取二级标题
-        .then(this.getCaseInfoSucc)
+      if (this.isSpinShow === false) {
+        this.isSpinShow = true
+        axios.get('/api/classify') // 获取二级标题
+          .then(this.getCaseInfoSucc)
+      }
     },
     getCaseInfoSucc (res) { // 数据的获取
       if (res && res.data) {
         this.classifyList = res.data
+        this.isSpinShow = false
       }
       // res = res.data
       // if (res.ret && res.data) {

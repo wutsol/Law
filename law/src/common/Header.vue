@@ -19,7 +19,7 @@
   </div>
 </template>
 
-<script>
+<script> // header部分，fixed
 export default{
   name: 'Header',
   props: {

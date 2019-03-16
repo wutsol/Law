@@ -13,10 +13,7 @@
       :topHeight="topHeight"
     ><!-- :accu_gainian="accu_gainian" :accu_name="accu_name" -->
     </case-tab>
-    <Spin fix v-show="isSpinShow">
-      <Icon type="ios-loading" size=30 class="demo-spin-icon-load"></Icon>
-      <div>Loading...</div>
-    </Spin>
+    <loading :isSpinShow="isSpinShow"></loading>
   </div>
 </template>
 
@@ -26,16 +23,18 @@ import axios from 'axios'
 import CaseHeader from 'common/Header'
 import CrimeConcept from './crimeConcept'
 import CaseTab from 'common/Tab2'
+import Loading from 'common/Loading'
 export default {
   name: 'CaseHome',
   components: {
     CaseHeader,
     CrimeConcept,
-    CaseTab
+    CaseTab,
+    Loading
   },
   data () {
     return {
-      headerTitle: '案例库',
+      headerTitle: '罪名库',
       accu_name: '',
       accu_gainian: [],
       accu_goucheng: [],

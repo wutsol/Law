@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <case-header :title="headerTitle"></case-header>
-    <case-banner :bigTitle="bigTitle" :title="accuTitle"></case-banner> <!-- :smallTitle="smallTitle" -->
+    <case-banner :bigTitle="bigTitle" :title="accuTitle"></case-banner>
     <div class="wrapper">
       <swiper :options="swiperOptions"> <!--  v-if="showSwiper" -->
         <!-- slides -->
@@ -22,18 +22,21 @@
         <div class="swiper-pagination"  slot="pagination"></div>
       </swiper>
     </div>
+    <loading :isSpinShow="isSpinShow"></loading>
   </div>
 </template>
 
 <script> // 二级标题
 import axios from 'axios'
 import CaseHeader from 'common/Header'
-import CaseBanner from 'common/Banner'
+import CaseBanner from './caseBanner'
+import Loading from 'common/Loading'
 export default {
   name: 'CaseAccusation',
   components: {
     CaseHeader,
-    CaseBanner
+    CaseBanner,
+    Loading
   },
   data () {
     return {
@@ -45,23 +48,28 @@ export default {
         initialSlide: 0
       },
       accusationList: [],
-      headerTitle: '案例库',
+      headerTitle: '罪名库',
       accuTitle: '罪名',
       bigTitle: '',
-      lastId: ''
+      lastId: '',
+      isSpinShow: false
     }
   },
   methods: {
     getDetailInfo () {
-      axios.get('/api/getAccusation/' + this.$route.params._id // 这里用动态路由，获取不同案例，取代之前所有案例与罪名放在同一文件下，不要使用下面注释的内容！！否则mongoose无法正确查找！！
-        // params: {
-        //   name: this.$route.params._id
-        // }
-      ).then(this.getDetailInfoSucc)
+      if (this.isSpinShow === false) {
+        this.isSpinShow = true
+        axios.get('/api/getAccusation/' + this.$route.params._id // 这里用动态路由，获取不同案例，取代之前所有案例与罪名放在同一文件下，不要使用下面注释的内容！！否则mongoose无法正确查找！！
+          // params: {
+          //   name: this.$route.params._id
+          // }
+        ).then(this.getDetailInfoSucc)
+      }
     },
     getDetailInfoSucc (res) {
       if (res && res.data) {
         this.accusationList = res.data
+        this.isSpinShow = false
       }
     }
   },

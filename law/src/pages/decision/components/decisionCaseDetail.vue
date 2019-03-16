@@ -41,14 +41,26 @@ export default {
       death: '',
       life: '',
       list: {type: Object},
-      imprisonment: ''
+      imprisonment: '',
+      lastList: {type: Object}
     }
   },
-  activated () { // 因为使用了keep-alive，所以要使用这个钩子取代上面的
-    this.list = JSON.parse(sessionStorage.getItem('case')) // 转化为对象，否则是数组
-    this.death = this.list.meta.term_of_imprisonment.death_penalty ? '是' : '否'
-    this.life = this.list.meta.term_of_imprisonment.life_imprisonment ? '是' : '否'
-    this.imprisonment = this.list.meta.term_of_imprisonment.imprisonment
+  methods: {
+    getData () {
+      this.list = JSON.parse(sessionStorage.getItem('case')) // 转化为对象，否则是数组
+      this.death = this.list.meta.term_of_imprisonment.death_penalty ? '是' : '否'
+      this.life = this.list.meta.term_of_imprisonment.life_imprisonment ? '是' : '否'
+      this.imprisonment = this.list.meta.term_of_imprisonment.imprisonment
+      this.lastList = this.list
+    }
+  },
+  mounted () { // 因为使用了keep-alive
+    this.getData()
+  },
+  activated () {
+    if (this.lastList !== JSON.parse(sessionStorage.getItem('case'))) {
+      this.getData()
+    }
   }
 }
 </script>

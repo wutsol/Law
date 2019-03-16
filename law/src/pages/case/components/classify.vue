@@ -14,13 +14,13 @@
             :key='index'
             :to="'/accusation/' + item._id"
           >
-          <div class="item-title">
-            {{item._id}}
-          </div>
-          <span class="item-count">
-            共{{item.count}}个
-          </span>
-        </router-link>
+            <div class="item-title">
+              {{item._id}}
+            </div>
+            <span class="item-count">
+              共{{item.count}}个
+            </span>
+          </router-link>
         </swiper-slide>
         <!-- Optional controls -->
         <div class="swiper-pagination"  slot="pagination"></div>

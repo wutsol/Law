@@ -9,32 +9,40 @@
         {{item}}
       </li>
     </ul>
+    <loading :isSpinShow="isSpinShow"></loading>
   </div>
 </template>
 
 <script> // 二级标题
 import axios from 'axios'
 import LawHeader from 'common/Header'
+import Loading from 'common/Loading'
 export default {
   name: 'LawDetail',
   components: {
-    LawHeader
+    LawHeader,
+    Loading
   },
   data () {
     return {
       lawList: [],
       headerTitle: '法条库',
-      lastId: ''
+      lastId: '',
+      isSpinShow: false
     }
   },
   methods: {
     getDetailInfo () { // 获取具体法条
-      axios.get('/api/getLawDetail/' + this.$route.params.law
-      ).then(this.getDetailInfoSucc)
+      if (this.isSpinShow === false) {
+        this.isSpinShow = true
+        axios.get('/api/getLawDetail/' + this.$route.params.law
+        ).then(this.getDetailInfoSucc)
+      }
     },
     getDetailInfoSucc (res) {
       if (res && res.data) {
         this.lawList = res.data[0].content
+        this.isSpinShow = false
       }
     }
   },

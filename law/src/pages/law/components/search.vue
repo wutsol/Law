@@ -31,6 +31,11 @@
 <script>
 import Bscroll from 'better-scroll'
 import axios from 'axios'
+const options = {
+  scrollY: true,
+  scrollbar: true,
+  click: true // BetterScroll阻止了点击事件！！
+}
 export default {
   name: 'LawSearch',
   data () {
@@ -84,8 +89,11 @@ export default {
     }
   },
   mounted () {
-    this.scroll = new Bscroll(this.$refs.search) // 加载搜索列表中的滑动条
+    this.scroll = new Bscroll(this.$refs.search, options) // 加载搜索列表中的滑动条
     this.getNameinfo()
+  },
+  activated () { // 防止回到该页面时留有搜索字
+    this.keyword = ''
   }
 }
 </script>

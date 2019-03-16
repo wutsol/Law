@@ -10,7 +10,12 @@
           :to="'/detail/' + item.id"
         >
           <div class="icon-image">
-            <img class="icon-image-content" :src="item.imgUrl">  <!-- src前必须加冒号 -->
+            <!-- <img class="icon-image-content" :src="item.imgUrl"> -->  <!-- src前必须加冒号 -->
+            <Icon v-if="item.id === '0001'" class="icon-image-content" type="md-ionitron"
+            size=65 />
+            <Icon v-if="item.id === '0002'" class="icon-image-content" type="md-document"
+            size=65 />
+            <Icon v-if="item.id === '0003'" class="icon-image-content" type="ios-bookmarks" size=65 />
           </div>
           <p class="icon-desc">{{item.desc}}</p>
         </router-link>
@@ -81,18 +86,19 @@ export default {
         right 0
         bottom .44rem
         box-sizing border-box // 限制盒子大小
-        padding .1rem
+        padding 0 .1rem
         .icon-image-content
+          color #8e928fc9
           display block // 图片居中
-          margin 0 auto // 图片居中
+          margin-left .45rem // 图片居中
           height 100% //缩小图片
       .icon-desc
         position absolute
         left 0
         right 0
         bottom 0
-        height .44rem
-        line-height .44rem
+        height .45rem
+        line-height .45rem
         text-align center
         color $darkTextColor
         ellipsis() // 实现文字过多时显示省略号的效果

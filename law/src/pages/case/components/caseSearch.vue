@@ -19,6 +19,12 @@
           :to="'/crimeDetail/' + item.accu_name"
         >
           {{item.accu_name}}
+          <!-- <router-link
+            class="search-item border-bottom"
+            :to="'/crimeDetail/' + item.accu_name"
+          >
+            {{item.accu_name}}
+          </router-link> -->
         </router-link>
         <li class="search-item border-bottom" v-show="hasNoData">
           无匹配数据
@@ -31,6 +37,18 @@
 <script>
 import Bscroll from 'better-scroll'
 import axios from 'axios'
+const options = { // BetterScroll阻止了点击事件！！
+  scrollY: true,
+  scrollbar: true,
+  click: true
+  // pullDownRefresh: {
+  //   threshold: 50,
+  //   stop: 20
+  // },
+  // pullUpLoad: {
+  //   threshold: -20
+  // }
+}
 export default {
   name: 'CaseSearch',
   data () {
@@ -79,7 +97,7 @@ export default {
     }
   },
   mounted () {
-    this.scroll = new Bscroll(this.$refs.search) // 加载搜索列表中的滑动条
+    this.scroll = new Bscroll(this.$refs.search, options) // 加载搜索列表中的滑动条
     this.getNameinfo()
   },
   activated () { // 防止回到该页面时留有搜索字

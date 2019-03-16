@@ -16,7 +16,7 @@
 
 <script> // 该部分实现类似导航功能
 export default {
-  name: 'Banner',
+  name: 'CaseBanner',
   props: {
     // smallTitle: String,
     title: String,

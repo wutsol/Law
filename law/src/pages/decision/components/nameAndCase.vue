@@ -6,11 +6,23 @@
         v-for="(item, index) of accu_rele"
         :key="index"
       >
-        <span
+        <p
           class="test"
         >
           {{item[0].meta.accusation[0]}} <!-- 罪名 -->
-        </span>
+        </p>
+        <i-circle
+          :size="24"
+          :trail-width="4"
+          :stroke-width="5"
+          :percent="accu_prob[index]"
+          stroke-linecap="square"
+          stroke-color="#43a3fb"
+        >
+          <div class="demo-Circle-custom">
+            <span>{{accu_prob[index] + "%"}}</span>
+          </div>
+        </i-circle>
         <p slot="content">
           <Divider orientation="center" size="small">
             相关案例
@@ -70,8 +82,18 @@ export default {
     margin-top $headerHeight
     background-color: #FFF
     .test
+      display inline-block
+      margin-left -.15rem
       font-size .32rem
       color #333
+    .ivu-chart-circle
+      float right
+      .demo-Circle-custom
+        margin-top .5rem
+        & span
+          display block
+          color #657180
+          font-size .2rem
     .title
       height 1.2rem
       line-height 1.2rem

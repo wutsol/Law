@@ -19,7 +19,6 @@
         罚款金额： {{this.list.punish_of_money}}
       </div>
     </div>
-    <!-- {{this.list}} -->
   </div>
 </template>
 
@@ -33,7 +32,7 @@ export default {
   },
   data () {
     return {
-      headerTitle: '案例库',
+      headerTitle: '罪名库',
       death: '',
       life: '',
       list: {type: Object},

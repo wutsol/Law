@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<script>
+<script> // 首页图
 export default {
   name: 'Pictures',
   props: {

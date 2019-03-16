@@ -8,10 +8,7 @@
     >
     </report-name>
     <report-punishment :list="impr"></report-punishment>
-    <Spin fix v-show="isSpinShow">
-      <Icon type="ios-loading" size=30 class="demo-spin-icon-load"></Icon>
-      <div>Loading...</div>
-    </Spin>
+    <loading :isSpinShow="isSpinShow"></loading>
     <!-- <ul>
       <li
         class="item"
@@ -36,13 +33,15 @@ import ReportHeader from 'common/Header'
 import ReportLaw from './law'
 import ReportName from './nameAndCase'
 import ReportPunishment from './reportPunishment'
+import Loading from 'common/Loading'
 export default {
   name: 'DecisionReport',
   components: {
     ReportHeader,
     ReportLaw,
     ReportName,
-    ReportPunishment
+    ReportPunishment,
+    Loading
   },
   data () {
     return {
@@ -75,11 +74,15 @@ export default {
       if (res.status === 200) {
         const data = res.data
         this.accu = data.accu
-        this.accu_prob = data.accu_prob
+        data.accu_prob.forEach((item, index) => {
+          this.accu_prob[index] = parseFloat((item * 100).toFixed(1))
+        }) // 对概率做数据操作
         this.accu_rele = data.accu_rele
         this.impr = data.impr
         this.tiaoli = data.tiaoli
-        this.tiaoli_prob = data.tiaoli_prob
+        data.tiaoli_prob.forEach((item, index) => {
+          this.tiaoli_prob[index] = parseInt((item * 100))
+        }) // 对概率做数据操作
         this.isSpinShow = false
       }
     }

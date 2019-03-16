@@ -22,18 +22,21 @@
         <div class="swiper-pagination"  slot="pagination"></div>
       </swiper>
     </div>
+    <loading :isSpinShow="isSpinShow"></loading>
   </div>
 </template>
 
 <script> // 二级标题
 import axios from 'axios'
 import LawHeader from 'common/Header'
-import LawBanner from 'common/Banner'
+import LawBanner from './lawBanner'
+import Loading from 'common/Loading'
 export default {
   name: 'LawName',
   components: {
     LawHeader,
-    LawBanner
+    LawBanner,
+    Loading
   },
   data () {
     return {
@@ -47,22 +50,26 @@ export default {
       headerTitle: '法条库',
       lawTitle: '条例',
       bigTitle: '',
-      // smallTitle: '',
-      lastId: ''
+      lastId: '',
+      isSpinShow: false
     }
   },
   methods: {
     getDetailInfo () {
-      // console.log(this.$route.params._id)
-      axios.get('/api/getLaw/' + this.$route.params.title // 这里用动态路由，获取不同案例，取代之前所有案例与罪名放在同一文件下，不要使用下面注释的内容！！否则mongoose无法正确查找！！
-        // params: {
-        //   name: this.$route.params._id
-        // }
-      ).then(this.getDetailInfoSucc)
+      if (this.isSpinShow === false) {
+        this.isSpinShow = true
+        // console.log(this.$route.params._id)
+        axios.get('/api/getLaw/' + this.$route.params.title // 这里用动态路由，获取不同案例，取代之前所有案例与罪名放在同一文件下，不要使用下面注释的内容！！否则mongoose无法正确查找！！
+          // params: {
+          //   name: this.$route.params._id
+          // }
+        ).then(this.getDetailInfoSucc)
+      }
     },
     getDetailInfoSucc (res) {
       if (res && res.data) {
         this.lawList = res.data
+        this.isSpinShow = false
       }
       // res = res.data
       // if (res.ret && res.data) {

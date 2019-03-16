@@ -28,6 +28,7 @@ export default {
     list () {
       if (this.list[0] > 0) {
         this.punishment = this.list[0]
+        console.log(this.punishment)
         // this.punishment = Math.round(this.punishment)
       } else if (this.list[1] === true) { // 死刑
         this.death = this.list[1]

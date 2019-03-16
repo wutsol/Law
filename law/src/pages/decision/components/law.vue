@@ -12,12 +12,12 @@
           :size="24"
           :trail-width="4"
           :stroke-width="5"
-          :percent="0"
+          :percent="probList[index]"
           stroke-linecap="square"
           stroke-color="#43a3fb"
         >
           <div class="demo-Circle-custom">
-            <span>{{probList[index]}}</span>
+            <span>{{probList[index] + "%"}}</span>
           </div>
         </i-circle>
       </li>
@@ -48,7 +48,7 @@ export default {
       font-weight 400
       text-align center
     .law-content
-      padding .4rem
+      padding .4rem 0 .4rem .4rem
       font-size .3rem
       line-height .55rem
       .ivu-chart-circle

@@ -5,20 +5,17 @@
     <router-link
       tag="i"
       class="banner-bigTitle"
-      to="/detail/0002"
+      to="/detail/0003"
      >
       {{bigTitle}}
    </router-link>
-    <!-- <i class="iconfont banner-icon">&#xe7ab;</i>
-    <i>{{smallTitle}}</i> -->
   </div>
 </template>
 
 <script> // 该部分实现类似导航功能
 export default {
-  name: 'Banner',
+  name: 'LaWBanner',
   props: {
-    // smallTitle: String,
     title: String,
     bigTitle: String
   }
