@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import HomeHeader from 'common/Header'
+import HomeHeader from 'common/HomeHeader'
 import HomePictures from 'common/Pictures'
 import HomeIcons from './components/iconSwiper'
 import HomeRecommend from './components/Recommend'
