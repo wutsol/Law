@@ -1,5 +1,5 @@
 export default {
-  pushCaseList (state, item) {
+  setName (state, item) {
     state.item = item
     try {
       localStorage.item = item // 借助localStorage本地存储数据，防止页面刷新时城市出错

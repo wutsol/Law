@@ -1,18 +1,11 @@
 <template>
-  <div class="header border-bottom"> <!-- 为了页面向下滚动时header部分不动 -->
-    <!-- <div class="header-abs" v-show="showfixed" @click="handleClick">
-      <div class="iconfont header-abs-back">&#xe622;</div>
-    </div> -->
-    <!-- <div class="header-show" -->  <!-- v-show="!showfixed" :style="opacityStyle" -->
-    <!-- <div class="header-left">
-      <div class="iconfont back-icon" @click="handleClick">&#xe622;</div>
-    </div> -->
+  <div class="header border-bottom">
     <Icon type="md-menu" class="header-left" size="35" @click="showMenu = true"/>
     <Drawer title="个人主页" placement="left" :closable="false" v-model="showMenu">
         <div class="user-info">
           <div class="user-avatar"></div>
-          <div class="user-login" @click="turnToLogin">点击登录</div>
-          <div class="user-name"></div>
+          <div class="user-login" @click="turnToLogin">{{this.name}}</div>
+          <!-- <div class="user-name" v-show="this.name.length > 0">{{this.name}}</div> -->
         </div>
     </Drawer>
     <div class="header-middle">{{title}}</div>
@@ -28,6 +21,7 @@
 </template>
 
 <script> // header部分，fixed
+import { mapState } from 'vuex' // vuex高级一些的API
 export default{
   name: 'HomeHeader',
   props: {
@@ -43,9 +37,9 @@ export default{
       this.showMenu = false
       this.$router.push('/login')
     }
-    // handleClick () {
-    //   this.$router.go(-1) // 返回上一页
-    // }
+  },
+  computed: {
+    ...mapState(['name']) // 将vuex公用数据映射给计算属性并命名为city,用this.city取代html中this.$store.state.city
   }
 }
 </script>

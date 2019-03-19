@@ -2,7 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-// import store from './store/index'
+import store from './store/index'
 import router from './router'
 import fastClick from 'fastclick'
 import 'babel-polyfill'
@@ -23,7 +23,7 @@ Vue.use(iView) // 借助iview实现loading效果
 new Vue({
   el: '#app',
   router,
-  // store,
+  store,
   components: { App },
   template: '<App/>'
 })

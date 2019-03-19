@@ -16,7 +16,7 @@ export default {
   .ivu-collapse-header // 修改折叠板样式
     height 1.3rem !important
     line-height 1.3rem !important
-  .ivu-drawer-header
+  .ivu-drawer-header // 修改菜单栏中的样式
     height 1.2rem
     line-height 1.2rem
     padding .15rem .4rem
@@ -37,6 +37,7 @@ export default {
         float left
         background-color: #fff
       .user-login
+      .user-name
         flex 1
         padding .32rem
         font-size .3rem
