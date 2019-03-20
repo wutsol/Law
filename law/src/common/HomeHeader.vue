@@ -3,9 +3,29 @@
     <Icon type="md-menu" class="header-left" size="35" @click="showMenu = true"/>
     <Drawer title="个人主页" placement="left" :closable="false" v-model="showMenu">
         <div class="user-info">
-          <div class="user-avatar"></div>
-          <div class="user-login" @click="turnToLogin">{{this.name}}</div>
-          <!-- <div class="user-name" v-show="this.name.length > 0">{{this.name}}</div> -->
+          <div class="user-avatar">
+            <Icon class="user-icon"  type="md-person" size="58"/>
+          </div>
+          <div class="user-login" v-show="this.userName.length <= 0" @click="turnToLogin">点击登录</div>
+          <div class="user-name" v-show="this.userName.length > 0">{{this.userName}}</div>
+        </div>
+        <div v-show="this.userName.length > 0">
+          <div class="user-history border-bottom">
+            <Icon class="history-icon" size="30" type="ios-time-outline" />
+            <div class="history-text">我的足迹</div>
+          </div>
+          <div class="user-logout border-bottom">
+            <Icon class="logout-icon" type="ios-power-outline" size="30" />
+            <div class="logout-text" @click="logout = true">退出登录</div>
+            <Modal
+              title="提示"
+              v-model="logout"
+              class-name="vertical-center-modal"
+              @on-ok="ok"
+            >
+              <p>确认要退出登录吗？</p>
+            </Modal>
+          </div>
         </div>
     </Drawer>
     <div class="header-middle">{{title}}</div>
@@ -16,12 +36,11 @@
      >
       <div class="iconfont home-icon">&#xe61e;</div>
     </router-link>
-    <!-- </div> -->
   </div>
 </template>
 
 <script> // header部分，fixed
-import { mapState } from 'vuex' // vuex高级一些的API
+import { mapState, mapMutations } from 'vuex' // vuex高级一些的API
 export default{
   name: 'HomeHeader',
   props: {
@@ -29,17 +48,22 @@ export default{
   },
   data () {
     return {
-      showMenu: false
+      showMenu: false,
+      logout: false
     }
   },
   methods: {
     turnToLogin () {
       this.showMenu = false
       this.$router.push('/login')
-    }
+    },
+    ok () { // 退出
+      this.setName('')
+    },
+    ...mapMutations(['setName']) // 该方法相当于commit一个请求
   },
   computed: {
-    ...mapState(['name']) // 将vuex公用数据映射给计算属性并命名为city,用this.city取代html中this.$store.state.city
+    ...mapState(['userName']) // 将vuex公用数据映射给计算属性并命名为city,用this.city取代html中this.$store.state.city
   }
 }
 </script>

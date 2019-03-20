@@ -1,8 +1,8 @@
 export default {
-  setName (state, item) {
-    state.item = item
+  setName (state, userName) {
+    state.userName = userName
     try {
-      localStorage.item = item // 借助localStorage本地存储数据，防止页面刷新时城市出错
+      localStorage.userName = userName // 借助localStorage本地存储数据，防止页面刷新时城市出错
     } catch (e) {}
   }
 }

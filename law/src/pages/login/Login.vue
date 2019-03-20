@@ -48,7 +48,8 @@ export default {
       loginErrTip: false,
       registerErrTip: false,
       pswErrTip: false,
-      showLogin: true
+      showLogin: true,
+      timer: null
     }
   },
   methods: {
@@ -58,12 +59,17 @@ export default {
         userPsw: this.userPsw
       }).then((res) => {
         const data = res.data
-        console.log(data)
+        const userName = data.result.userName
         if (data.status === '1') {
           this.loginSucc = true
           this.loginErrTip = false
-          localStorage.item = data.result.userName // 缓存
-          this.setName(data.result.userName) // vuex
+          this.setName(userName) // vuex
+          if (this.timer) { // 做一个节流处理,提高性能
+            clearTimeout(this.timer)
+          }
+          this.timer = setTimeout(() => {
+            this.$router.push('/') // 返回首页
+          }, 1000)
         } else {
           this.loginSucc = false
           this.loginErrTip = true
@@ -89,11 +95,15 @@ export default {
           userPsw: this.userPsw
         }).then((res) => {
           const data = res.data
-          console.log(data)
           if (data.status === '3') {
             this.registerSucc = true
             this.registerErrTip = false
-            this.trunToLogin() // 转到登陆界面
+            if (this.timer) { // 做一个节流处理,提高性能
+              clearTimeout(this.timer)
+            }
+            this.timer = setTimeout(() => {
+              this.trunToLogin() // 转到登陆界面
+            }, 1000)
           } else {
             this.registerSucc = false
             this.registerErrTip = true
@@ -107,8 +117,21 @@ export default {
       this.showLogin = true
       this.pswErrTip = false
       this.registerErrTip = false
+      this.registerSucc = false
       this.title = '登录界面'
     }
+  },
+  mounted () {
+    this.userName = ''
+    this.userPsw = ''
+    this.confirmPsw = ''
+  },
+  activated () { // 页面缓存后清空
+    this.userName = ''
+    this.userPsw = ''
+    this.confirmPsw = ''
+    this.loginSucc = false
+    this.registerSucc = false
   }
 }
 </script>

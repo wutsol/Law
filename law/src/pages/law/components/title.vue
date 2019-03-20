@@ -22,27 +22,40 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'Title',
   data () {
     return {
-      list: [{
-        'id': '1',
-        'title': '诉讼法规'
-      }, {
-        'id': '2',
-        'title': '行政法规'
-      }, {
-        'id': '3',
-        'title': '刑法大全'
-      }, {
-        'id': '4',
-        'title': '宪法大全'
-      }, {
-        'id': '5',
-        'title': '民商法规'
-      }]
+      list: []
     }
+  },
+  methods: {
+    getDetailInfo () {
+      axios.get('/api/getTotalLaw')
+        .then(this.getDetailInfoSucc)
+    },
+    getDetailInfoSucc (res) {
+      if (res && res.data) {
+        console.log(res.data)
+      }
+    }
+  },
+  // computed: { // 实现多余的icon出现在第二张page上
+  //   pages () {
+  //     const pages = []
+  //     this.list.forEach((item, index) => {
+  //       const page = Math.floor(index / 10)
+  //       if (!pages[page]) {
+  //         pages[page] = []
+  //       }
+  //       pages[page].push(item)
+  //     })
+  //     return pages
+  //   }
+  // },
+  mounted () {
+    this.getDetailInfo()
   }
 }
 </script>
