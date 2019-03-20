@@ -16,9 +16,9 @@
           class="search-item border-bottom"
           v-for="item of list"
           :key="item.id"
-          :to="'/lawDetail/' + item.law"
+          :to="'/lawDetail/' + item.chinese_name"
         >
-          {{item.law}}
+          {{item.chinese_name}}
         </router-link>
         <li class="search-item border-bottom" v-show="hasNoData">
           无匹配数据
@@ -56,10 +56,6 @@ export default {
         this.nameList = res.data
       }
     }
-    // handleCityClick (id) {
-    //   // this.changeCity(city) // 相当于this.$store.commit('changeCity', city)
-    //   // this.$router.push('/') // 跳转到Home界面
-    // }
   },
   computed: {
     hasNoData () { // 当没找到匹配项时才显示
@@ -79,13 +75,13 @@ export default {
         const result = []
         this.nameList.forEach((value) => {
           // 下面要先判断accu_name是否存在，否则会使undefined，不知道为什么
-          if (value.law && value.law.indexOf(this.keyword) > -1) {
+          if (value.chinese_name && value.chinese_name.indexOf(this.keyword) > -1) {
             result.push(value)
           }
         })
         // }
         this.list = result
-      }, 20)
+      }, 100)
     }
   },
   mounted () {

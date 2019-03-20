@@ -67,11 +67,11 @@ export default new Router({
     name: 'DecisionCaseDetail',
     component: DecisionCaseDetail
   }, { // 二级法条
-    path: '/lawName/:title',
+    path: '/lawName/:_id',
     name: 'LawName',
     component: LawName
   }, { // 法条内容
-    path: '/lawDetail/:law',
+    path: '/lawDetail/:chinese_name',
     name: 'LawDetail',
     component: LawDetail
   }],

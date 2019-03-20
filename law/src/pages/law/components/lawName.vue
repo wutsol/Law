@@ -11,10 +11,10 @@
             class="wrapper-item border-bottom"
             v-for='item of page'
             :key='item.id'
-            :to="'/lawDetail/' + item.law"
+            :to="'/lawDetail/' + item.chinese_name"
           >
             <div class="item-title">
-             {{item.law}}
+             {{item.chinese_name}}
             </div>
           </router-link>
         </swiper-slide>
@@ -59,7 +59,7 @@ export default {
       if (this.isSpinShow === false) {
         this.isSpinShow = true
         // console.log(this.$route.params._id)
-        axios.get('/api/getLaw/' + this.$route.params.title // 这里用动态路由，获取不同案例，取代之前所有案例与罪名放在同一文件下，不要使用下面注释的内容！！否则mongoose无法正确查找！！
+        axios.get('/api/getLaw/' + this.$route.params._id // 这里用动态路由，获取不同案例，取代之前所有案例与罪名放在同一文件下，不要使用下面注释的内容！！否则mongoose无法正确查找！！
           // params: {
           //   name: this.$route.params._id
           // }
@@ -94,14 +94,14 @@ export default {
     }
   },
   mounted () {
-    this.bigTitle = this.$route.params.title
-    this.lastId = this.$route.params.title
+    this.bigTitle = this.$route.params._id
+    this.lastId = this.$route.params._id
     this.getDetailInfo()
   },
   activated () { // 当城市发生变化时要重新发送ajax请求
-    if (this.lastId !== this.$route.params.title) {
-      this.bigTitle = this.$route.params.title
-      this.lastId = this.$route.params.title
+    if (this.lastId !== this.$route.params._id) {
+      this.bigTitle = this.$route.params._id
+      this.lastId = this.$route.params._id
       this.getDetailInfo()
     }
   }
