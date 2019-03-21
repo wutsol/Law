@@ -11,11 +11,13 @@
         >
           <div class="icon-image">
             <!-- <img class="icon-image-content" :src="item.imgUrl"> -->  <!-- src前必须加冒号 -->
-            <Icon v-if="item.id === '0001'" class="icon-image-content" type="md-ionitron"
-            size=65 />
+            <Icon v-if="item.id === '0001'" class="icon-image-content" type="md-bulb"
+            size=55 />
+            <!-- <Icon type="md-ionitron" /> -->
             <Icon v-if="item.id === '0002'" class="icon-image-content" type="md-document"
-            size=65 />
-            <Icon v-if="item.id === '0003'" class="icon-image-content" type="ios-bookmarks" size=65 />
+            size=55 />
+            <Icon v-if="item.id === '0003'" class="icon-image-content" type="md-bookmarks" size=55 />
+            <Icon v-if="item.id === '0004'" class="icon-image-content" type="ios-bookmarks" size=55 />
           </div>
           <p class="icon-desc">{{item.desc}}</p>
         </router-link>
@@ -76,7 +78,7 @@ export default {
     .icon
       float left
       position relative
-      width 33.3%
+      width 25%
       height 0
       padding-bottom 25%
       .icon-image
@@ -90,7 +92,8 @@ export default {
         .icon-image-content
           color #8e928fc9
           display block // 图片居中
-          margin-left .45rem // 图片居中
+          margin-left .3rem // 图片居中
+          margin-top .1rem
           height 100% //缩小图片
       .icon-desc
         position absolute

@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import iView from 'iview'
 const LoginHome = r => require.ensure([], () => r(require('@/pages/login/Login')), 'group-login')
 const Home = r => require.ensure([], () => r(require('@/pages/home/Home')), 'group-home')
 const Decision = r => require.ensure([], () => r(require('@/pages/decision/Decision')), 'group-decision')
@@ -13,17 +12,10 @@ const CaseAccusation = r => require.ensure([], () => r(require('@/pages/case/com
 const LawHome = r => require.ensure([], () => r(require('@/pages/law/Home')), 'group-law')
 const LawName = r => require.ensure([], () => r(require('@/pages/law/components/lawName')), 'group-law')
 const LawDetail = r => require.ensure([], () => r(require('@/pages/law/components/lawDetail')), 'group-law')
+const BaikeHome = r => require.ensure([], () => r(require('@/pages/baike/BaikeHome')), 'group-baike')
+const BaikeDetail = r => require.ensure([], () => r(require('@/pages/baike/components/detail')), 'group-baike')
 
 Vue.use(Router)
-// Vue.use(iView)
-// Router.beforeEach((to, from, next) => {
-//     iView.LoadingBar.start()
-//     next()
-// })
-
-// Router.afterEach(route => {
-//     iView.LoadingBar.finish()
-// })
 
 export default new Router({
   routes: [{
@@ -46,6 +38,10 @@ export default new Router({
     path: '/detail/0003',
     name: 'LawHome',
     component: LawHome
+  }, {
+    path: '/detail/0004',
+    name: 'BaikeHome',
+    component: BaikeHome
   }, { // 智能决策
     path: '/report/:fact',
     name: 'DecisionReport',
@@ -74,6 +70,10 @@ export default new Router({
     path: '/lawDetail/:chinese_name',
     name: 'LawDetail',
     component: LawDetail
+  }, { // 干货内容
+    path: '/baikeDetail/:articleTitle',
+    name: 'BaikeDetail',
+    component: BaikeDetail
   }],
   scrollBehavior (to, from, savedPosition) { // 使页面跳转时每次都在顶部出现
     return { x: 0, y: 0 }

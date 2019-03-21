@@ -1,6 +1,6 @@
 <template>
   <div> <!-- 使用组件时最外层必须包裹一个div -->
-    <div class="title border-top">最新案例</div>
+    <div class="title border-top">干货推荐</div>
     <recommend-case :list="list"></recommend-case>
     <div class="item-more">查看更多</div>
   </div>

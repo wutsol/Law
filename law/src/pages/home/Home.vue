@@ -59,6 +59,10 @@ export default{
         'id': '0003',
         'imgUrl': 'http://img1.qunarzz.com/piao/fusion/1611/54/ace00878a52d9702.png',
         'desc': '法条库'
+      }, {
+        'id': '0004',
+        'imgUrl': 'http://img1.qunarzz.com/piao/fusion/1611/54/ace00878a52d9702.png',
+        'desc': '干货'
       }],
       imgUrl: 'http://img.smzy.com/Soft/UploadPic/2016-10/2016102516415011331.jpg'
     }
