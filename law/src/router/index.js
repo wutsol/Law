@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 const LoginHome = r => require.ensure([], () => r(require('@/pages/login/Login')), 'group-login')
+const History = r => require.ensure([], () => r(require('@/pages/history/History')), 'group-user')
 const Home = r => require.ensure([], () => r(require('@/pages/home/Home')), 'group-home')
 const Decision = r => require.ensure([], () => r(require('@/pages/decision/Decision')), 'group-decision')
 const DecisionReport = r => require.ensure([], () => r(require('@/pages/decision/components/report')), 'group-decision')
@@ -22,6 +23,10 @@ export default new Router({
     path: '/login',
     name: 'LoginHome',
     component: LoginHome
+  }, {
+    path: '/history',
+    name: 'History',
+    component: History
   }, {
     path: '/',
     name: 'Home',

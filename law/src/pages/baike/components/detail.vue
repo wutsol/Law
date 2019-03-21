@@ -51,6 +51,7 @@
 </template>
 
 <script> // 二级标题
+import { mapMutations } from 'vuex' // vuex高级一些的API
 import axios from 'axios'
 import LawHeader from 'common/Header'
 import Loading from 'common/Loading'
@@ -85,13 +86,15 @@ export default {
     getDetailInfoSucc (res) {
       if (res && res.data) {
         const data = res.data[0]
+        this.setHistory(res.data) // vuex
         this.articleTitle = data.articleTitle
         this.publishDate = data.publishDate
         this.articleUrl = data.articleUrl
         this.content = data.content
         this.isSpinShow = false
       }
-    }
+    },
+    ...mapMutations(['setHistory']) // 该方法相当于commit一个请求
   },
   mounted () {
     this.lastId = this.$route.params.articleTitle

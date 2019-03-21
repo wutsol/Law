@@ -12,7 +12,12 @@
         <div v-show="this.userName.length > 0">
           <div class="user-history border-bottom">
             <Icon class="history-icon" size="30" type="ios-time-outline" />
-            <div class="history-text">我的足迹</div>
+            <div
+              class="history-text"
+              @click="turnToHistory"
+            >
+              我的足迹
+            </div>
           </div>
           <div class="user-logout border-bottom">
             <Icon class="logout-icon" type="ios-power-outline" size="30" />
@@ -57,6 +62,10 @@ export default{
       this.showMenu = false
       this.$router.push('/login')
     },
+    turnToHistory () {
+      this.showMenu = false
+      this.$router.push('/history')
+    },
     ok () { // 退出
       this.setName('')
     },
@@ -79,7 +88,8 @@ export default{
     height $headerHeight
     line-height: $headerHeight
     background-color: $bgColor
-    color: #fff
+    color #fff
+    box-shadow 0 .05rem .1rem #8b8b8bd6
     .header-left
       width: .86rem
       float: left

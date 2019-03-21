@@ -1,5 +1,5 @@
 <template>
-  <div class="header border-bottom"> <!-- 为了页面向下滚动时header部分不动 -->
+  <div class="header"> <!-- 为了页面向下滚动时header部分不动 -->
     <!-- <div class="header-abs" v-show="showfixed" @click="handleClick">
       <div class="iconfont header-abs-back">&#xe622;</div>
     </div> -->
@@ -75,6 +75,7 @@ export default{
     line-height: $headerHeight
     background-color: $bgColor
     color: #fff
+    box-shadow 0 .05rem .1rem #8b8b8bd6
   // .header-abs
   //   z-index 10
   //   position absolute
