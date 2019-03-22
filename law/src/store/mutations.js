@@ -8,7 +8,8 @@ export default {
   setHistory (state, historyList) {
     state.historyList = historyList
     try {
-      localStorage.historyList = historyList
+      localStorage.setItem('historyList', JSON.stringify(historyList))
+      // localStorage.historyList = historyList
     } catch (e) {}
   }
 }

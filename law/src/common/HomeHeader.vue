@@ -22,14 +22,6 @@
           <div class="user-logout border-bottom">
             <Icon class="logout-icon" type="ios-power-outline" size="30" />
             <div class="logout-text" @click="logout = true">退出登录</div>
-            <Modal
-              title="提示"
-              v-model="logout"
-              class-name="vertical-center-modal"
-              @on-ok="ok"
-            >
-              <p>确认要退出登录吗？</p>
-            </Modal>
           </div>
         </div>
     </Drawer>
@@ -41,6 +33,13 @@
      >
       <div class="iconfont home-icon">&#xe61e;</div>
     </router-link>
+    <Modal
+      v-model="logout"
+      class-name="vertical-center-modal"
+      @on-ok="ok"
+    > <!-- 会话框 -->
+      <p>确认要退出登录吗？</p>
+    </Modal>
   </div>
 </template>
 
@@ -69,6 +68,7 @@ export default{
     ok () { // 退出
       this.setName('')
       this.setHistory([])
+      this.showMenu = false
     },
     ...mapMutations(['setName']), // 该方法相当于commit一个请求
     ...mapMutations(['setHistory']) // 该方法相当于commit一个请求

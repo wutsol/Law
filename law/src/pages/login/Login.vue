@@ -62,7 +62,7 @@ export default {
         const userName = data.result.userName
         const history = data.result.history
         if (data.status === '1') {
-          this.loginSucc = true
+          this.loginSucc = true // 提示登陆成功，该处有待改进
           this.loginErrTip = false
           this.setName(userName) // vuex
           this.setHistory(history) // vuex
@@ -72,17 +72,12 @@ export default {
           this.timer = setTimeout(() => {
             this.$router.push('/') // 返回首页
           }, 1000)
+          this.loginSucc = false
         } else {
           this.loginSucc = false
           this.loginErrTip = true
         }
       })
-      // axios.post('/api/getHistory', { // 获取历史纪录
-      //   userName: this.userName
-      // }).then((res) => {
-      //   console.log(res.data.result.history)
-      //   this.setHistory(res.data.result.history)
-      // })
     },
     ...mapMutations(['setName']), // 该方法相当于commit一个请求
     ...mapMutations(['setHistory']), // 该方法相当于commit一个请求
@@ -141,6 +136,7 @@ export default {
     this.confirmPsw = ''
     this.loginSucc = false
     this.registerSucc = false
+    this.timer = null
   }
 }
 </script>

@@ -22,30 +22,6 @@
         <a :href="this.articleUrl">{{this.articleUrl}}</a>
       </div> -->
     </div>
-    <!-- <div class="law" ref="law">
-      <div class="law-title">{{this.chinese_name}}</div>
-      <div class="law-info">
-        <div class="info-department">
-          【发布部门】  {{this.department}}
-        </div>
-        <div class="info-issue">
-          【发文字号】  {{this.store_issue}}
-        </div>
-        <div class="info-time">
-          <div class="time-start">【发布日期】  {{this.start_date}}</div>
-          <div class="time-exec">【实施日期】  {{this.exec_date}}</div>
-        </div>
-        <div class="info-eff">
-          <div class="effective">【时效性】  {{this.effective}}</div>
-          <div class="level">【效力级别】  {{this.level}}</div>
-        </div>
-      </div>
-      <div class="law-detail" v-for="(value, key, index) in article" :key="index">
-        <div class="law-one">
-          {{key}}  &ensp; {{value}}
-        </div>
-      </div>
-    </div> -->
     <loading :isSpinShow="isSpinShow"></loading>
   </div>
 </template>
@@ -86,12 +62,11 @@ export default {
     getDetailInfoSucc (res) {
       if (res && res.data) {
         const data = res.data[0]
-        console.log(res)
         this.articleTitle = data.articleTitle
         this.publishDate = data.publishDate
         this.articleUrl = data.articleUrl
         this.content = data.content
-        axios.post('api/setHistory', { // 在数据库中添加历史纪录
+        axios.post('/api/setHistory', { // 在数据库中添加历史纪录
           userName: this.userName,
           history: res.data
         }).then((res) => {

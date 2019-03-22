@@ -13,6 +13,19 @@ export default {
 </script>
 
 <style lang="stylus">
+  .vertical-center-modal // 会话框居中
+    display: flex
+    align-items: center
+    justify-content: center
+    .ivu-modal-footer
+      height 1rem
+      padding .2rem
+    .ivu-modal
+      top 0
+      .ivu-modal-body
+        height 1.6rem
+        font-size .3rem
+        line-height 1rem
   .ivu-collapse-header // 修改折叠板样式
     height 1.3rem !important
     line-height 1.3rem !important
