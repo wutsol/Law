@@ -68,8 +68,10 @@ export default{
     },
     ok () { // 退出
       this.setName('')
+      this.setHistory([])
     },
-    ...mapMutations(['setName']) // 该方法相当于commit一个请求
+    ...mapMutations(['setName']), // 该方法相当于commit一个请求
+    ...mapMutations(['setHistory']) // 该方法相当于commit一个请求
   },
   computed: {
     ...mapState(['userName']) // 将vuex公用数据映射给计算属性并命名为city,用this.city取代html中this.$store.state.city

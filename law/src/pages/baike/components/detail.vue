@@ -51,7 +51,7 @@
 </template>
 
 <script> // 二级标题
-import { mapMutations } from 'vuex' // vuex高级一些的API
+import { mapState, mapMutations } from 'vuex' // vuex高级一些的API
 import axios from 'axios'
 import LawHeader from 'common/Header'
 import Loading from 'common/Loading'
@@ -86,15 +86,24 @@ export default {
     getDetailInfoSucc (res) {
       if (res && res.data) {
         const data = res.data[0]
-        this.setHistory(res.data) // vuex
+        console.log(res)
         this.articleTitle = data.articleTitle
         this.publishDate = data.publishDate
         this.articleUrl = data.articleUrl
         this.content = data.content
+        axios.post('api/setHistory', { // 在数据库中添加历史纪录
+          userName: this.userName,
+          history: res.data
+        }).then((res) => {
+          this.setHistory(res.data.result.history) // vuex
+        })
         this.isSpinShow = false
       }
     },
     ...mapMutations(['setHistory']) // 该方法相当于commit一个请求
+  },
+  computed: {
+    ...mapState(['userName']) // 将vuex公用数据映射给计算属性并命名为city,用this.city取代html中this.$store.state.city
   },
   mounted () {
     this.lastId = this.$route.params.articleTitle

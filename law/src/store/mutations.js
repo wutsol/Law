@@ -6,9 +6,9 @@ export default {
     } catch (e) {}
   },
   setHistory (state, historyList) {
-    state.historyList = state.historyList.concat(historyList)
+    state.historyList = historyList
     try {
-      localStorage.historyList = localStorage.historyList.concat(historyList)
+      localStorage.historyList = historyList
     } catch (e) {}
   }
 }

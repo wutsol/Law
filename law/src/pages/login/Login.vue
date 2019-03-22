@@ -60,10 +60,12 @@ export default {
       }).then((res) => {
         const data = res.data
         const userName = data.result.userName
+        const history = data.result.history
         if (data.status === '1') {
           this.loginSucc = true
           this.loginErrTip = false
           this.setName(userName) // vuex
+          this.setHistory(history) // vuex
           if (this.timer) { // 做一个节流处理,提高性能
             clearTimeout(this.timer)
           }
@@ -75,8 +77,15 @@ export default {
           this.loginErrTip = true
         }
       })
+      // axios.post('/api/getHistory', { // 获取历史纪录
+      //   userName: this.userName
+      // }).then((res) => {
+      //   console.log(res.data.result.history)
+      //   this.setHistory(res.data.result.history)
+      // })
     },
     ...mapMutations(['setName']), // 该方法相当于commit一个请求
+    ...mapMutations(['setHistory']), // 该方法相当于commit一个请求
     trunToRegister () {
       this.userName = ''
       this.userPsw = ''

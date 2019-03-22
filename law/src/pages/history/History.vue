@@ -6,7 +6,7 @@
         <router-link
           tag="li"
           class="wrapper-item border-bottom"
-          v-for='(item, index) of historyList'
+          v-for='(item, index) of this.historyList'
           :key='index'
           :to="'/baikeDetail/' + item.articleTitle"
         >
@@ -31,8 +31,7 @@ export default{
   },
   data () {
     return {
-      title: '我的足迹',
-      list: []
+      title: '我的足迹'
     }
   },
   computed: {

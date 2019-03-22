@@ -1,13 +1,13 @@
 <template>
   <div class="report"> <!-- 使用组件时最外层必须包裹一个div -->
     <report-header :title="title"></report-header>
-    <report-name
+    <!-- <report-name
       :accu="accu"
       :accu_prob="accu_prob"
       :accu_rele="accu_rele"
     >
     </report-name>
-    <report-punishment :list="impr"></report-punishment>
+    <report-punishment :list="impr"></report-punishment> -->
     <loading :isSpinShow="isSpinShow"></loading>
     <!-- <ul>
       <li
@@ -22,7 +22,7 @@
         </div>
       </li>
     </ul> -->
-    <report-law :lawList="tiaoli" :probList="tiaoli_prob"></report-law>
+    <!-- <report-law :lawList="tiaoli" :probList="tiaoli_prob"></report-law> -->
     <!-- <report-case :caseList="caseList"></report-case> -->
   </div>
 </template>
@@ -59,7 +59,7 @@ export default {
   methods: {
     getReportInfo () {
       if (this.isSpinShow === false) {
-        this.isSpinShow = true
+        // this.isSpinShow = true
         axios.request({ // 向django发送请求
           url: 'http://3.16.128.130:8050/predict',
           method: 'post',
@@ -71,30 +71,49 @@ export default {
       }
     },
     getReportInfoSuc (res) {
-      if (res.status === 200) {
-        const data = res.data
-        this.accu = data.accu
-        data.accu_prob.forEach((item, index) => {
-          this.accu_prob[index] = parseFloat((item * 100).toFixed(1))
-        }) // 对概率做数据操作
-        this.accu_rele = data.accu_rele
-        this.impr = data.impr
-        this.tiaoli = data.tiaoli
-        data.tiaoli_prob.forEach((item, index) => {
-          this.tiaoli_prob[index] = parseInt((item * 100))
-        }) // 对概率做数据操作
-        this.isSpinShow = false
+      console.log(res)
+      // if (res.status === 200) {
+      //   const data = res.data
+      //   this.accu = data.accu
+      //   data.accu_prob.forEach((item, index) => {
+      //     this.accu_prob[index] = parseFloat((item * 100).toFixed(1))
+      //   }) // 对概率做数据操作
+      //   this.accu_rele = data.accu_rele
+      //   this.impr = data.impr
+      //   this.tiaoli = data.tiaoli
+      //   data.tiaoli_prob.forEach((item, index) => {
+      //     this.tiaoli_prob[index] = parseInt((item * 100))
+      //   }) // 对概率做数据操作
+      //   this.isSpinShow = false
+      // }
+    },
+    test () {
+      if (this.isSpinShow === false) {
+        // this.isSpinShow = true
+        axios.request({ // 向django发送请求
+          url: 'http://35.201.136.253:8000/predict',
+          method: 'post',
+          data: this.$route.params.fact
+        }).then(this.getReport)
+          .catch((response) => {
+            console.log(response)
+          })
       }
+    },
+    getReport (res) {
+      console.log(res)
     }
   },
   mounted () {
     this.fact = this.$route.params.fact
     this.getReportInfo()
+    this.test()
   },
   activatde () { // 防止缓存后无法重新发送ajax
     if (this.fact !== this.$route.params.fact) {
       this.fact = this.$route.params.fact
       this.getReportInfo()
+      this.test()
     }
   }
 }
