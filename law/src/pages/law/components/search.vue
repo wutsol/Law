@@ -5,26 +5,34 @@
       <input class="search-input" v-model="keyword" type="text" placeholder="输入条文关键词">
       <!-- <button class="search-btn">提交</button> -->
     </div>
-    <div
-      class="search-content"
-      ref="search"
-      v-show="keyword"
-    > <!-- 当输入后才会显示该列表 -->
-      <ul>
-        <router-link
-          tag="li"
-          class="search-item border-bottom"
-          v-for="item of list"
-          :key="item.id"
-          :to="'/lawDetail/' + item.chinese_name"
-        >
-          {{item.chinese_name}}
-        </router-link>
-        <li class="search-item border-bottom" v-show="hasNoData">
-          无匹配数据
-        </li>
-      </ul>
-    </div>
+    <transition
+      :duration="{enter: 100, leave: 50}"
+      name="fade"
+      mode="out-in"
+      enter-active-class="animated fadeIn fade-enter-active"
+      leave-active-class="animated zoomOut fade-leave-active"
+    >
+      <div
+        class="search-content"
+        ref="search"
+        v-show="keyword"
+      > <!-- 当输入后才会显示该列表 -->
+        <ul>
+          <router-link
+            tag="li"
+            class="search-item border-bottom"
+            v-for="item of list"
+            :key="item.id"
+            :to="'/lawDetail/' + item.chinese_name"
+          >
+            {{item.chinese_name}}
+          </router-link>
+          <li class="search-item border-bottom" v-show="hasNoData">
+            无匹配数据
+          </li>
+        </ul>
+      </div>
+    </transition>
   </div>
 </template>
 

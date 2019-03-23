@@ -19,20 +19,12 @@
   </div>
 </template>
 
-<script> // header部分，fixed
+<script> // 除主页的header
 export default{
   name: 'Header',
   props: {
     title: String
   },
-  // data () {
-  //   return {
-  //     showfixed: true,
-  //     opacityStyle: {
-  //       opacity: 0
-  //     }
-  //   }
-  // },
   methods: {
     handleClick () {
       this.$router.go(-1) // 返回上一页

@@ -1,8 +1,16 @@
 <template>
   <div id="app">
-    <keep-alive>
-     <router-view/>
-   </keep-alive>
+    <transition
+      :duration="{enter: 100, leave: 80}"
+      name="fade"
+      mode="out-in"
+      enter-active-class="animated fadeIn fade-enter-active"
+      leave-active-class="animated fadeOut fade-leave-active"
+    >
+      <keep-alive> <!-- 和router-view之间不能隔任何东西 -->
+      <router-view></router-view>
+      </keep-alive>
+    </transition>
   </div>
 </template>
 
@@ -13,6 +21,13 @@ export default {
 </script>
 
 <style lang="stylus">
+  @import './assets/styles/animate.css'
+  .fade-enter, // 过渡动画
+  .fade-leave-to
+    opacity 0
+  .fade-enter-active,
+  .fade-leave-active
+    transition: opacity .1s
   .vertical-center-modal // 会话框居中
     display: flex
     align-items: center
@@ -38,37 +53,54 @@ export default {
   .ivu-drawer-body // 个人主页样式
     padding 0
     .user-info
-      display flex
-      height 2rem
-      background-color: #ccc
-      .user-avatar
-        position relative
-        width 1.6rem
-        height 1.6rem
-        border-radius 50%
+      position relative
+      height 2.6rem
+      .user-img
+        width 100%
+        height 0
+        padding-bottom 58.6%
         overflow hidden
-        margin .2rem
-        float left
-        background-color: #fff
-        .user-icon
-          position absolute
-          top .22rem
-          left .22rem
-          color #666565
-      .user-login
-      .user-name
-        flex 1
-        padding .5rem .44rem
-        font-size .35rem
-        height 1rem
-        line-height 1rem
+        z-index 1
+        img
+          opacity .8
+          width 100%
+      .user-up
+        width 100%
+        position absolute
+        top 0
+        left 0
+        display flex
+        .user-avatar
+          position relative
+          z-index 2
+          width 1.6rem
+          height 1.6rem
+          border-radius 50%
+          overflow hidden
+          margin .2rem
+          float left
+          background-color: #f6e2dcd1
+          .user-icon
+            position absolute
+            top .22rem
+            left .22rem
+            color #666565
+        .user-login
+        .user-name
+          z-index 2
+          flex 1
+          padding .6rem .44rem
+          font-size .35rem
+          height 1rem
+          line-height 1rem
+          color #333
     .user-history
     .user-logout
       display flex
-      margin-top .2rem
+      margin-top .3rem
       height 1rem
       padding .2rem
-      background-color: #eee
+      background-color: #fcf6f485
       .history-icon
       .logout-icon
         float left

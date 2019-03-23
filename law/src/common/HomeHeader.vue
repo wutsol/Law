@@ -1,13 +1,18 @@
 <template>
   <div class="header border-bottom">
     <Icon type="md-menu" class="header-left" size="35" @click="showMenu = true"/>
-    <Drawer title="个人主页" placement="left" :closable="false" v-model="showMenu">
+    <Drawer placement="left" :closable="false" v-model="showMenu">
         <div class="user-info">
-          <div class="user-avatar">
-            <Icon class="user-icon"  type="md-person" size="58"/>
+          <div class="user-img">
+            <img src="//bpic.588ku.com/back_pic/05/76/07/395be2cb7588f2a.jpg!/fh/300/quality/90/unsharp/true/compress/true">
           </div>
-          <div class="user-login" v-show="this.userName.length <= 0" @click="turnToLogin">点击登录</div>
-          <div class="user-name" v-show="this.userName.length > 0">{{this.userName}}</div>
+          <div class="user-up">
+            <div class="user-avatar">
+              <Icon class="user-icon"  type="md-person" size="58"/>
+            </div>
+            <div class="user-login" v-show="this.userName.length <= 0" @click="turnToLogin">点击登录</div>
+            <div class="user-name" v-show="this.userName.length > 0">{{this.userName}}</div>
+          </div>
         </div>
         <div v-show="this.userName.length > 0">
           <div class="user-history border-bottom">
@@ -43,7 +48,7 @@
   </div>
 </template>
 
-<script> // header部分，fixed
+<script> // 主页部分的个人主页
 import { mapState, mapMutations } from 'vuex' // vuex高级一些的API
 export default{
   name: 'HomeHeader',

@@ -2,6 +2,9 @@
   <div class="login">
     <login-header :title="title"></login-header>
     <div class="login-content">
+      <div class="login-img">
+        <img src="./login.png"/>
+      </div>
       <div class="login-name">
          <Input type="text" size="large" v-model="userName" placeholder="用户名" clearable/>
       </div>
@@ -146,22 +149,29 @@ export default {
   @import '~styles/mixins.styl'
   .login-content
     position relative
-    margin-top 2.5rem
+    margin-top 1.5rem
     height 8rem
-    // background-color: #ccc
+    .login-img
+      width 100%
+      height 0
+      padding-left 1.7rem
+      padding-bottom 50%
+      overflow hidden
+      img
+        width 70%
     .login-name
       position absolute
-      top 2.2rem
+      top 4rem
       left .6rem
       right .6rem
     .login-psw
       position absolute
-      top 3.5rem
+      top 5.3rem
       left .6rem
       right .6rem
     .login-second-psw
       position absolute
-      top 4.8rem
+      top 6.6rem
       left .6rem
       right .6rem
     .login-btn
@@ -175,12 +185,12 @@ export default {
         font-size .33rem
         text-align center
     .login-btn
-      top 5rem
+      top 6.8rem
     .register-btn
-      top 6.3rem
+      top 8.1rem
     .err
       position absolute
-      top 1.2rem
+      top 3rem
       left .6rem
       width 6rem
     .loginNotice
@@ -193,7 +203,7 @@ export default {
       text-align center
       font-size .25rem
     .loginNotice
-      top 5.8rem
+      top 7.6rem
     .registerNotice
-      top 7.1rem
+      top 8.9rem
 </style>

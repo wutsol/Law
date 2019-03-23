@@ -10,8 +10,8 @@
           <router-link
             tag="div"
             class="wrapper-item border-bottom"
-            v-for='(item, index) of page'
-            :key='index'
+            v-for='item of page'
+            :key=' item._id'
             :to="'/accusation/' + item._id"
           >
             <div class="item-title">

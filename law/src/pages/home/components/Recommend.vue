@@ -1,5 +1,5 @@
 <template>
-  <div> <!-- 使用组件时最外层必须包裹一个div -->
+  <div class="recommend"> <!-- 使用组件时最外层必须包裹一个div -->
     <div class="title border-top">干货推荐</div>
     <div class="wrapper">
       <ul>
@@ -74,8 +74,8 @@ export default {
         line-height .44rem
         color #ccc
   .item-more
-      height 1rem
-      line-height 1rem
+      height .9rem
+      line-height .9rem
       text-align center
       font-size .3rem
       color #666

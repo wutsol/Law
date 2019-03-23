@@ -8,7 +8,7 @@
       class="decision-input-textarea"
       v-model="fact"
       type="textarea"
-      :rows="25.5"
+      :rows="23"
       placeholder="请详细描述案情..."
     />
     <Alert type="error" show-icon v-if="showErr">请输入长度大于5</Alert>
@@ -24,8 +24,11 @@
     >
       提交
     </router-link> -->
-    <div class="decision-submit" :class="{changeColor: changeColor}" @click="handleSubmit">
-      提交
+    <!-- <div class="login-btn" v-if="showLogin">
+      <i-button type="success" class="btn" :disabled="userName.length <= 0 || userPsw.length <= 0" long @click="login">登   录</i-button>
+    </div> -->
+    <div class="decision-submit">
+      <i-button type="success" class="btn" :disabled="fact.length <= 5" long @click="handleSubmit">提   交</i-button>
     </div>
     <!-- <Alert type="error" show-icon >
       An error prompt
@@ -59,20 +62,9 @@ export default{
       // tiaoli_prob: [] // 法条概率
     }
   },
-  watch: {
-    fact () {
-      if (this.fact.length >= 5) {
-        this.changeColor = true
-      }
-    }
-  },
   methods: {
     handleSubmit () {
-      if (this.fact.length < 5) {
-        this.showErr = true
-      } else {
-        this.$router.push({path: '/report/' + this.fact})
-      }
+      this.$router.push({path: '/report/' + this.fact})
     }
   }
 }
@@ -84,7 +76,7 @@ export default{
   .decision-input-textarea
     margin-top 1.12rem
     width 100%
-    height 10.7rem
+    height 10rem
     line-height .44rem
     // text-indent .2em
     font-size .3rem
@@ -93,9 +85,11 @@ export default{
     width 5rem
     height .95rem
     line-height .95rem
-    text-align center
-    background-color: #ccc
-    border-radius .1rem
+    .btn
+      height .77rem
+      font-size .33rem
+      text-align center
+      border-radius .12rem
   /* 旋转效果 */
   .demo-spin-icon-load
     animation: ani-demo-spin 1s linear infinite
