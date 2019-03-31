@@ -25,6 +25,7 @@
         </div>
       </div>
     </div>
+    <BackTop :height="100" :bottom="50" :right="15"></BackTop>
     <loading :isSpinShow="isSpinShow"></loading>
   </div>
 </template>
@@ -58,8 +59,16 @@ export default {
     getDetailInfo () { // 获取具体法条
       if (this.isSpinShow === false) {
         this.isSpinShow = true
-        axios.get('/api/getLawDetail/' + this.$route.params.chinese_name
-        ).then(this.getDetailInfoSucc)
+        axios.request({ // 向django发送请求,获取推荐内容
+          url: 'http://3.16.128.130:8050/tiaoli2',
+          method: 'post',
+          data: this.$route.params.chinese_name
+        }).then(this.getDetailInfoSucc)
+          .catch((response) => {
+            console.log(response)
+          })
+        // axios.get('/api/getLawDetail/' + this.$route.params.chinese_name
+        // ).then(this.getDetailInfoSucc)
       }
     },
     getDetailInfoSucc (res) {

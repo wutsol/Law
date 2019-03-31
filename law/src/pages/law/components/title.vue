@@ -49,8 +49,15 @@ export default {
     getDetailInfo () {
       if (this.isSpinShow === false) {
         this.isSpinShow = true
-        axios.get('/api/getTotalLaw')
-          .then(this.getDetailInfoSucc)
+        axios.request({ // 向django发送请求,获取推荐内容
+          url: 'http://3.16.128.130:8050/tiaoli2_classify_sum',
+          method: 'post'
+        }).then(this.getDetailInfoSucc)
+          .catch((response) => {
+            console.log(response)
+          })
+        // axios.get('/api/getTotalLaw')
+        //   .then(this.getDetailInfoSucc)
       }
     },
     getDetailInfoSucc (res) {

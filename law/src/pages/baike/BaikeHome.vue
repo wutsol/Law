@@ -33,8 +33,15 @@ export default{
     getHomeInfo () {
       if (this.isSpinShow === false) {
         this.isSpinShow = true
-        axios.get('/api/getAllBaike')
-          .then(this.getHomeInfoSucc)
+        axios.request({ // 向django发送请求,获取法律具体内容
+          url: 'http://148.70.210.143:8050/baike_classify',
+          method: 'post'
+        }).then(this.getHomeInfoSucc)
+          .catch((response) => {
+            console.log(response)
+          })
+        // axios.get('/api/getAllBaike')
+        //   .then(this.getHomeInfoSucc)
       }
     },
     getHomeInfoSucc (res) {
@@ -42,7 +49,8 @@ export default{
         const data = res.data
         data.forEach((item, index) => {
           this.searchList.push(item)
-          if (index < 500) { // 取前500个数据
+          // this.list.push(item)
+          if (index < 100) { // 取前500个数据
             this.list.push(item)
           }
         })

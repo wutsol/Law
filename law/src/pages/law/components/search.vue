@@ -6,7 +6,7 @@
       <!-- <button class="search-btn">提交</button> -->
     </div>
     <transition
-      :duration="{enter: 100, leave: 50}"
+      :duration="{enter: 50, leave: 50}"
       name="fade"
       mode="out-in"
       enter-active-class="animated fadeIn fade-enter-active"
@@ -56,8 +56,15 @@ export default {
   },
   methods: {
     getNameinfo () {
-      axios.get('/api/getAllLaw')
-        .then(this.getNameInfoSucc)
+      axios.request({ // 向django发送请求,获取法律具体内容
+        url: 'http://3.16.128.130:8050/tiaoli2_classify2',
+        method: 'post'
+      }).then(this.getNameInfoSucc)
+        .catch((response) => {
+          console.log(response)
+        })
+      // axios.get('/api/getAllLaw')
+      //   .then(this.getNameInfoSucc)
     },
     getNameInfoSucc (res) {
       if (res && res.data) {

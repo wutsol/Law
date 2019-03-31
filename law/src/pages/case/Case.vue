@@ -37,8 +37,13 @@ export default {
     getCaseInfo () {
       if (this.isSpinShow === false) {
         this.isSpinShow = true
-        axios.get('/api/classify') // 获取二级标题
-          .then(this.getCaseInfoSucc)
+        axios.request({ // 向django发送请求,获取推荐内容
+          url: 'http://3.16.128.130:8050/new_classify2',
+          method: 'post'
+        }).then(this.getCaseInfoSucc)
+          .catch((response) => {
+            console.log(response)
+          })
       }
     },
     getCaseInfoSucc (res) { // 数据的获取

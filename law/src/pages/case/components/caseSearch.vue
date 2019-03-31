@@ -63,8 +63,15 @@ export default {
   },
   methods: {
     getNameinfo () {
-      axios.get('/api/getAllAccusation')
-        .then(this.getNameInfoSucc)
+      axios.request({ // 向django发送请求,获取法律具体内容
+        url: 'http://3.16.128.130:8050/classify2',
+        method: 'post'
+      }).then(this.getNameInfoSucc)
+        .catch((response) => {
+          console.log(response)
+        })
+      // axios.get('/api/getAllAccusation')
+      //   .then(this.getNameInfoSucc)
     },
     getNameInfoSucc (res) {
       if (res && res.data) {

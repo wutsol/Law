@@ -22,6 +22,12 @@ export default {
 
 <style lang="stylus">
   @import './assets/styles/animate.css'
+  .ivu-back-top-inner // 回到顶部的样式
+    height .8rem
+    width .8rem
+    border-radius 50%
+    i
+      padding: 7.2px 8.5px
   .fade-enter, // 过渡动画
   .fade-leave-to
     opacity 0

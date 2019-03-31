@@ -58,13 +58,21 @@ export default {
     getDetailInfo () {
       if (this.isSpinShow === false) {
         this.isSpinShow = true
-        axios.get('/api/getAccusationDeatil/' + this.$route.params.accu_name)
-        // { // 这里用动态路由，获取不同案例，取代之前所有案例与罪名放在同一文件下，
-        //   params: {
-        //     id: this.$route.params.id
-        //   }
-        // })
-          .then(this.getDetailInfoSucc)
+        axios.request({ // 向django发送请求,获取二级罪名
+          url: 'http://3.16.128.130:8050/final',
+          method: 'post',
+          data: this.$route.params.accu_name
+        }).then(this.getDetailInfoSucc)
+          .catch((response) => {
+            console.log(response)
+          })
+        // axios.get('/api/getAccusationDeatil/' + this.$route.params.accu_name)
+        // // { // 这里用动态路由，获取不同案例，取代之前所有案例与罪名放在同一文件下，
+        // //   params: {
+        // //     id: this.$route.params.id
+        // //   }
+        // // })
+        //   .then(this.getDetailInfoSucc)
       }
     },
     getDetailInfoSucc (res) {

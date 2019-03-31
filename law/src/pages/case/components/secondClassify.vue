@@ -9,8 +9,8 @@
           <router-link
             tag="div"
             class="wrapper-item border-bottom"
-            v-for='item of page'
-            :key='item.id'
+            v-for='(item, sindex) of page'
+            :key='sindex'
             :to="'/crimeDetail/' + item.accu_name"
           >
             <div class="item-title">
@@ -59,11 +59,19 @@ export default {
     getDetailInfo () {
       if (this.isSpinShow === false) {
         this.isSpinShow = true
-        axios.get('/api/getAccusation/' + this.$route.params._id // 这里用动态路由，获取不同案例，取代之前所有案例与罪名放在同一文件下，不要使用下面注释的内容！！否则mongoose无法正确查找！！
-          // params: {
-          //   name: this.$route.params._id
-          // }
-        ).then(this.getDetailInfoSucc)
+        axios.request({ // 向django发送请求,获取二级罪名
+          url: 'http://3.16.128.130:8050/classify',
+          method: 'post',
+          data: this.$route.params._id
+        }).then(this.getDetailInfoSucc)
+          .catch((response) => {
+            console.log(response)
+          })
+        // axios.get('/api/getAccusation/' + this.$route.params._id // 这里用动态路由，获取不同案例，取代之前所有案例与罪名放在同一文件下，不要使用下面注释的内容！！否则mongoose无法正确查找！！
+        //   // params: {
+        //   //   name: this.$route.params._id
+        //   // }
+        // ).then(this.getDetailInfoSucc)
       }
     },
     getDetailInfoSucc (res) {

@@ -55,8 +55,16 @@ export default {
     getDetailInfo () { // 获取具体干货
       if (this.isSpinShow === false) {
         this.isSpinShow = true
-        axios.get('/api/getBaikeDetail/' + this.$route.params.articleTitle
-        ).then(this.getDetailInfoSucc)
+        axios.request({ // 向django发送请求,获取推荐内容
+          url: 'http://3.16.128.130:8050/baike',
+          method: 'post',
+          data: this.$route.params.articleTitle
+        }).then(this.getDetailInfoSucc)
+          .catch((response) => {
+            console.log(response)
+          })
+        // axios.get('/api/getBaikeDetail/' + this.$route.params.articleTitle
+        // ).then(this.getDetailInfoSucc)
       }
     },
     getDetailInfoSucc (res) {

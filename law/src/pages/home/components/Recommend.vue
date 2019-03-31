@@ -19,20 +19,51 @@
         </router-link>
       </ul>
     </div>
-    <div class="item-more" @click="seeMore">查看更多</div>
+    <div class="item-more" @click="change">换一批</div>
+    <loading :isSpinShow="isSpinShow"></loading>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+import Loading from 'common/Loading'
 export default {
   name: 'HomeRecommend',
-  props: {
-    list: Array
+  data () {
+    return {
+      list: [],
+      isSpinShow: false
+    }
+  },
+  components: {
+    Loading
   },
   methods: {
-    seeMore () {
-      this.$router.push('/detail/0004')
+    change () {
+      this.getRecommend()
+    },
+    getRecommend () {
+      if (this.isSpinShow === false) {
+        this.isSpinShow = true
+        axios.request({ // 向django发送请求,获取推荐内容
+          url: 'http://3.16.128.130:8050/recommend',
+          method: 'post',
+          data: 0
+        }).then(this.getRecommendSucc)
+          .catch((response) => {
+            console.log(response)
+          })
+      }
+    },
+    getRecommendSucc (res) {
+      if (res && res.data) {
+        this.list = res.data
+        this.isSpinShow = false
+      }
     }
+  },
+  mounted () {
+    this.getRecommend()
   }
 }
 </script>
@@ -40,43 +71,46 @@ export default {
 <style lang="stylus" scoped>
   @import '~styles/mixins.styl'
   @import '~styles/variables.styl'
-  .title
-    margin-top .3rem
-    height 1rem
-    line-height 1rem
-    font-size .4rem
-    text-align center
-    background-color: #eee
-  .wrapper
-    background-color: #FFF
-    .wrapper-item
-      position relative
-      margin-top .08rem
-      width 100%
-      height 2.2rem
-      overflow hidden
-      display flex
-    .item-img
-      height 1.8rem
-      width 1.8rem
-      padding .05rem
-    .item-info
-      flex 1
-      padding 0 .1rem 0 .2rem
-      min-width 0 // 使省略号正常显示
-      .item-title
-        line-height .45rem
-        font-size .32rem
-      .item-desc
-        position absolute
-        right .08rem
-        bottom .3rem
-        line-height .44rem
-        color #ccc
-  .item-more
-      height .9rem
-      line-height .9rem
+  .recommend
+    position relative
+    height 13.3rem
+    .title
+      margin-top .3rem
+      height 1rem
+      line-height 1rem
+      font-size .4rem
       text-align center
-      font-size .3rem
-      color #666
+      background-color: #eee
+    .wrapper
+      background-color: #FFF
+      .wrapper-item
+        position relative
+        margin-top .08rem
+        width 100%
+        height 2.2rem
+        overflow hidden
+        display flex
+      .item-img
+        height 1.8rem
+        width 1.8rem
+        padding .05rem
+      .item-info
+        flex 1
+        padding 0 .1rem 0 .2rem
+        min-width 0 // 使省略号正常显示
+        .item-title
+          line-height .45rem
+          font-size .32rem
+        .item-desc
+          position absolute
+          right .08rem
+          bottom .3rem
+          line-height .44rem
+          color #ccc
+    .item-more
+        height .9rem
+        line-height .9rem
+        text-align center
+        font-size .3rem
+        color #666
 </style>
