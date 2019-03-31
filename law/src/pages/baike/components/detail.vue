@@ -22,6 +22,8 @@
         <a :href="this.articleUrl">{{this.articleUrl}}</a>
       </div> -->
     </div>
+    <baike-recommend :recommendList="recommendList"></baike-recommend>
+    <BackTop :height="100" :bottom="50" :right="15"></BackTop>
     <loading :isSpinShow="isSpinShow"></loading>
   </div>
 </template>
@@ -30,12 +32,14 @@
 import { mapState, mapMutations } from 'vuex' // vuex高级一些的API
 import axios from 'axios'
 import LawHeader from 'common/Header'
+import BaikeRecommend from './recommend'
 import Loading from 'common/Loading'
 export default {
   name: 'BaikeDetail',
   components: {
     LawHeader,
-    Loading
+    Loading,
+    BaikeRecommend
   },
   data () {
     return {
@@ -48,18 +52,27 @@ export default {
       // contentLabels: [],
       publishDate: '',
       // hitResult: '',
-      content: []
+      content: [],
+      recommendList: []
     }
   },
   methods: {
     getDetailInfo () { // 获取具体干货
       if (this.isSpinShow === false) {
         this.isSpinShow = true
-        axios.request({ // 向django发送请求,获取推荐内容
-          url: 'http://3.16.128.130:8050/baike',
+        axios.request({ // 向django发送请求,获取文章内容
+          url: 'http://148.70.210.143:8050/baike',
           method: 'post',
           data: this.$route.params.articleTitle
         }).then(this.getDetailInfoSucc)
+          .catch((response) => {
+            console.log(response)
+          })
+        axios.request({ // 向django发送请求,获取推荐内容,当需要用另一个axios获取的数据去获取axios时，会出现刷新页面数据加载不出来的情况，目前用的vux
+          url: 'http://148.70.210.143:8050/recommend',
+          method: 'post',
+          data: this.articleIndex
+        }).then(this.getRecommendSucc)
           .catch((response) => {
             console.log(response)
           })
@@ -74,19 +87,29 @@ export default {
         this.publishDate = data.publishDate
         this.articleUrl = data.articleUrl
         this.content = data.content
-        axios.post('/api/setHistory', { // 在数据库中添加历史纪录
-          userName: this.userName,
-          history: res.data
-        }).then((res) => {
-          this.setHistory(res.data.result.history) // vuex
-        })
+        this.setIndex(data.index) // 设置vuex中的index
+        if (this.userName.length > 0) { // 如果登陆就设置历史
+          axios.post('/api/setHistory', { // 在数据库中添加历史纪录
+            userName: this.userName,
+            history: res.data
+          }).then((res) => {
+            this.setHistory(res.data.result.history) // vuex
+          })
+        }
         this.isSpinShow = false
       }
     },
-    ...mapMutations(['setHistory']) // 该方法相当于commit一个请求
+    getRecommendSucc (res) {
+      if (res && res.data) {
+        this.recommendList = res.data
+      }
+    },
+    ...mapMutations(['setHistory']), // 该方法相当于commit一个请求
+    ...mapMutations(['setIndex']) // 该方法相当于commit一个请求
   },
   computed: {
-    ...mapState(['userName']) // 将vuex公用数据映射给计算属性并命名为city,用this.city取代html中this.$store.state.city
+    ...mapState(['userName']), // 将vuex公用数据映射给计算属性并命名为city,用this.city取代html中this.$store.state.city
+    ...mapState(['articleIndex'])
   },
   mounted () {
     this.lastId = this.$route.params.articleTitle

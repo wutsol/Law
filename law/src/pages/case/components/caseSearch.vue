@@ -64,7 +64,7 @@ export default {
   methods: {
     getNameinfo () {
       axios.request({ // 向django发送请求,获取法律具体内容
-        url: 'http://3.16.128.130:8050/classify2',
+        url: 'http://148.70.210.143:8050/classify2',
         method: 'post'
       }).then(this.getNameInfoSucc)
         .catch((response) => {

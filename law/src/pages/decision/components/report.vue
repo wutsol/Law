@@ -1,13 +1,13 @@
 <template>
   <div class="report"> <!-- 使用组件时最外层必须包裹一个div -->
     <report-header :title="title"></report-header>
-    <!-- <report-name
+    <report-name
       :accu="accu"
       :accu_prob="accu_prob"
       :accu_rele="accu_rele"
     >
     </report-name>
-    <report-punishment :list="impr"></report-punishment> -->
+    <report-punishment :list="impr"></report-punishment>
     <loading :isSpinShow="isSpinShow"></loading>
     <!-- <ul>
       <li
@@ -22,7 +22,7 @@
         </div>
       </li>
     </ul> -->
-    <!-- <report-law :lawList="tiaoli" :probList="tiaoli_prob"></report-law> -->
+    <report-law :lawList="tiaoli" :probList="tiaoli_prob"></report-law>
     <!-- <report-case :caseList="caseList"></report-case> -->
   </div>
 </template>
@@ -53,67 +53,131 @@ export default {
       accu_rele: [], // 每个罪名相关案例
       impr: [], // 刑期
       tiaoli: [], // 法条
-      tiaoli_prob: [] // 法条概率
+      tiaoli_prob: [], // 法条概率
+      count: 0
     }
   },
   methods: {
     getReportInfo () {
       if (this.isSpinShow === false) {
-        // this.isSpinShow = true
-        axios.request({ // 向django发送请求
-          url: 'http://3.16.128.130:8050/predict',
-          method: 'post',
-          data: this.$route.params.fact
-        }).then(this.getReportInfoSuc)
-          .catch((response) => {
-            console.log(response)
-          })
+        this.isSpinShow = true
+        this.getAccusation()
+        this.getImpr()
+        this.getLaw()
+        if (this.count === 3) {
+          this.isSpinShow = false
+        }
+        // axios.request({ // 向django发送请求
+        //   url: 'http://148.70.210.143:8050/predict',
+        //   method: 'post',
+        //   data: this.$route.params.fact
+        // }).then(this.getReportInfoSuc)
+        //   .catch((response) => {
+        //     console.log(response)
+        //   })
       }
     },
-    getReportInfoSuc (res) {
-      console.log(res)
-      // if (res.status === 200) {
-      //   const data = res.data
-      //   this.accu = data.accu
-      //   data.accu_prob.forEach((item, index) => {
-      //     this.accu_prob[index] = parseFloat((item * 100).toFixed(1))
-      //   }) // 对概率做数据操作
-      //   this.accu_rele = data.accu_rele
-      //   this.impr = data.impr
-      //   this.tiaoli = data.tiaoli
-      //   data.tiaoli_prob.forEach((item, index) => {
-      //     this.tiaoli_prob[index] = parseInt((item * 100))
-      //   }) // 对概率做数据操作
-      //   this.isSpinShow = false
-      // }
+    getLaw () {
+      axios.request({ // 向django发送请求
+        url: 'http://148.70.210.143:8049/predict',
+        method: 'post',
+        data: this.$route.params.fact
+      }).then(this.getLawSuc)
+        .catch((response) => {
+          console.log(response)
+        })
     },
-    test () {
-      if (this.isSpinShow === false) {
-        // this.isSpinShow = true
-        axios.request({ // 向django发送请求
-          url: 'http://35.201.136.253:8000/predict',
-          method: 'post',
-          data: this.$route.params.fact
-        }).then(this.getReport)
-          .catch((response) => {
-            console.log(response)
-          })
+    getLawSuc (res) {
+      if (res && res.data) {
+        const data = res.data
+        this.tiaoli = data.tiaoli
+        data.tiaoli_prob.forEach((item, index) => {
+          this.tiaoli_prob[index] = parseInt((item * 100))
+        }) // 对概率做数据操作
+        this.count = this.count + 1
       }
     },
-    getReport (res) {
-      console.log(res)
+    getAccusation () {
+      axios.request({ // 向django发送请求
+        url: 'http://148.70.210.143:8050/predict',
+        method: 'post',
+        data: this.$route.params.fact
+      }).then(this.getAccusationSuc)
+        .catch((response) => {
+          console.log(response)
+        })
+    },
+    getAccusationSuc (res) {
+      if (res && res.data) {
+        const data = res.data
+        this.accu = data.accu
+        data.accu_prob.forEach((item, index) => {
+          this.accu_prob[index] = parseFloat((item * 100).toFixed(1))
+        }) // 对概率做数据操作
+        this.accu_rele = data.accu_rele
+        this.count = this.count + 1
+      }
+    },
+    getImpr () {
+      axios.request({ // 向django发送请求
+        url: 'http://35.201.136.253:8000/predict',
+        method: 'post',
+        data: this.$route.params.fact
+      }).then(this.getImprSuc)
+        .catch((response) => {
+          console.log(response)
+        })
+    },
+    getImprSuc (res) {
+      if (res && res.data) {
+        console.log(res)
+        const data = res.data
+        this.impr = data.impr
+        this.count = this.count + 1
+      }
     }
+    // getReportInfoSuc (res) {
+    //   console.log(res)
+    //   // if (res.status === 200) {
+    //   //   const data = res.data
+    //   //   this.accu = data.accu
+    //   //   data.accu_prob.forEach((item, index) => {
+    //   //     this.accu_prob[index] = parseFloat((item * 100).toFixed(1))
+    //   //   }) // 对概率做数据操作
+    //   //   this.accu_rele = data.accu_rele
+    //   //   this.impr = data.impr
+    //   //   this.tiaoli = data.tiaoli
+    //   //   data.tiaoli_prob.forEach((item, index) => {
+    //   //     this.tiaoli_prob[index] = parseInt((item * 100))
+    //   //   }) // 对概率做数据操作
+    //   //   this.isSpinShow = false
+    //   // }
+    // },
+    // test () {
+    //   if (this.isSpinShow === false) {
+    //     // this.isSpinShow = true
+    //     axios.request({ // 向django发送请求
+    //       url: 'http://148.70.210.143:8049/predict',
+    //       method: 'post',
+    //       data: this.$route.params.fact
+    //     }).then(this.getReport)
+    //       .catch((response) => {
+    //         console.log(response)
+    //       })
+    //   }
+    // },
+    // getReport (res) {
+    //   console.log(res)
+    // }
   },
   mounted () {
     this.fact = this.$route.params.fact
     this.getReportInfo()
-    this.test()
   },
-  activatde () { // 防止缓存后无法重新发送ajax
+  activated () { // 防止缓存后无法重新发送ajax
     if (this.fact !== this.$route.params.fact) {
       this.fact = this.$route.params.fact
       this.getReportInfo()
-      this.test()
     }
   }
 }

@@ -1,14 +1,26 @@
 <template>
-  <div>
+  <div class="wrapper border-top">
+    <!-- <Tabs value="name1">
+        <TabPane label="标签一" name="name1">
+          <crime-composition
+            :composition="accu_goucheng"
+          >
+          </crime-composition>
+        </TabPane>
+        <TabPane label="标签二" name="name2">标签二的内容</TabPane>
+        <TabPane label="标签三" name="name3">标签三的内容</TabPane>
+        <TabPane label="标签s" name="name4">标签二的内容</TabPane>
+        <TabPane label="标签w" name="name5">标签三的内容</TabPane>
+    </Tabs> -->
     <ul class="myTab" :class="{tabfixed: showfixed}">
-        <li
-          class="normal border-right"
-          :class="{'active': isActive === index}"
-          v-for="(item,index) in items"
-          :key="item.id"
-          @click="change(index)"
-        >
-          {{item}}
+      <li
+        class="normal border-right"
+        :class="{'active': isActive === index}"
+        v-for="(item,index) in items"
+        :key="item.id"
+        @click="change(index)"
+      >
+        {{item}}
       </li>
     </ul>
     <div :class="{spacefixed: showfixed}"></div> <!-- 防止tab在fixed之后下面的内容会有跳动的效果 -->
@@ -26,12 +38,11 @@
         :list="accu_lian"
         v-show="isActive===2"
       >
-          javascript
       </crime-filing>
       <crime-filing
         :list="accu_jieshi"
         v-show="isActive===3"
-      >  <!-- 法条，有待改进 -->
+      >   <!-- 法条，有待改进 -->
       </crime-filing>
       <case-list
         :list="list"

@@ -1,0 +1,122 @@
+<template>
+  <div class="recommend"> <!-- 使用组件时最外层必须包裹一个div -->
+    <div class="bank"></div>
+    <div class="title border-bottom">
+      <span class="iconfont case-title-icon">&#xe611;</span>
+      干货推荐
+    </div>
+    <div class="wrapper">
+      <ul>
+        <router-link
+          tag="li"
+          class="wrapper-item border-bottom"
+          v-for='(item, index) of recommendList'
+          :key='index'
+          :to="'/baikeDetail/' + item.articleTitle"
+        >
+          <img class="item-img" :src="item.imageUrl">
+          <div class="item-info">
+            <p class="item-title">{{item.articleTitle}}</p>
+            <!-- <p class="item-label">{{item.contentLabels[0]}}{{item.contentLabels[1]}}</p> -->
+            <p class="item-desc">{{item.publishDate}}</p>
+          </div>
+        </router-link>
+      </ul>
+    </div>
+    <!-- <div class="item-more" @click="change">换一批</div> -->
+    <!-- <loading :isSpinShow="isSpinShow"></loading> -->
+  </div>
+</template>
+
+<script>
+// import axios from 'axios'
+// import Loading from 'common/Loading'
+export default {
+  name: 'BaikeRecommend',
+  props: {
+    recommendList: Array
+  }
+  // components: {
+  //   Loading
+  // },
+  // methods: {
+  //   getRecommend () {
+  //     if (this.isSpinShow === false) {
+  //       this.isSpinShow = true
+  //       axios.request({ // 向django发送请求,获取推荐内容
+  //         url: 'http://148.70.210.143:8050/recommend',
+  //         method: 'post',
+  //         data: this.articleIndex
+  //       }).then(this.getRecommendSucc)
+  //         .catch((response) => {
+  //           console.log(response)
+  //         })
+  //     }
+  //   },
+  //   getRecommendSucc (res) {
+  //     if (res && res.data) {
+  //       console.log(res)
+  //       this.list = res.data
+  //       this.isSpinShow = false
+  //     }
+  //   }
+  // },
+  // activated () {
+  //   this.getRecommend()
+  // }
+}
+</script>
+
+<style lang="stylus" scoped>
+  @import '~styles/mixins.styl'
+  @import '~styles/variables.styl'
+  .recommend
+    background-color: #FFF
+    // position relative
+    height 12.5rem
+    .bank
+      height .3rem
+      background-color: #eee
+    .title
+      // margin-top .3rem
+      height 1rem
+      line-height 1rem
+      font-size .38rem
+      padding-left .3rem
+      color #666
+      .case-title-icon
+        font-size .42rem
+    .wrapper
+      background-color: #FFF
+      .wrapper-item
+        padding .1rem .1rem .05rem 0
+        position relative
+        margin-top .08rem
+        width 100%
+        height 2.05rem
+        overflow hidden
+        display flex
+      .item-img
+        height 1.8rem
+        width 1.8rem
+        padding .05rem
+      .item-info
+        flex 1
+        padding 0 .1rem 0 .2rem
+        min-width 0 // 使省略号正常显示
+        .item-title
+          line-height .45rem
+          font-size .32rem
+        .item-desc
+          position absolute
+          right .2rem
+          bottom .3rem
+          line-height .44rem
+          color #ccc
+    // .item-more
+    //     height .9rem
+    //     line-height .9rem
+    //     text-align center
+    //     font-size .3rem
+    //     color #666
+</style>

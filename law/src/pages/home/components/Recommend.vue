@@ -46,7 +46,7 @@ export default {
       if (this.isSpinShow === false) {
         this.isSpinShow = true
         axios.request({ // 向django发送请求,获取推荐内容
-          url: 'http://3.16.128.130:8050/recommend',
+          url: 'http://148.70.210.143:8050/recommend',
           method: 'post',
           data: 0
         }).then(this.getRecommendSucc)
@@ -73,7 +73,7 @@ export default {
   @import '~styles/variables.styl'
   .recommend
     position relative
-    height 13.3rem
+    height 12.55rem
     .title
       margin-top .3rem
       height 1rem
@@ -84,10 +84,11 @@ export default {
     .wrapper
       background-color: #FFF
       .wrapper-item
+        padding .1rem .1rem .05rem 0
         position relative
         margin-top .08rem
         width 100%
-        height 2.2rem
+        height 2.05rem
         overflow hidden
         display flex
       .item-img
@@ -103,7 +104,7 @@ export default {
           font-size .32rem
         .item-desc
           position absolute
-          right .08rem
+          right .2rem
           bottom .3rem
           line-height .44rem
           color #ccc

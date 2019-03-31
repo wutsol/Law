@@ -10,5 +10,11 @@ export default {
     try {
       localStorage.setItem('historyList', JSON.stringify(historyList))
     } catch (e) {}
+  },
+  setIndex (state, articleIndex) {
+    state.articleIndex = articleIndex
+    try {
+      localStorage.setItem('articleIndex', JSON.stringify(articleIndex))
+    } catch (e) {}
   }
 }

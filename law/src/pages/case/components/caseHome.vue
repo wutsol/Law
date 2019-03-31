@@ -13,6 +13,7 @@
       :topHeight="topHeight"
     ><!-- :accu_gainian="accu_gainian" :accu_name="accu_name" -->
     </case-tab>
+    <BackTop :height="100" :bottom="50" :right="15"></BackTop>
     <loading :isSpinShow="isSpinShow"></loading>
   </div>
 </template>
@@ -59,7 +60,7 @@ export default {
       if (this.isSpinShow === false) {
         this.isSpinShow = true
         axios.request({ // 向django发送请求,获取二级罪名
-          url: 'http://3.16.128.130:8050/final',
+          url: 'http://148.70.210.143:8050/final',
           method: 'post',
           data: this.$route.params.accu_name
         }).then(this.getDetailInfoSucc)
