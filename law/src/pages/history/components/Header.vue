@@ -35,9 +35,17 @@ export default{
       this.$router.go(-1)
     },
     delHistory () {
-      axios.post('/api/delHistory', { // 删除历史纪录
-        userName: this.userName,
-        history: []
+      // axios.post('/api/delHistory', { // 删除历史纪录
+      //   userName: this.userName,
+      //   history: []
+      // })
+      axios.request({ // 向django发送请求,获取推荐内容
+        // headers: {
+        //   'deviceCode': 'A95ZEF1-47B5-AC90BF3'
+        // },
+        url: 'http://148.70.210.143:8050/delete_history',
+        method: 'post',
+        data: this.userName
       }).then((res) => {
         this.setHistory([])
       })

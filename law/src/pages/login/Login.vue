@@ -35,6 +35,7 @@
 import axios from 'axios'
 import LoginHeader from 'common/Header'
 import { mapMutations } from 'vuex' // vuex高级一些的API
+import Qs from 'qs'
 export default {
   name: 'LoginHome',
   components: {
@@ -55,32 +56,57 @@ export default {
       timer: null
     }
   },
+  computed: {
+    param () {
+      return {
+        'userName': this.userName,
+        'userPsw': this.userPsw
+      }
+    }
+  },
   methods: {
     login () { // 登录
-      axios.post('/api/login', {
-        userName: this.userName,
-        userPsw: this.userPsw
-      }).then((res) => {
-        const data = res.data
+      // axios.post('http://148.70.210.143:8050/login', {
+      //   userName: this.userName,
+      //   userPsw: this.userPsw
+      // }).
+      // 使用上面这种方式会导致axios触发一个函数导致后端获取不到数据
+      // const param = {
+      //   'userName': this.userName,
+      //   'userPsw': this.userPsw
+      // }
+      axios.request({ // 向django发送请求,获取推荐内容
+        headers: {
+          'deviceCode': 'A95ZEF1-47B5-AC90BF3'
+        },
+        url: 'http://148.70.210.143:8050/login',
+        method: 'post',
+        data: Qs.stringify(this.param)
+      }).then(this.loginSuccessful)
+        .catch((response) => {
+          console.log(response)
+        })
+    },
+    loginSuccessful (res) {
+      const data = res.data
+      if (data.status === 1) {
         const userName = data.result.userName
         const history = data.result.history
-        if (data.status === '1') {
-          this.loginSucc = true // 提示登陆成功，该处有待改进
-          this.loginErrTip = false
-          this.setName(userName) // vuex
-          this.setHistory(history) // vuex
-          if (this.timer) { // 做一个节流处理,提高性能
-            clearTimeout(this.timer)
-          }
-          this.timer = setTimeout(() => {
-            this.$router.push('/') // 返回首页
-          }, 1000)
-          this.loginSucc = false
-        } else {
-          this.loginSucc = false
-          this.loginErrTip = true
+        this.loginSucc = true // 提示登陆成功，该处有待改进
+        this.loginErrTip = false
+        this.setName(userName) // vuex
+        this.setHistory(history) // vuex
+        if (this.timer) { // 做一个节流处理,提高性能
+          clearTimeout(this.timer)
         }
-      })
+        this.timer = setTimeout(() => {
+          this.$router.push('/') // 返回首页
+        }, 1000)
+        this.loginSucc = false
+      } else {
+        this.loginSucc = false
+        this.loginErrTip = true
+      }
     },
     ...mapMutations(['setName']), // 该方法相当于commit一个请求
     ...mapMutations(['setHistory']), // 该方法相当于commit一个请求
@@ -93,29 +119,45 @@ export default {
       this.title = '注册界面'
     },
     register () { // 注册
+      // const params = {
+      //   'userName': this.userName,
+      //   'userPsw': this.userPsw
+      // }
       if (this.userPsw !== this.confirmPsw) {
         this.pswErrTip = true
       } else {
+        // axios.post('/api/register', {
+        //   userName: this.userName,
+        //   userPsw: this.userPsw
+        // })
         this.pswErrTip = false
-        axios.post('/api/register', {
-          userName: this.userName,
-          userPsw: this.userPsw
-        }).then((res) => {
-          const data = res.data
-          if (data.status === '3') {
-            this.registerSucc = true
-            this.registerErrTip = false
-            if (this.timer) { // 做一个节流处理,提高性能
-              clearTimeout(this.timer)
-            }
-            this.timer = setTimeout(() => {
-              this.trunToLogin() // 转到登陆界面
-            }, 1000)
-          } else {
-            this.registerSucc = false
-            this.registerErrTip = true
-          }
-        })
+        axios.request({ // 向django发送请求,获取推荐内容
+          headers: {
+            'deviceCode': 'A95ZEF1-47B5-AC90BF3'
+          },
+          url: 'http://148.70.210.143:8050/register',
+          method: 'post',
+          data: Qs.stringify(this.param)
+        }).then(this.registerSuccessful)
+          .catch((response) => {
+            console.log(response)
+          })
+      }
+    },
+    registerSuccessful (res) {
+      const data = res.data
+      if (data.status === 1) {
+        this.registerSucc = true
+        this.registerErrTip = false
+        if (this.timer) { // 做一个节流处理,提高性能
+          clearTimeout(this.timer)
+        }
+        this.timer = setTimeout(() => {
+          this.trunToLogin() // 转到登陆界面
+        }, 1000)
+      } else {
+        this.registerSucc = false
+        this.registerErrTip = true
       }
     },
     trunToLogin () {

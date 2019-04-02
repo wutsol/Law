@@ -34,6 +34,7 @@ import axios from 'axios'
 import LawHeader from 'common/Header'
 import BaikeRecommend from './recommend'
 import Loading from 'common/Loading'
+import Qs from 'qs'
 export default {
   name: 'BaikeDetail',
   components: {
@@ -89,9 +90,21 @@ export default {
         this.content = data.content
         this.setIndex(data.index) // 设置vuex中的index
         if (this.userName.length > 0) { // 如果登陆就设置历史
-          axios.post('/api/setHistory', { // 在数据库中添加历史纪录
-            userName: this.userName,
-            history: res.data
+          // axios.post('/api/setHistory', { // 在数据库中添加历史纪录
+          //   userName: this.userName,
+          //   history: res.data
+          // })
+          const param = {
+            'userName': this.userName,
+            'history': this.articleIndex
+          }
+          axios.request({ // 向django发送请求,获取推荐内容
+            headers: {
+              'deviceCode': 'A95ZEF1-47B5-AC90BF3'
+            },
+            url: 'http://148.70.210.143:8050/add_history',
+            method: 'post',
+            data: Qs.stringify(param)
           }).then((res) => {
             this.setHistory(res.data.result.history) // vuex
           })
