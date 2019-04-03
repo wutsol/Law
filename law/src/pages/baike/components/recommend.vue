@@ -36,8 +36,8 @@ export default {
     recommendList: Array
   },
   methods: {
-    handleRouter (item) {
-      this.$router.push('/baikeDetail/' + item.articleTitle)
+    handleRouter (item) { // 由于使用router-link转到相同界面不知道为什么没有刷新数据，所以先用了改变articleTitle的方法， 这会导致界面url不会刷新
+      this.$emit('changeTitle', item.articleTitle)
     }
   }
   // components: {

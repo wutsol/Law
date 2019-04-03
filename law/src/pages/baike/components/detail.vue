@@ -22,7 +22,7 @@
         <a :href="this.articleUrl">{{this.articleUrl}}</a>
       </div> -->
     </div>
-    <baike-recommend :recommendList="recommendList"></baike-recommend>
+    <baike-recommend :recommendList="recommendList" @changeTitle="change"></baike-recommend>
     <BackTop :height="100" :bottom="50" :right="15"></BackTop>
     <loading :isSpinShow="isSpinShow"></loading>
   </div>
@@ -58,13 +58,18 @@ export default {
     }
   },
   methods: {
+    change (Title) {
+      this.lastId = Title
+      this.$route.params.articleTitle = Title
+      this.getDetailInfo()
+    },
     getDetailInfo () { // 获取具体干货
       if (this.isSpinShow === false) {
         this.isSpinShow = true
         axios.request({ // 向django发送请求,获取文章内容
           url: 'http://148.70.210.143:8050/baike',
           method: 'post',
-          data: this.$route.params.articleTitle
+          data: this.lastId
         }).then(this.getDetailInfoSucc)
           .catch((response) => {
             console.log(response)
@@ -124,13 +129,11 @@ export default {
     ...mapState(['userName']), // 将vuex公用数据映射给计算属性并命名为city,用this.city取代html中this.$store.state.city
     ...mapState(['articleIndex'])
   },
-  created () {
-    console.log('created')
+  updated () { // 滚动到顶部
+    window.scroll(0, 0)
   },
   mounted () {
     this.lastId = this.$route.params.articleTitle
-    console.log(this.$route.params.articleTitle)
-    console.log('mounted')
     this.getDetailInfo()
   },
   activated () { // 当内容发生变化时要重新发送ajax请求

@@ -101,10 +101,10 @@ export default {
         }
         this.timer = setTimeout(() => {
           this.$router.push('/') // 返回首页
-        }, 1000)
+        }, 500)
         this.timer = setTimeout(() => {
           this.loginSucc = false // 防止再次登陆时会有短暂的成功提示视觉效果
-        }, 1000)
+        }, 500)
       } else {
         this.loginSucc = false
         this.loginErrTip = true
@@ -156,7 +156,7 @@ export default {
         }
         this.timer = setTimeout(() => {
           this.trunToLogin() // 转到登陆界面
-        }, 1000)
+        }, 500)
       } else {
         this.registerSucc = false
         this.registerErrTip = true

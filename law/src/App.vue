@@ -27,7 +27,7 @@ export default {
     width .8rem
     border-radius 50%
     i
-      padding: 7.2px 8.5px
+      padding .16rem
   .fade-enter, // 过渡动画
   .fade-leave-to
     opacity 0
