@@ -7,7 +7,7 @@
       enter-active-class="animated fadeIn fade-enter-active"
       leave-active-class="animated fadeOut fade-leave-active"
     >
-      <keep-alive> <!-- 和router-view之间不能隔任何东西 -->
+      <keep-alive exclude="BaikeDetail"> <!-- 和router-view之间不能隔任何东西 -->
       <router-view></router-view>
       </keep-alive>
     </transition>
@@ -75,6 +75,7 @@ export default {
         position absolute
         top 0
         left 0
+        right 0
         display flex
         .user-avatar
           position relative

@@ -7,12 +7,11 @@
     </div>
     <div class="wrapper">
       <ul>
-        <router-link
-          tag="li"
+        <li
           class="wrapper-item border-bottom"
-          v-for='(item, index) of recommendList'
-          :key='index'
-          :to="'/baikeDetail/' + item.articleTitle"
+          v-for='item of recommendList'
+          :key='item.index'
+          @click="handleRouter(item)"
         >
           <img class="item-img" :src="item.imageUrl">
           <div class="item-info">
@@ -20,7 +19,7 @@
             <!-- <p class="item-label">{{item.contentLabels[0]}}{{item.contentLabels[1]}}</p> -->
             <p class="item-desc">{{item.publishDate}}</p>
           </div>
-        </router-link>
+        </li>
       </ul>
     </div>
     <!-- <div class="item-more" @click="change">换一批</div> -->
@@ -35,6 +34,11 @@ export default {
   name: 'BaikeRecommend',
   props: {
     recommendList: Array
+  },
+  methods: {
+    handleRouter (item) {
+      this.$router.push('/baikeDetail/' + item.articleTitle)
+    }
   }
   // components: {
   //   Loading

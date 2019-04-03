@@ -6,7 +6,7 @@
       <!-- <button class="search-btn">提交</button> -->
     </div>
     <transition
-      :duration="{enter: 50, leave: 50}"
+      :duration="{enter: 80, leave: 50}"
       name="fade"
       mode="out-in"
       enter-active-class="animated fadeIn fade-enter-active"

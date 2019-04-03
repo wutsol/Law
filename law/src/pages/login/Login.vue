@@ -102,7 +102,9 @@ export default {
         this.timer = setTimeout(() => {
           this.$router.push('/') // 返回首页
         }, 1000)
-        this.loginSucc = false
+        this.timer = setTimeout(() => {
+          this.loginSucc = false // 防止再次登陆时会有短暂的成功提示视觉效果
+        }, 1000)
       } else {
         this.loginSucc = false
         this.loginErrTip = true

@@ -124,11 +124,17 @@ export default {
     ...mapState(['userName']), // 将vuex公用数据映射给计算属性并命名为city,用this.city取代html中this.$store.state.city
     ...mapState(['articleIndex'])
   },
+  created () {
+    console.log('created')
+  },
   mounted () {
     this.lastId = this.$route.params.articleTitle
+    console.log(this.$route.params.articleTitle)
+    console.log('mounted')
     this.getDetailInfo()
   },
   activated () { // 当内容发生变化时要重新发送ajax请求
+    console.log('activated')
     if (this.lastId !== this.$route.params.articleTitle) {
       this.lastId = this.$route.params.articleTitle
       this.getDetailInfo()
