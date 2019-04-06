@@ -40,7 +40,7 @@ export default {
       headerTitle: '案例库',
       death: '',
       life: '',
-      list: {type: Object},
+      list: {},
       imprisonment: '',
       lastList: {type: Object}
     }
@@ -48,6 +48,7 @@ export default {
   methods: {
     getData () {
       this.list = JSON.parse(sessionStorage.getItem('case')) // 转化为对象，否则是数组
+      // console.log(this.list.meta.punish_of_money)
       this.death = this.list.meta.term_of_imprisonment.death_penalty ? '是' : '否'
       this.life = this.list.meta.term_of_imprisonment.life_imprisonment ? '是' : '否'
       this.imprisonment = this.list.meta.term_of_imprisonment.imprisonment

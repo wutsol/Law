@@ -9,7 +9,8 @@
         <p
           class="test"
         >
-          {{item[0].meta.accusation[0]}} <!-- 罪名 -->
+          {{accu[index]}} <!-- 罪名改进 -->
+          <!-- {{item[0].meta.accusation[0]}} --> <!-- 罪名 -->
         </p>
         <i-circle
           :size="24"
