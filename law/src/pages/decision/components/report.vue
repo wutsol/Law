@@ -64,9 +64,9 @@ export default {
         this.getAccusation()
         this.getImpr()
         this.getLaw()
-        if (this.count === 3) {
-          this.isSpinShow = false
-        }
+        // if (this.count === 3) {
+        //   this.isSpinShow = false
+        // }
         // axios.request({ // 向django发送请求
         //   url: 'http://148.70.210.143:8050/predict',
         //   method: 'post',
@@ -94,7 +94,7 @@ export default {
         data.tiaoli_prob.forEach((item, index) => {
           this.tiaoli_prob[index] = parseInt((item * 100))
         }) // 对概率做数据操作
-        this.count = this.count + 1
+        // this.count = this.count + 1
       }
     },
     getAccusation () {
@@ -115,7 +115,7 @@ export default {
           this.accu_prob[index] = parseFloat((item * 100).toFixed(1))
         }) // 对概率做数据操作
         this.accu_rele = data.accu_rele
-        this.count = this.count + 1
+        // this.count = this.count + 1
       }
     },
     getImpr () {
@@ -130,10 +130,10 @@ export default {
     },
     getImprSuc (res) {
       if (res && res.data) {
-        console.log(res)
         const data = res.data
         this.impr = data.impr
-        this.count = this.count + 1
+        // this.count = this.count + 1
+        this.isSpinShow = false
       }
     }
     // getReportInfoSuc (res) {
@@ -172,11 +172,13 @@ export default {
   },
   mounted () {
     this.fact = this.$route.params.fact
+    this.count = 0
     this.getReportInfo()
   },
   activated () { // 防止缓存后无法重新发送ajax
     if (this.fact !== this.$route.params.fact) {
       this.fact = this.$route.params.fact
+      this.count = 0
       this.getReportInfo()
     }
   }
