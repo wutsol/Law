@@ -14,6 +14,7 @@
       <div class="login-second-psw" v-if="!showLogin">
         <Input type="password" size="large" v-model="confirmPsw" placeholder="确认密码" clearable/>
       </div>
+      <Alert class="err" type="error" show-icon v-if="clickErrTip">用户名或密码不能为空</Alert>
       <Alert class="err" type="error" show-icon v-if="loginErrTip">用户名或密码错误</Alert>
       <Alert class="err" type="error" show-icon v-if="registerErrTip">用户名已存在</Alert>
       <Alert class="err" type="error" show-icon v-show="pswErrTip">两次密码不同</Alert>
@@ -23,7 +24,7 @@
         <i-button type="success" class="btn" :disabled="userName.length <= 0 || userPsw.length <= 0" long @click="login">登   录</i-button>
       </div>
       <div class="register-btn" v-if="!showLogin">
-        <i-button type="success" class="btn" :disabled="userName.length <= 0 || userPsw.length <= 0 || confirmPsw <= 0" long @click="register">注   册</i-button>
+        <i-button type="success" class="btn" :disabled="userName.length <= 0 || userPsw.length <= 0 || confirmPsw.length <= 0" long @click="register">注   册</i-button>
       </div>
       <div class="loginNotice" v-if="showLogin" @click="trunToRegister">没有账号？立即注册</div>
       <div class="registerNotice" v-if="!showLogin" @click="trunToLogin">已有账号？立即登陆</div>
@@ -35,7 +36,7 @@
 import axios from 'axios'
 import LoginHeader from 'common/Header'
 import { mapMutations } from 'vuex' // vuex高级一些的API
-import Qs from 'qs'
+// import Qs from 'qs' 这种方法只能在chrome上有效果
 export default {
   name: 'LoginHome',
   components: {
@@ -54,38 +55,52 @@ export default {
       pswErrTip: false,
       showLogin: true,
       timer: null
+      // clickErrTip: false
     }
   },
-  computed: {
-    param () {
-      return {
-        'userName': this.userName,
-        'userPsw': this.userPsw
-      }
-    }
-  },
+  // computed: {
+  //   param () {
+  //     return {
+  //       'userName': this.userName,
+  //       'userPsw': this.userPsw
+  //     }
+  //   }
+  // },
   methods: {
     login () { // 登录
       // axios.post('http://148.70.210.143:8050/login', {
       //   userName: this.userName,
       //   userPsw: this.userPsw
       // }).
-      // 使用上面这种方式会导致axios触发一个函数导致后端获取不到数据
+      // 使用上面这种方式会导致axios触发一个函数导致后端获取不到数据，这种也不起作用
       // const param = {
       //   'userName': this.userName,
       //   'userPsw': this.userPsw
       // }
+      // if (this.userName.length <= 0 || this.userPsw.length <= 0) {
+      //   this.clickErrTip = true
+      // } else {
+      // this.clickErrTip = false
+      const param = new URLSearchParams()
+      param.append('username', this.userName)
+      param.append('userPsw', this.userPsw)
       axios.request({ // 向django发送请求,获取推荐内容
-        headers: {
-          'deviceCode': 'A95ZEF1-47B5-AC90BF3'
-        },
+        // headers: {
+        //   'deviceCode': 'A95ZEF1-47B5-AC90BF3',
+        //   'Content-Type': 'application/x-www-form-urlencoded'
+        // },
+        // transformRequest: [function (data) {
+        //   // 对 data 进行任意转换处理
+        //   return Qs.stringify(data)
+        // }],
         url: 'http://148.70.210.143:8050/login',
         method: 'post',
-        data: Qs.stringify(this.param)
+        data: param
       }).then(this.loginSuccessful)
         .catch((response) => {
           console.log(response)
         })
+      // }
     },
     loginSuccessful (res) {
       const data = res.data
@@ -125,6 +140,9 @@ export default {
       //   'userName': this.userName,
       //   'userPsw': this.userPsw
       // }
+      // if (this.userName.length <= 0 || this.userPsw.length <= 0 || this.confirmPsw.length <= 0) {
+      //   this.clickErrTip = true
+      // } else
       if (this.userPsw !== this.confirmPsw) {
         this.pswErrTip = true
       } else {
@@ -133,13 +151,16 @@ export default {
         //   userPsw: this.userPsw
         // })
         this.pswErrTip = false
+        const param = new URLSearchParams()
+        param.append('username', this.userName)
+        param.append('userPsw', this.userPsw)
         axios.request({ // 向django发送请求,获取推荐内容
-          headers: {
-            'deviceCode': 'A95ZEF1-47B5-AC90BF3'
-          },
+          // headers: {
+          //   'deviceCode': 'A95ZEF1-47B5-AC90BF3'
+          // },
           url: 'http://148.70.210.143:8050/register',
           method: 'post',
-          data: Qs.stringify(this.param)
+          data: param
         }).then(this.registerSuccessful)
           .catch((response) => {
             console.log(response)
@@ -184,6 +205,7 @@ export default {
     this.loginSucc = false
     this.registerSucc = false
     this.timer = null
+    // this.clickErrTip = false
   }
 }
 </script>
