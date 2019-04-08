@@ -14,7 +14,6 @@
       <div class="login-second-psw" v-if="!showLogin">
         <Input type="password" size="large" v-model="confirmPsw" placeholder="确认密码" clearable/>
       </div>
-      <Alert class="err" type="error" show-icon v-if="clickErrTip">用户名或密码不能为空</Alert>
       <Alert class="err" type="error" show-icon v-if="loginErrTip">用户名或密码错误</Alert>
       <Alert class="err" type="error" show-icon v-if="registerErrTip">用户名已存在</Alert>
       <Alert class="err" type="error" show-icon v-show="pswErrTip">两次密码不同</Alert>
@@ -36,7 +35,7 @@
 import axios from 'axios'
 import LoginHeader from 'common/Header'
 import { mapMutations } from 'vuex' // vuex高级一些的API
-// import Qs from 'qs' 这种方法只能在chrome上有效果
+import Qs from 'qs' // 这种方法只能在chrome上有效果
 export default {
   name: 'LoginHome',
   components: {
@@ -58,14 +57,14 @@ export default {
       // clickErrTip: false
     }
   },
-  // computed: {
-  //   param () {
-  //     return {
-  //       'userName': this.userName,
-  //       'userPsw': this.userPsw
-  //     }
-  //   }
-  // },
+  computed: {
+    param () {
+      return {
+        'userName': this.userName,
+        'userPsw': this.userPsw
+      }
+    }
+  },
   methods: {
     login () { // 登录
       // axios.post('http://148.70.210.143:8050/login', {
@@ -81,9 +80,9 @@ export default {
       //   this.clickErrTip = true
       // } else {
       // this.clickErrTip = false
-      const param = new URLSearchParams()
-      param.append('username', this.userName)
-      param.append('userPsw', this.userPsw)
+      // const param = new URLSearchParams()
+      // param.append('userName', this.userName)
+      // param.append('userPsw', this.userPsw)
       axios.request({ // 向django发送请求,获取推荐内容
         // headers: {
         //   'deviceCode': 'A95ZEF1-47B5-AC90BF3',
@@ -95,7 +94,7 @@ export default {
         // }],
         url: 'http://148.70.210.143:8050/login',
         method: 'post',
-        data: param
+        data: Qs.stringify(this.param)
       }).then(this.loginSuccessful)
         .catch((response) => {
           console.log(response)
@@ -151,16 +150,16 @@ export default {
         //   userPsw: this.userPsw
         // })
         this.pswErrTip = false
-        const param = new URLSearchParams()
-        param.append('username', this.userName)
-        param.append('userPsw', this.userPsw)
+        // const param = new URLSearchParams()
+        // param.append('username', this.userName)
+        // param.append('userPsw', this.userPsw)
         axios.request({ // 向django发送请求,获取推荐内容
           // headers: {
           //   'deviceCode': 'A95ZEF1-47B5-AC90BF3'
-          // },
+          // }, 不添加该语句直接用Qs是可以成功的
           url: 'http://148.70.210.143:8050/register',
           method: 'post',
-          data: param
+          data: Qs.stringify(this.param)
         }).then(this.registerSuccessful)
           .catch((response) => {
             console.log(response)

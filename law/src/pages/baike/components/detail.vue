@@ -89,6 +89,7 @@ export default {
     getDetailInfoSucc (res) {
       if (res && res.data) {
         const data = res.data[0]
+        // console.log(data)
         this.articleTitle = data.articleTitle
         this.publishDate = data.publishDate
         this.articleUrl = data.articleUrl
@@ -99,14 +100,17 @@ export default {
           //   userName: this.userName,
           //   history: res.data
           // })
+          // const param = new URLSearchParams()
+          // param.append('userName', this.userName)
+          // param.append('history', this.articleIndex)
           const param = {
             'userName': this.userName,
             'history': this.articleIndex
           }
           axios.request({ // 向django发送请求,获取推荐内容
-            headers: {
-              'deviceCode': 'A95ZEF1-47B5-AC90BF3'
-            },
+            // headers: {
+            //   'deviceCode': 'A95ZEF1-47B5-AC90BF3'
+            // },
             url: 'http://148.70.210.143:8050/add_history',
             method: 'post',
             data: Qs.stringify(param)
