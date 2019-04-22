@@ -119,7 +119,7 @@ export default {
       }
     },
     getImpr () {
-      axios.request({ // 向django发送请求
+      axios.request({ // 向django发送请求 3.16.128.130:8050
         url: 'http://35.201.136.253:8000/predict',
         method: 'post',
         data: this.$route.params.fact

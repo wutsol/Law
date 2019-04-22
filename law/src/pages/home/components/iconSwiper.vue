@@ -10,14 +10,18 @@
           :to="'/detail/' + item.id"
         >
           <div class="icon-image">
-            <!-- <img class="icon-image-content" :src="item.imgUrl"> -->  <!-- src前必须加冒号 -->
-            <Icon v-if="item.id === '0001'" class="icon-image-content" type="md-bulb"
-            size=55 />
+            <!-- <div v-if="item.id === '0001'" class="iconfont choice">&#xe605;</div> -->
+            <img v-if="item.id === '0001'" class="icon-image-content" src="https://img.icons8.com/bubbles/2x/edit.png">
+            <img v-if="item.id === '0002'" class="icon-image-content" src="https://img.icons8.com/bubbles/2x/bookmark.png">
+            <img v-if="item.id === '0003'" class="icon-image-content" src="https://img.icons8.com/bubbles/2x/document.png">
+            <img v-if="item.id === '0004'" class="icon-image-content" src="https://img.icons8.com/bubbles/2x/news.png">
+            <!-- <Icon v-if="item.id === '0001'" class="icon-image-content" type="md-bulb"
+            size=55 /> -->
             <!-- <Icon type="md-ionitron" /> -->
-            <Icon v-if="item.id === '0002'" class="icon-image-content" type="md-document"
+            <!-- <Icon v-if="item.id === '0002'" class="icon-image-content" type="md-document"
             size=55 />
             <Icon v-if="item.id === '0003'" class="icon-image-content" type="md-bookmarks" size=55 />
-            <Icon v-if="item.id === '0004'" class="icon-image-content" type="ios-bookmarks" size=55 />
+            <Icon v-if="item.id === '0004'" class="icon-image-content" type="ios-bookmarks" size=55 /> -->
           </div>
           <p class="icon-desc">{{item.desc}}</p>
         </router-link>
@@ -73,7 +77,7 @@ export default {
     padding-bottom 25%
   .icons
     padding-bottom .2rem
-    margin-top .4rem
+    margin-top .35rem
     .icon
       float left
       position relative
@@ -85,14 +89,12 @@ export default {
         top 0
         left 0
         right 0
-        bottom .44rem
+        bottom .35rem
         box-sizing border-box // 限制盒子大小
         padding 0 .1rem
         .icon-image-content
-          color #8e928fc9
           display block // 图片居中
-          margin-left .3rem // 图片居中
-          margin-top .1rem
+          margin 0 auto // 图片居中
           height 100% //缩小图片
       .icon-desc
         position absolute

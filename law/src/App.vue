@@ -22,6 +22,16 @@ export default {
 
 <style lang="stylus">
   @import './assets/styles/animate.css'
+  .ivu-tabs-tab // tab
+    color #9a9a9b
+    font-size .28rem
+  .ivu-tabs-tab-active // activetab
+    font-size .36rem
+  .ivu-tabs-bar // 除去下划线
+    border-bottom 0
+    margin-left .2rem
+  // .ivu-input // 决策部分的输入框
+  //   background-color: #f8f8f896
   .ivu-back-top-inner // 回到顶部的样式
     height .8rem
     width .8rem

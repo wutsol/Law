@@ -4,14 +4,21 @@
     <!-- <div class="decision-input border-bottom">
         <textarea v-model="fact" class="decision-input-textarea" placeholder="请详细描述案情..."></textarea>
     </div> -->
-    <Input
-      class="decision-input-textarea"
-      v-model="fact"
-      type="textarea"
-      :rows="23"
-      placeholder="请详细描述案情..."
-    />
-    <Alert type="error" show-icon v-if="showErr">请输入长度大于5</Alert>
+    <div class="wrapper">
+      <Input
+        class="decision-input-textarea"
+        v-model="fact"
+        type="textarea"
+        :rows="10"
+        placeholder="请详细描述案情经过，以获得更位准确的预测结果"
+      />
+      <Alert type="error" show-icon v-if="showErr">请输入长度大于5</Alert>
+      <p class="decision-notice">
+        <span style="color: #5151f7">输入示例:   </span>
+        <span style="color: #4e4d4df0">男方女方大奖赛大家阿斯顿就爱是的哈接电话卡时间和大家好大数据和打击打击萨达还是觉得 sad哈吉斯大火开始的骄傲和
+        </span>
+      </p>
+    </div>
     <!-- <Spin fix v-show="isSpinShow">
       <Icon type="load-c" size="30" class="demo-spin-icon-load"></Icon>
       <div>Loading...</div>
@@ -73,23 +80,36 @@ export default{
 <style lang="stylus" scoped>
   .changeColor
     background-color: #19be6b
-  .decision-input-textarea
-    margin-top 1.12rem
-    width 100%
-    height 10rem
-    line-height .44rem
-    // text-indent .2em
-    font-size .3rem
-  .decision-submit
-    margin .28rem 1rem
-    width 5rem
-    height .95rem
-    line-height .95rem
-    .btn
-      height .77rem
-      font-size .33rem
-      text-align center
+  .decision
+    background-color: #fff
+    .wrapper
+      width 95%
+      margin 0 auto
+      margin-top 1.3rem
+      border 1px solid #dcdee2c2
       border-radius .12rem
+      padding .25rem
+      .decision-input-textarea
+        width 100%
+        line-height .44rem
+        font-size .3rem
+      .decision-notice
+        padding 0 .1rem
+        letter-spacing .012rem
+        line-height .38rem
+        margin .4rem 0 .28rem 0
+    .decision-submit
+      position absolute
+      bottom 1rem
+      margin 0 .4rem
+      width 90%
+      height .95rem
+      line-height .95rem
+      .btn
+        height .77rem
+        font-size .33rem
+        text-align center
+        border-radius .12rem
   /* 旋转效果 */
   .demo-spin-icon-load
     animation: ani-demo-spin 1s linear infinite
