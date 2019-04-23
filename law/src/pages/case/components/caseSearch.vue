@@ -3,19 +3,22 @@
     <div class="search">
       <AutoComplete
         v-model="keyword"
-        icon="ios-search"
         placeholder="输入罪名关键词"
-        @on-search="handleSearch2"
+        icon="ios-search"
+        :filter-method="filterMethod"
+        :data="data4"
       >
-        <div class="demo-auto-complete-item" v-for="(item, index) in data4" :key="index">
+        <!-- <div class="demo-auto-complete-item" v-for="(item, index) in data4" :key="index">
           <div class="demo-auto-complete-group">
             <span>{{ item.title }}</span>
           </div>
-          <Option v-for="option in item.children" :value="option.title" :key="option.title">
-            <span class="demo-auto-complete-title">{{ option.title }}</span>
-            <span class="demo-auto-complete-count">{{ option.count }} 人关注</span>
-          </Option>
-        </div>
+          <div v-if="!keyword">
+            <Option v-for="option in item.children" :value="option.title" :key="option.title">
+              <span class="demo-auto-complete-title">{{ option.title }}</span>
+              <span class="demo-auto-complete-count">{{ option.count }} 人关注</span>
+            </Option>
+          </div>
+        </div> -->
       </AutoComplete>
       <!-- <i class="iconfont search-icon" v-show="!keyword">&#xe632;</i> -->
       <!-- <input class="search-input" v-model="keyword" type="text" placeholder="输入罪名关键词"> -->
@@ -75,22 +78,27 @@ export default {
       list: [],
       timer: null,
       nameList: [],
-      data4: [{
-        title: '常见罪名',
-        children: [{
-          title: '诈骗罪',
-          count: 10000
-        }, {
-          title: '盗窃罪',
-          count: 10600
-        }, {
-          title: '走私罪',
-          count: 10600
-        }
-        ]}
+      data4: [
+        // {
+        // title: '常见罪名',
+        // children: [{
+        //   title: '诈骗罪',
+        //   count: 10000
+        // }, {
+        //   title: '盗窃罪',
+        //   count: 10600
+        // }, {
+        //   title: '走私罪',
+        //   count: 10600
+        // }
+        // ]}
+        '诈骗罪', '盗窃罪', '走私罪'
       ]}
   },
   methods: {
+    filterMethod (value, option) { // 解决输入后下拉框不消失
+      return option.toUpperCase().indexOf(value.toUpperCase()) !== -1
+    },
     getNameinfo () {
       axios.request({ // 向django发送请求,获取法律具体内容
         url: 'http://47.101.221.46:8050/classify2',

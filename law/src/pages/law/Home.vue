@@ -23,8 +23,7 @@ export default{
   },
   data () {
     return {
-      title: '法条库',
-      imgUrl: 'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1551018518&di=370e53fb5e39f42594a6009f0513fa39&src=http://img3.iyiou.com/Cover/2016-12-04/hangye-falvfuwu1204.jpg'
+      title: '法条库'
     }
   }
   // methods: {

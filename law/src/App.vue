@@ -22,12 +22,15 @@ export default {
 
 <style lang="stylus">
   @import './assets/styles/animate.css'
+  @import '~styles/mixins.styl'
   input // 改变组件中的字体
     font-family: Arial, "Microsoft Yahei", "Helvetica Neue", Helvetica, sans-serif
+  .ivu-breadcrumb
+    ellipsis()
   .ivu-input // 搜索框字体
-    font-size .27rem
+    font-size .275rem
   .ivu-select-item // 搜索框下拉字体
-    font-size .26rem
+    font-size .265rem!important
   .ivu-btn-success // 按钮可点击状态的颜色
     background-color: #5db1ff
     border-color #5db1ff

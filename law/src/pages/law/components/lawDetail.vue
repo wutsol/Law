@@ -60,7 +60,7 @@ export default {
       if (this.isSpinShow === false) {
         this.isSpinShow = true
         axios.request({ // 向django发送请求,获取推荐内容
-          url: 'http://148.70.210.143:8050/tiaoli2',
+          url: 'http://47.101.221.46:8050/tiaoli2',
           method: 'post',
           data: this.$route.params.chinese_name
         }).then(this.getDetailInfoSucc)

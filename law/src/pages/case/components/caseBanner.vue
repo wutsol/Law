@@ -1,6 +1,16 @@
 <template>
   <div class="banner border-bottom">
-    <i>{{this.title}}</i>
+    <Breadcrumb separator=">">
+      <BreadcrumbItem to="/detail/0002">
+        <Icon type="md-book" />
+        {{title}}
+      </BreadcrumbItem>
+      <BreadcrumbItem>
+        <span @click="front">{{bigTitle}}</span>
+      </BreadcrumbItem>
+      <BreadcrumbItem v-if="smallTitle">{{smallTitle}}</BreadcrumbItem>
+    </Breadcrumb>
+    <!-- <i>{{this.title}}</i>
     <i class="iconfont banner-icon">&#xe7ab;</i>
     <router-link
       tag="i"
@@ -8,7 +18,7 @@
       to="/detail/0002"
      >
       {{bigTitle}}
-   </router-link>
+   </router-link> -->
     <!-- <i class="iconfont banner-icon">&#xe7ab;</i>
     <i>{{smallTitle}}</i> -->
   </div>
@@ -18,9 +28,17 @@
 export default {
   name: 'CaseBanner',
   props: {
-    // smallTitle: String,
     title: String,
-    bigTitle: String
+    bigTitle: String,
+    smallTitle: {
+      type: String,
+      default: ''
+    }
+  },
+  methods: {
+    front () {
+      this.$router.push('/accusation/' + this.bigTitle)
+    }
   }
 }
 </script>
@@ -29,6 +47,7 @@ export default {
   @import '~styles/variables.styl'
   @import '~styles/mixins.styl'
   .banner
+    width 100%
     margin-top $headerHeight
     height 1rem
     line-height 1rem
@@ -36,13 +55,13 @@ export default {
     font-size .32rem
     background-color: #FFF
     ellipsis()
-    .banner-icon
-      height .4rem
-      line-height .4rem
-      margin .05rem
-      color #666
-      text-align center
-      font-size .38rem
-    .banner-bigTitle
-      color #c0b5b5f5
+    // .banner-icon
+    //   height .4rem
+    //   line-height .4rem
+    //   margin .05rem
+    //   color #666
+    //   text-align center
+    //   font-size .38rem
+    // .banner-bigTitle
+    //   color #c0b5b5f5
 </style>

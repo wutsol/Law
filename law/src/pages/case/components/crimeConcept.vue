@@ -22,13 +22,13 @@ export default {
 <style lang="stylus" scoped>
   @import '~styles/variables.styl'
   .container
-    margin-top .2 + $headerHeight
+    margin-top 1.12rem
     padding .4rem
     background-color: #FFF
     min-height 1rem
     .container-name
       line-height .5rem
-      font-size .44rem
+      font-size .38rem
     .container-concept
       margin-top .4rem
       line-height .5rem

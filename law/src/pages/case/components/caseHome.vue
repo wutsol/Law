@@ -1,7 +1,7 @@
 <template>
   <div class="wraper">
     <case-header :title="headerTitle"></case-header>
-    <!-- <case-banner :smallTitle="smallTitle" :bigTitle="bigTitle"></case-banner> -->
+    <!-- <case-banner :title= "bannerTitle" :smallTitle="accu_name" :bigTitle="bigTitle"></case-banner> -->
     <crime-concept ref="cont" :name="accu_name" :concept="accu_gainian"></crime-concept>
     <case-tab
       ref="tab"
@@ -21,21 +21,24 @@
 <script> // 罪名详情页
 // import { mapState } from 'vuex' // vuex高级一些的API
 import axios from 'axios'
-import CaseHeader from 'common/Header'
+import CaseHeader from 'common/NewHeader'
 import CrimeConcept from './crimeConcept'
 import CaseTab from 'common/Tab2'
 import Loading from 'common/Loading'
+import CaseBanner from './caseBanner'
 export default {
   name: 'CaseHome',
   components: {
     CaseHeader,
     CrimeConcept,
     CaseTab,
-    Loading
+    Loading,
+    CaseBanner
   },
   data () {
     return {
       headerTitle: '罪名库',
+      bannerTitle: '罪名',
       accu_name: '',
       accu_gainian: [],
       accu_goucheng: [],
@@ -45,7 +48,8 @@ export default {
       list: [],
       lastId: '',
       topHeight: 0,
-      isSpinShow: false
+      isSpinShow: false,
+      bigTitle: ''
     }
   },
   watch: {
@@ -60,7 +64,7 @@ export default {
       if (this.isSpinShow === false) {
         this.isSpinShow = true
         axios.request({ // 向django发送请求,获取二级罪名
-          url: 'http://148.70.210.143:8050/final',
+          url: 'http://47.101.221.46:8050/final',
           method: 'post',
           data: this.$route.params.accu_name
         }).then(this.getDetailInfoSucc)
@@ -79,6 +83,7 @@ export default {
     getDetailInfoSucc (res) {
       if (res && res.data) {
         const data = res.data[0] // 由于数据是个只包含一个对象的数组，所以加【0】
+        this.bigTitle = data.accu_belong_to
         this.accu_name = data.accu_name
         this.accu_gainian = data.accu_gainian
         this.accu_goucheng = data.accu_goucheng

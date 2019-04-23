@@ -95,7 +95,7 @@ export default {
   .container
     background-color: #eee
     .accusation
-      margin-top .2rem
+      // margin-top .2rem
       height .8rem
       line-height .8rem
       padding .1rem .4rem

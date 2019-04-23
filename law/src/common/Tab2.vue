@@ -103,11 +103,11 @@ export default {
     handleScroll () {
       const top = document.documentElement.scrollTop // 获得距离页面顶部的距离
       // console.log(this.inheritHeight)
-      if (top > this.inheritHeight) {
-        this.showfixed = true
-      } else {
-        this.showfixed = false
-      }
+      // if (top > this.inheritHeight) {
+      //   this.showfixed = true
+      // } else {
+      //   this.showfixed = false
+      // }
     },
     getHeight () {
       this.inheritHeight = this.topHeight
