@@ -6,15 +6,16 @@ const Home = r => require.ensure([], () => r(require('@/pages/home/Home')), 'gro
 const Decision = r => require.ensure([], () => r(require('@/pages/decision/Decision')), 'group-decision')
 const DecisionReport = r => require.ensure([], () => r(require('@/pages/decision/components/report')), 'group-decision')
 const DecisionCaseDetail = r => require.ensure([], () => r(require('@/pages/decision/components/decisionCaseDetail')), 'group-decision')
-const Case = r => require.ensure([], () => r(require('@/pages/case/Case')), 'group-case')
-const CaseDetail = r => require.ensure([], () => r(require('@/pages/case/components/caseDetail')), 'group-case')
-const CaseHome = r => require.ensure([], () => r(require('@/pages/case/components/caseHome')), 'group-case')
-const CaseAccusation = r => require.ensure([], () => r(require('@/pages/case/components/secondClassify')), 'group-case')
+const Case = r => require.ensure([], () => r(require('@/pages/case/Case')), 'group-crime')
+const CaseDetail = r => require.ensure([], () => r(require('@/pages/case/components/caseDetail')), 'group-crime')
+const CaseHome = r => require.ensure([], () => r(require('@/pages/case/components/caseHome')), 'group-crime')
+const CaseAccusation = r => require.ensure([], () => r(require('@/pages/case/components/secondClassify')), 'group-crime')
 const LawHome = r => require.ensure([], () => r(require('@/pages/law/Home')), 'group-law')
 const LawName = r => require.ensure([], () => r(require('@/pages/law/components/lawName')), 'group-law')
 const LawDetail = r => require.ensure([], () => r(require('@/pages/law/components/lawDetail')), 'group-law')
-const BaikeHome = r => require.ensure([], () => r(require('@/pages/baike/BaikeHome')), 'group-baike')
+// const BaikeHome = r => require.ensure([], () => r(require('@/pages/baike/BaikeHome')), 'group-baike')
 const BaikeDetail = r => require.ensure([], () => r(require('@/pages/baike/components/detail')), 'group-baike')
+const AllCase = r => require.ensure([], () => r(require('@/pages/allCase/Home')), 'group-case')
 
 Vue.use(Router)
 
@@ -45,8 +46,8 @@ export default new Router({
     component: LawHome
   }, {
     path: '/detail/0004',
-    name: 'BaikeHome',
-    component: BaikeHome
+    name: 'AllCase',
+    component: AllCase
   }, { // 智能决策
     path: '/report/:fact',
     name: 'DecisionReport',

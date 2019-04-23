@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <transition
-      :duration="{enter: 100, leave: 80}"
+      :duration="{enter: 80, leave: 80}"
       name="fade"
       mode="out-in"
       enter-active-class="animated fadeIn fade-enter-active"
@@ -25,6 +25,7 @@ export default {
   @import '~styles/mixins.styl'
   input // 改变组件中的字体
     font-family: Arial, "Microsoft Yahei", "Helvetica Neue", Helvetica, sans-serif
+    height .72rem!important
   .ivu-breadcrumb
     ellipsis()
   .ivu-input // 搜索框字体

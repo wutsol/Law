@@ -30,13 +30,13 @@ export default{
         'desc': '辅助办案'
       }, {
         'id': '0002',
-        'desc': '罪名库'
+        'desc': '罪名查询'
       }, {
         'id': '0003',
-        'desc': '法条库'
+        'desc': '法条查询'
       }, {
         'id': '0004',
-        'desc': '案例库'
+        'desc': '案例查询'
       }],
       imgUrl: 'http://img.smzy.com/Soft/UploadPic/2016-10/2016102516415011331.jpg'
     }

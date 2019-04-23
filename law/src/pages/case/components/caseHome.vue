@@ -1,6 +1,6 @@
 <template>
   <div class="wraper">
-    <case-header :title="headerTitle"></case-header>
+    <case-header :title="accu_name"></case-header>
     <!-- <case-banner :title= "bannerTitle" :smallTitle="accu_name" :bigTitle="bigTitle"></case-banner> -->
     <crime-concept ref="cont" :name="accu_name" :concept="accu_gainian"></crime-concept>
     <case-tab

@@ -1,12 +1,18 @@
 <template>
   <div class="container">
-    <law-header :title="headerTitle"></law-header>
+    <law-header :title="articleTitle"></law-header>
     <div class="baike">
       <div class="baike-title">{{this.articleTitle}}</div>
-      <!-- <div class="baike-img">
-        <img class="img-content" :src="imageUrl">
-      </div> -->
+      <div
+        class="baike-labels"
+        v-for="(item, index) of contentLabels"
+        :key="index"
+        :name="item"
+      >
+        <Tag class="lables-tag" color="primary">{{item.value}}</Tag>
+      </div>
       <div class="baike-date">
+        <!-- <p class="baike-hint">{{this.hitResult}}</p> -->
         <p class="date">{{this.publishDate}}</p>
       </div>
       <div
@@ -31,7 +37,7 @@
 <script> // 二级标题
 import { mapState, mapMutations } from 'vuex' // vuex高级一些的API
 import axios from 'axios'
-import LawHeader from 'common/Header'
+import LawHeader from 'common/NewHeader'
 import BaikeRecommend from './recommend'
 import Loading from 'common/Loading'
 import Qs from 'qs'
@@ -50,9 +56,9 @@ export default {
       articleTitle: '',
       articleUrl: '',
       // imageUrl: '',
-      // contentLabels: [],
+      contentLabels: [], // 标签
       publishDate: '',
-      // hitResult: '',
+      hitResult: '', // 出处
       content: [],
       recommendList: []
     }
@@ -90,10 +96,11 @@ export default {
     getDetailInfoSucc (res) {
       if (res && res.data) {
         const data = res.data[0]
-        // console.log(data)
         this.articleTitle = data.articleTitle
         this.publishDate = data.publishDate
         this.articleUrl = data.articleUrl
+        this.contentLabels = data.contentLabels
+        this.hitResult = data.hitResult
         this.content = data.content
         this.setIndex(data.index) // 设置vuex中的index
         if (this.userName.length > 0) { // 如果登陆就设置历史
@@ -164,6 +171,11 @@ export default {
       text-align justify
       font-size .35rem
       color #4C4D4E
+    .baike-labels
+      display inline-block
+      padding-left .2rem
+      .lables-tag
+        margin-right .1rem
     // .baike-img
     //   width 100%
     //   height 3rem
@@ -171,18 +183,22 @@ export default {
     //   .img-content
     //     width 100%
     .baike-date
-      margin-top .15rem
+      margin-top .2rem
       position relative
       height .3rem
-      padding-right .2rem
-      color #B3B4B5
+      padding 0 .2rem
+      // .baike-hint
+      //   display inline
       .date
         position absolute
+        top 0
         right .35rem
+        color #B3B4B5
     .baike-content
       margin .35rem 0
       padding 0 .35rem
       font-size .3rem
       line-height .6rem
       text-align justify
+      text-indent 2em
 </style>
