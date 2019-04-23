@@ -58,16 +58,17 @@ export default {
     }
   },
   methods: {
-    change (Title) {
+    change (Title, Index) {
       this.lastId = Title
       this.$route.params.articleTitle = Title
+      this.setIndex(Index) // 设置vuex中的index
       this.getDetailInfo()
     },
     getDetailInfo () { // 获取具体干货
       if (this.isSpinShow === false) {
         this.isSpinShow = true
         axios.request({ // 向django发送请求,获取文章内容
-          url: 'http://148.70.210.143:8050/baike',
+          url: 'http://47.101.221.46:8050/baike',
           method: 'post',
           data: this.lastId
         }).then(this.getDetailInfoSucc)
@@ -75,7 +76,7 @@ export default {
             console.log(response)
           })
         axios.request({ // 向django发送请求,获取推荐内容,当需要用另一个axios获取的数据去获取axios时，会出现刷新页面数据加载不出来的情况，目前用的vux
-          url: 'http://148.70.210.143:8050/recommend',
+          url: 'http://47.101.221.46:8050/recommend',
           method: 'post',
           data: this.articleIndex
         }).then(this.getRecommendSucc)
@@ -111,7 +112,7 @@ export default {
             // headers: {
             //   'deviceCode': 'A95ZEF1-47B5-AC90BF3'
             // },
-            url: 'http://148.70.210.143:8050/add_history',
+            url: 'http://47.101.221.46:8050/add_history',
             method: 'post',
             data: Qs.stringify(param)
           }).then((res) => {

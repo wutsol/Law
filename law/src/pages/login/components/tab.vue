@@ -30,7 +30,7 @@ export default {
     .home-border
       width 100%
       height 1rem
-      border-top 1px solid #ccc
+      border-top .02rem solid #ccc
       border-radius .4rem
     .tab
       margin-top -.8rem

@@ -1,7 +1,7 @@
 <template>
   <div class="container"> <!-- 使用组件时最外层必须包裹一个div -->
     <div class="accusation">
-      所有罪名
+      主要罪名
     </div>
     <div class="wrapper">
       <swiper :options="swiperOptions">
@@ -95,8 +95,9 @@ export default {
   .container
     background-color: #eee
     .accusation
-      height 1rem
-      line-height 1rem
+      margin-top .2rem
+      height .8rem
+      line-height .8rem
       padding .1rem .4rem
       font-size $titleSize
       background-color: #FFF

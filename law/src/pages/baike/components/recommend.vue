@@ -6,7 +6,7 @@
       干货推荐
     </div>
     <div class="wrapper">
-      <ul>
+      <ul class="wrapper-border">
         <li
           class="wrapper-item border-bottom"
           v-for='item of recommendList'
@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     handleRouter (item) { // 由于使用router-link转到相同界面不知道为什么没有刷新数据，所以先用了改变articleTitle的方法， 这会导致界面url不会刷新
-      this.$emit('changeTitle', item.articleTitle)
+      this.$emit('changeTitle', item.articleTitle, item.index)
     }
   }
   // components: {
@@ -92,31 +92,36 @@ export default {
         font-size .42rem
     .wrapper
       background-color: #FFF
-      .wrapper-item
-        padding .1rem .1rem .05rem 0
-        position relative
-        margin-top .08rem
-        width 100%
-        height 2.05rem
-        overflow hidden
-        display flex
-      .item-img
-        height 1.8rem
-        width 1.8rem
-        padding .05rem
-      .item-info
-        flex 1
-        padding 0 .1rem 0 .2rem
-        min-width 0 // 使省略号正常显示
-        .item-title
-          line-height .45rem
-          font-size .32rem
-        .item-desc
-          position absolute
-          right .2rem
-          bottom .3rem
-          line-height .44rem
-          color #ccc
+      .wrapper-border
+        border-top .01rem solid #ccc
+        border-bottom .01rem solid #ccc
+        border-radius .15rem
+        .wrapper-item
+          padding .08rem .1rem .05rem .08rem
+          position relative
+          margin-top .08rem
+          width 100%
+          height 2.05rem
+          overflow hidden
+          display flex
+        .item-img
+          height 1.8rem
+          width 1.8rem
+          padding .05rem
+          border-radius .2rem
+        .item-info
+          flex 1
+          padding .08rem .1rem 0 .2rem
+          min-width 0 // 使省略号正常显示
+          .item-title
+            line-height .45rem
+            font-size .31rem
+          .item-desc
+            position absolute
+            right .2rem
+            bottom .3rem
+            line-height .44rem
+            color #ccc
     // .item-more
     //     height .9rem
     //     line-height .9rem

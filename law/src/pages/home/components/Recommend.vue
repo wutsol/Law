@@ -1,8 +1,8 @@
 <template>
   <div class="recommend"> <!-- 使用组件时最外层必须包裹一个div -->
-    <div class="title border-top">干货推荐</div>
+    <div class="title">干货推荐</div>
     <div class="wrapper">
-      <ul>
+      <ul class="wrapper-border">
         <router-link
           tag="li"
           class="wrapper-item border-bottom"
@@ -46,7 +46,7 @@ export default {
       if (this.isSpinShow === false) {
         this.isSpinShow = true
         axios.request({ // 向django发送请求,获取推荐内容
-          url: 'http://148.70.210.143:8050/recommend',
+          url: 'http://47.101.221.46:8050/recommend',
           method: 'post',
           data: 0
         }).then(this.getRecommendSucc)
@@ -63,7 +63,7 @@ export default {
     }
   },
   mounted () {
-    // this.getRecommend()
+    this.getRecommend()
   }
 }
 </script>
@@ -72,46 +72,59 @@ export default {
   @import '~styles/mixins.styl'
   @import '~styles/variables.styl'
   .recommend
+    margin-top .2rem
     position relative
-    height 12.55rem
+    height 12.45rem
+    // border-top .02rem solid #ccc
+    // border-radius .4rem
     .title
-      margin-top .3rem
-      height 1rem
-      line-height 1rem
-      font-size .4rem
-      text-align center
-      background-color: #eee
+      margin-top .1rem
+      height .7rem
+      line-height .7rem
+      font-size .355rem
+      text-align left
+      padding-left .2rem
+      color: #2c3e50
+      font-weight: bold
+      // background-color: #eee
     .wrapper
+      margin-top .13rem
       background-color: #FFF
-      .wrapper-item
-        padding .1rem .1rem .05rem 0
-        position relative
-        margin-top .08rem
-        width 100%
-        height 2.05rem
-        overflow hidden
-        display flex
-      .item-img
-        height 1.8rem
-        width 1.8rem
-        padding .05rem
-      .item-info
-        flex 1
-        padding 0 .1rem 0 .2rem
-        min-width 0 // 使省略号正常显示
-        .item-title
-          line-height .45rem
-          font-size .32rem
-        .item-desc
-          position absolute
-          right .2rem
-          bottom .3rem
-          line-height .44rem
-          color #ccc
+      .wrapper-border
+        border-top .01rem solid #ccc
+        border-bottom .01rem solid #ccc
+        border-radius .15rem
+        .wrapper-item
+          padding .1rem .1rem .05rem .08rem
+          position relative
+          margin-top .08rem
+          width 100%
+          height 2.05rem
+          overflow hidden
+          display flex
+        .item-img
+          height 1.8rem
+          width 1.8rem
+          padding .05rem
+          border-radius .2rem
+        .item-info
+          flex 1
+          padding .08rem .1rem 0 .2rem
+          min-width 0 // 使省略号正常显示
+          .item-title
+            line-height .45rem
+            font-size .31rem
+          .item-desc
+            position absolute
+            right .2rem
+            bottom .3rem
+            line-height .44rem
+            color #ccc
     .item-more
-        height .9rem
-        line-height .9rem
-        text-align center
-        font-size .3rem
-        color #666
+      margin-top .1rem
+      height .9rem
+      line-height .9rem
+      text-align center
+      font-size .3rem
+      color #666
 </style>

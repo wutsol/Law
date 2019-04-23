@@ -1,8 +1,24 @@
 <template>
   <div class="wraper">
     <div class="search">
+      <AutoComplete
+        v-model="keyword"
+        icon="ios-search"
+        placeholder="输入罪名关键词"
+        @on-search="handleSearch2"
+      >
+        <div class="demo-auto-complete-item" v-for="(item, index) in data4" :key="index">
+          <div class="demo-auto-complete-group">
+            <span>{{ item.title }}</span>
+          </div>
+          <Option v-for="option in item.children" :value="option.title" :key="option.title">
+            <span class="demo-auto-complete-title">{{ option.title }}</span>
+            <span class="demo-auto-complete-count">{{ option.count }} 人关注</span>
+          </Option>
+        </div>
+      </AutoComplete>
       <!-- <i class="iconfont search-icon" v-show="!keyword">&#xe632;</i> -->
-      <input class="search-input" v-model="keyword" type="text" placeholder="输入罪名关键词">
+      <!-- <input class="search-input" v-model="keyword" type="text" placeholder="输入罪名关键词"> -->
       <!-- <button class="search-btn">提交</button> -->
     </div>
     <transition
@@ -58,13 +74,26 @@ export default {
       keyword: '',
       list: [],
       timer: null,
-      nameList: []
-    }
+      nameList: [],
+      data4: [{
+        title: '常见罪名',
+        children: [{
+          title: '诈骗罪',
+          count: 10000
+        }, {
+          title: '盗窃罪',
+          count: 10600
+        }, {
+          title: '走私罪',
+          count: 10600
+        }
+        ]}
+      ]}
   },
   methods: {
     getNameinfo () {
       axios.request({ // 向django发送请求,获取法律具体内容
-        url: 'http://148.70.210.143:8050/classify2',
+        url: 'http://47.101.221.46:8050/classify2',
         method: 'post'
       }).then(this.getNameInfoSucc)
         .catch((response) => {
@@ -119,16 +148,33 @@ export default {
   @import '~styles/mixins.styl'
   // .wraper // 防止搜索框抖动，并且搜索出来的内容可以正确滚动
   //   height 0
+  .demo-auto-complete-item
+    padding: 4px 0
+    border-bottom: 1px solid #F6F6F6
+  .demo-auto-complete-group
+    font-size .27rem
+    padding 4px 6px
+  .demo-auto-complete-group span
+    color: #666
+    font-weight: bold
+  .demo-auto-complete-group a
+    float: right
+  .demo-auto-complete-count
+    float: right
+    color: #999
+  // .demo-auto-complete-more
+  //   display: block;
+  //   margin: 0 auto;
+  //   padding: 4px;
+  //   text-align: center;
+  //   font-size: 12px;
   .search
     margin-top 1.12rem
     height 1rem
     line-height 1rem
     padding 0 .2rem
     background-color #1da7ba
-    // position relative
-    // top -2rem
-    // left .25rem
-    // right .25rem
+    font-family: Arial, "Microsoft Yahei", "Helvetica Neue", Helvetica, sans-serif
     font-size .3rem
     .search-input
       box-sizing border-box
