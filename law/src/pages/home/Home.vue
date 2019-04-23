@@ -27,7 +27,7 @@ export default{
       title: '法务通',
       iconList: [{
         'id': '0001',
-        'desc': '智能决策'
+        'desc': '辅助办案'
       }, {
         'id': '0002',
         'desc': '罪名库'
@@ -36,7 +36,7 @@ export default{
         'desc': '法条库'
       }, {
         'id': '0004',
-        'desc': '干货'
+        'desc': '案例库'
       }],
       imgUrl: 'http://img.smzy.com/Soft/UploadPic/2016-10/2016102516415011331.jpg'
     }

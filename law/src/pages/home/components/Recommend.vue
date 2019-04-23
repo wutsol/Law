@@ -63,7 +63,7 @@ export default {
     }
   },
   mounted () {
-    this.getRecommend()
+    // this.getRecommend()
   }
 }
 </script>

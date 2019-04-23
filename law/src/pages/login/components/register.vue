@@ -1,6 +1,6 @@
 <template>
   <div class="register">
-    <login-header :title="title"></login-header>
+    <!-- <login-header :title="title"></login-header> -->
     <div class="register-name">
        <Input type="text" size="large" v-model="userName" placeholder="用户名" clearable/>
     </div>
@@ -26,6 +26,7 @@ export default {
   name: 'Register',
   data () {
     return {
+      // title: '欢迎',
       userName: '',
       userPsw: '',
       confirmPsw: '',

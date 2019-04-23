@@ -22,6 +22,9 @@ export default {
 
 <style lang="stylus">
   @import './assets/styles/animate.css'
+  .ivu-btn-success // 按钮可点击状态的颜色
+    background-color: #5db1ff
+    border-color #5db1ff
   .ivu-tabs-tab // tab
     color #9a9a9b
     font-size .28rem
