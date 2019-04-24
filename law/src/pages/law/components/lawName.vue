@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <law-header :title="headerTitle"></law-header>
-    <law-banner :bigTitle="bigTitle" :title="lawTitle"></law-banner> <!-- :smallTitle="smallTitle" -->
+    <!-- <law-header :title="headerTitle"></law-header>
+    <law-banner :bigTitle="bigTitle" :title="lawTitle"></law-banner> --> <!-- :smallTitle="smallTitle" -->
     <div class="wrapper">
       <swiper :options="swiperOptions"> <!--  v-if="showSwiper" -->
         <!-- slides -->
@@ -28,14 +28,14 @@
 
 <script> // 二级标题
 import axios from 'axios'
-import LawHeader from 'common/Header'
-import LawBanner from './lawBanner'
+// import LawHeader from 'common/Header'
+// import LawBanner from './lawBanner'
 import Loading from 'common/Loading'
 export default {
   name: 'LawName',
   components: {
-    LawHeader,
-    LawBanner,
+    // LawHeader,
+    // LawBanner,
     Loading
   },
   data () {
@@ -50,7 +50,7 @@ export default {
       headerTitle: '法条库',
       lawTitle: '条例',
       bigTitle: '',
-      lastId: '',
+      // lastId: '',
       isSpinShow: false
     }
   },
@@ -59,9 +59,8 @@ export default {
       if (this.isSpinShow === false) {
         this.isSpinShow = true
         axios.request({ // 向django发送请求,获取推荐内容
-          url: 'http://47.101.221.46:8050/tiaoli2_classify',
-          method: 'post',
-          data: this.$route.params._id
+          url: 'http://47.101.221.46:8050/tiaoli2_classify2',
+          method: 'post'
         }).then(this.getDetailInfoSucc)
           .catch((response) => {
             console.log(response)
@@ -92,7 +91,7 @@ export default {
     pages () {
       const pages = []
       this.lawList.forEach((item, index) => {
-        const page = Math.floor(index / 10)
+        const page = Math.floor(index / 5)
         if (!pages[page]) {
           pages[page] = []
         }
@@ -102,17 +101,17 @@ export default {
     }
   },
   mounted () {
-    this.bigTitle = this.$route.params._id
-    this.lastId = this.$route.params._id
+  //   this.bigTitle = this.$route.params._id
+  //   this.lastId = this.$route.params._id
     this.getDetailInfo()
-  },
-  activated () { // 当城市发生变化时要重新发送ajax请求
-    if (this.lastId !== this.$route.params._id) {
-      this.bigTitle = this.$route.params._id
-      this.lastId = this.$route.params._id
-      this.getDetailInfo()
-    }
   }
+  // activated () { // 当城市发生变化时要重新发送ajax请求
+  //   // if (this.lastId !== this.$route.params._id) {
+  //   //   this.bigTitle = this.$route.params._id
+  //   //   this.lastId = this.$route.params._id
+  //   //   this.getDetailInfo()
+  //   // }
+  // }
 }
 </script>
 
@@ -126,19 +125,24 @@ export default {
       margin-top .2rem
       background-color: #FFF
       .wrapper-item
-        position relative
-        width 100%
-        height 1rem
+        // position relative
+        // width 100%
+        min-height 1rem
         line-height 1rem
-        padding-left .4rem
-        padding-right .1rem
+        // padding-left .4rem
+        // padding-right .1rem
         font-size .25rem
-      .item-title
-        position absolute // 解决轮播中长度超过屏幕的问题
-        left .4rem
-        right 1rem
-        top 0
-        ellipsis()
+        padding .1rem 0
+        margin .15rem .1rem 0 .1rem
+        background-color: #fff
+        border .01rem solid #ccc
+        border-bottom .01rem solid #ccc
+        border-radius .15rem
+      // .item-title
+        // position absolute // 解决轮播中长度超过屏幕的问题
+        // left .4rem
+        // right 1rem
+        // top 0
       .swiper-pagination
         color #bbb
         bottom -.5rem // 使1/30在图片下方显示

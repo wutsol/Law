@@ -10,7 +10,8 @@
             <div class="user-avatar">
               <Icon class="user-icon"  type="md-person" size="58"/>
             </div>
-            <div class="user-login" v-show="this.userName.length <= 0" @click="turnToLogin">点击登录</div>
+            <div class="user-login" v-show="this.userName.length <= 0" @click="turnToLogin">点击登录
+            </div>
             <div class="user-name" v-show="this.userName.length > 0">{{this.userName}}</div>
           </div>
         </div>

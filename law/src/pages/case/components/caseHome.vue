@@ -46,6 +46,7 @@ export default {
       accu_lian: [],
       accu_rending: [],
       list: [],
+      accu_law: [],
       lastId: '',
       topHeight: 0,
       isSpinShow: false,
@@ -83,6 +84,7 @@ export default {
     getDetailInfoSucc (res) {
       if (res && res.data) {
         const data = res.data[0] // 由于数据是个只包含一个对象的数组，所以加【0】
+        console.log(data)
         this.bigTitle = data.accu_belong_to
         this.accu_name = data.accu_name
         this.accu_gainian = data.accu_gainian
@@ -91,6 +93,12 @@ export default {
         this.accu_lian = data.accu_lian
         this.accu_rending = data.accu_rending
         this.list = data.accu_fact
+        this.accu_law = data.accu_law
+        data.accu_fact.forEach((item, index) => {
+          if (item.summary.length <= 5) {
+            this.list[index].summary = item.fact.slice(0, 10)
+          }
+        })
         this.isSpinShow = false
       }
     },
@@ -113,7 +121,7 @@ export default {
 
 <style lang="stylus" scoped>
   .wraper
-    background-color: #eee
+    background-color: #fff
     /* 旋转效果 */
     .demo-spin-icon-load
       animation: ani-demo-spin 1s linear infinite

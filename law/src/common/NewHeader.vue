@@ -11,7 +11,7 @@
       v-show="!showAbs"
       :style="opacityStyle"
      >
-      <!-- <div class="iconfont home-icon">&#xe61e;</div> -->
+      <div class="iconfont home-icon">&#xe61e;</div>
     </router-link>
     <!-- </div> -->
   </div>

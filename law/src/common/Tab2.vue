@@ -23,7 +23,7 @@
         {{item}}
       </li>
     </ul>
-    <div :class="{spacefixed: showfixed}"></div> <!-- 防止tab在fixed之后下面的内容会有跳动的效果 -->
+    <!-- <div :class="{spacefixed: showfixed}"></div> --> <!-- 防止tab在fixed之后下面的内容会有跳动的效果 -->
     <div class="tab-con">
       <crime-composition
         :composition="accu_goucheng"
@@ -134,9 +134,12 @@ export default {
     height 1rem
   .myTab
     width 100%
-    height 1rem
-    line-height 1rem
+    height .9rem
+    line-height .9rem
     background-color: #F4F4F4
+    // border-top .01rem solid #ccc
+    // border-bottom .01rem solid #ccc
+    // border-radius .15rem
     .normal
       display inline-block
       font-size .28rem

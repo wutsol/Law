@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper"> <!-- 使用组件时最外层必须包裹一个div -->
-    <ul>
+    <ul class="wrapper-border">
       <li
         class="item border-bottom"
         v-for="(item, index) of list"
@@ -12,8 +12,22 @@
             class="item-desc"
             @click="handleCaseDetail(index, item)"
           >
-            {{item.fact}}
+            {{item.summary}}
           </p>
+          <div
+            class="item-labels"
+            v-for="(labelsItem, labelsIndex) of item.label"
+            :key="labelsIndex"
+          >
+            <Tag
+              class="lables-tag"
+              color="blue"
+              :name="labelsItem"
+            >
+              刑法第{{labelsItem}}条
+            </Tag>
+          </div>
+          <p class="item-init">{{item.fact2}}</p>
         </div>
       </li>
     </ul>
@@ -54,23 +68,43 @@ export default {
 <style lang="stylus" scoped>
   @import '~styles/mixins.styl'
   @import '~styles/variables.styl'
-  // .wrapper
-  //   margin-top .2rem
+  .wrapper-border
+    margin-top .05rem
+    // border-top .01rem solid #ccc
+    // border-bottom .01rem solid #ccc
+    // border-radius .15rem
+    padding .1rem 0
     .item
+      padding .1rem 0
+      margin .15rem .1rem 0 .1rem
       background-color: #fff
+      border .01rem solid #ccc
+      border-bottom .01rem solid #ccc
+      border-radius .15rem
       .item-info
-        height 1.3rem
-        padding .1rem $textPadding
+        min-height 1rem
+        padding .15rem .12rem
         // .item-title
         //   color #414141
-        //   line-height .56rem
+        line-height .45rem
         //   height .56rem
-        //   font-size .28rem
+        font-size .3rem
         //   ellipsis()
         .item-desc
           // margin-top .17rem
           color #414141
-          line-height 1.1rem
-          height 1.1rem
-          ellipsis()
+          // line-height 1.1rem
+          // height 1.1rem
+          // ellipsis()
+        .item-labels
+          margin-top .1rem
+          display inline-block
+          .lables-tag
+            margin-right .08rem
+        .item-init
+          padding 0 .05rem
+          margin-top .15rem
+          font-size .26rem
+          color #999
+          line-height .4rem
 </style>

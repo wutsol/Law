@@ -1,8 +1,16 @@
 <template>
   <div class="wraper">
     <div class="search">
+      <AutoComplete
+        v-model="keyword"
+        placeholder="输入罪名关键词"
+        icon="ios-search"
+        :filter-method="filterMethod"
+        :data="data4"
+      >
+      </AutoComplete>
       <!-- <i class="iconfont search-icon" v-show="!keyword">&#xe632;</i> -->
-      <input class="search-input" v-model="keyword" type="text" placeholder="输入条文关键词">
+      <!-- <input class="search-input" v-model="keyword" type="text" placeholder="输入条文关键词"> -->
       <!-- <button class="search-btn">提交</button> -->
     </div>
     <transition
@@ -51,10 +59,14 @@ export default {
       keyword: '',
       list: [],
       timer: null,
-      nameList: []
+      nameList: [],
+      data4: ['中华人民共和国刑法', '中华人民共和国民法总则', '中华人民共和国劳动法']
     }
   },
   methods: {
+    filterMethod (value, option) { // 解决输入后下拉框不消失
+      return option.toUpperCase().indexOf(value.toUpperCase()) !== -1
+    },
     getNameinfo () {
       axios.request({ // 向django发送请求,获取法律具体内容
         url: 'http://47.101.221.46:8050/tiaoli2_classify2',

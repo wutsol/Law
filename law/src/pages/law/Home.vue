@@ -11,7 +11,7 @@
 import HomeHeader from 'common/Header'
 // import HomePictures from 'common/Pictures'
 import HomeSearch from './components/search'
-import HomeLaw from './components/title'
+import HomeLaw from './components/lawName'
 // import axios from 'axios'
 export default{
   name: 'LawHome',

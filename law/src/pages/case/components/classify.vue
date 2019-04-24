@@ -97,7 +97,7 @@ export default {
     .accusation
       // margin-top .2rem
       height .8rem
-      line-height .8rem
+      line-height .63rem
       padding .1rem .4rem
       font-size $titleSize
       background-color: #FFF

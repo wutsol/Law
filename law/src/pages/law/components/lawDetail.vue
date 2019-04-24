@@ -1,27 +1,37 @@
 <template>
   <div class="container">
-    <law-header :title="headerTitle"></law-header>
+    <!-- @touchstart="handleTouchStart"
+    @touchmove="handleTouchMove"
+    @touchend="handleTouchEnd" -->
+    <law-header :title="chinese_name"></law-header>
     <div class="law">
-      <div class="law-title">{{this.chinese_name}}</div>
-      <div class="law-info">
-        <div class="info-department">
-          【发布部门】  {{this.department}}
-        </div>
-        <div class="info-issue">
-          【发文字号】  {{this.store_issue}}
-        </div>
-        <div class="info-time">
-          <div class="time-start">【发布日期】  {{this.start_date}}</div>
-          <div class="time-exec">【实施日期】  {{this.exec_date}}</div>
-        </div>
-        <div class="info-eff">
-          <div class="effective">【时效性】  {{this.effective}}</div>
-          <div class="level">【效力级别】  {{this.level}}</div>
+      <div class="law-special">
+        <div class="law-title">{{this.chinese_name}}</div>
+        <div class="law-info">
+            <div class="info-department">
+              <span>【发布部门】</span> {{this.department}}
+            </div>
+            <div class="info-issue">
+              <span>【发文字号】</span> {{this.store_issue}}
+            </div>
+            <div class="info-time">
+              <div class="time-start">
+                <span>【发布日期】</span>  {{this.start_date}}
+              </div>
+              <div class="time-exec"><span>【实施日期】</span>  {{this.exec_date}}</div>
+            </div>
+            <div class="info-eff">
+              <div class="effective"><span>【时效性】</span>  {{this.effective}}</div>
+              <div class="level"><span>【效力级别】</span>  {{this.level}}</div>
+            </div>
         </div>
       </div>
-      <div class="law-detail" v-for="(value, key, index) in article" :key="index">
-        <div class="law-one">
-          {{key}}  &ensp; {{value}}
+      <div class="law-text">
+        <div class="law-detail" v-for="(value, key, index) in article" :key="index">
+          <!-- <div class="law-detail-title">正文</div> -->
+          <div class="law-one">
+            <span>{{key}}</span>    &ensp; {{value}}
+          </div>
         </div>
       </div>
     </div>
@@ -32,7 +42,7 @@
 
 <script> // 二级标题
 import axios from 'axios'
-import LawHeader from 'common/Header'
+import LawHeader from 'common/NewHeader'
 import Loading from 'common/Loading'
 export default {
   name: 'LawDetail',
@@ -53,9 +63,32 @@ export default {
       effective: '',
       level: '',
       article: {}
+      // touchStatus: false,
+      // startY: 0
     }
   },
   methods: {
+    // handleTouchStart () { // 以下三个函数借助字母距离顶部的位置判断字母并定位到该字母对应的list
+    //   this.touchStatus = true
+    // },
+    // handleTouchMove (e) {
+    //   if (this.touchStatus) {
+    //     console.log(e.touches[0].clientY)
+    //   //   if (this.timer) {
+    //   //     clearTimeout(this.timer)
+    //   //   }
+    //   //   this.timer = setTimeout(() => {
+    //   //     const touchY = e.touches[0].clientY - 79
+    //   //     const index = Math.floor((touchY - this.startY) / 20)
+    //   //     if (index >= 0 && index < this.letters.length) {
+    //   //       this.$emit('change', this.letters[index])
+    //   //     }
+    //   //   }, 16)
+    //   }
+    // },
+    // handleTouchEnd () {
+    //   this.touchStatus = false
+    // },
     getDetailInfo () { // 获取具体法条
       if (this.isSpinShow === false) {
         this.isSpinShow = true
@@ -102,40 +135,56 @@ export default {
 <style lang="stylus" scoped>
   @import '~styles/variables.styl'
   @import '~styles/mixins.styl'
+  // .law span
+  //   font-weight bold
   .container
     margin-top $headerHeight
-    .law-title
-      padding-top .2rem
-      min-height 1rem
-      line-height .6rem
-      text-align center
-      font-size .33rem
-      font-weight 550
-    .law-info
-      font-size $detailSize
-      // text-align center
-      .info-department
-      .info-issue
-      .info-time
-      .info-eff
-        padding-left .2rem
-        height .5rem
-        line-height .5rem
-      .info-time
-      .info-eff
-        display flex
-        .time-start
-        .time-exec
-        .effective
-        .level
-          float left
-          flex 1
-    .law-detail
-      font-size .3rem
-      padding 0 .35rem
-      .law-one
-        margin .3rem 0
-        line-height .5rem
+    .law-special
+      border-top .02rem solid #999
+      // border-bottom .02rem solid #999
+      border-radius .2rem
+      padding .1rem 0 .3rem 0
+      .law-title
+        padding-top .2rem
+        min-height 1rem
+        line-height .6rem
+        text-align center
+        font-size .33rem
+        font-weight 550
+      .law-info
+        font-size $detailSize
+        color #666
+        // text-align center
+        .info-department
+        .info-issue
+        .info-time
+        .info-eff
+          margin-top .05rem
+          padding-left .2rem
+          height .5rem
+          line-height .5rem
+        .info-time
+        .info-eff
+          display flex
+          .time-start
+          .time-exec
+          .effective
+          .level
+            float left
+            flex 1
+    .law-text
+      border-top .02rem solid #999
+      border-radius .2rem
+      box-shadow 0 -.01rem .015rem #8b8b8bd6
+      .law-detail
+        font-size .3rem
+        padding 0 .35rem
+        text-indent .02rem
+        span
+          font-weight bold
+        .law-one
+          margin .3rem 0
+          line-height .53rem
   //   .item
   //     padding: .4rem
   //     line-height .5rem

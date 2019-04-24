@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <transition
-      :duration="{enter: 80, leave: 80}"
+      :duration="{enter: 50, leave: 80}"
       name="fade"
       mode="out-in"
       enter-active-class="animated fadeIn fade-enter-active"
@@ -56,7 +56,7 @@ export default {
     opacity 0
   .fade-enter-active,
   .fade-leave-active
-    transition: opacity .1s
+    transition: opacity .08s
   .vertical-center-modal // 会话框居中
     display: flex
     align-items: center
