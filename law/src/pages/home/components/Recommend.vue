@@ -1,6 +1,6 @@
 <template>
   <div class="recommend"> <!-- 使用组件时最外层必须包裹一个div -->
-    <div class="title">干货推荐</div>
+    <div class="title">法律知识</div>
     <div class="wrapper">
       <ul class="wrapper-border">
         <router-link

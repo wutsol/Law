@@ -7,7 +7,7 @@ const Decision = r => require.ensure([], () => r(require('@/pages/decision/Decis
 const DecisionReport = r => require.ensure([], () => r(require('@/pages/decision/components/report')), 'group-decision')
 const DecisionCaseDetail = r => require.ensure([], () => r(require('@/pages/decision/components/decisionCaseDetail')), 'group-decision')
 const Case = r => require.ensure([], () => r(require('@/pages/case/Case')), 'group-crime')
-const CaseDetail = r => require.ensure([], () => r(require('@/pages/case/components/caseDetail')), 'group-crime')
+const AccuCaseDetail = r => require.ensure([], () => r(require('@/pages/case/components/accuCaseDetail')), 'group-crime')
 const CaseHome = r => require.ensure([], () => r(require('@/pages/case/components/caseHome')), 'group-crime')
 const CaseAccusation = r => require.ensure([], () => r(require('@/pages/case/components/secondClassify')), 'group-crime')
 const LawHome = r => require.ensure([], () => r(require('@/pages/law/Home')), 'group-law')
@@ -16,6 +16,7 @@ const LawDetail = r => require.ensure([], () => r(require('@/pages/law/component
 // const BaikeHome = r => require.ensure([], () => r(require('@/pages/baike/BaikeHome')), 'group-baike')
 const BaikeDetail = r => require.ensure([], () => r(require('@/pages/baike/components/detail')), 'group-baike')
 const AllCase = r => require.ensure([], () => r(require('@/pages/allCase/Home')), 'group-case')
+const CaseDetail = r => require.ensure([], () => r(require('@/pages/allCase/components/caseDetail')), 'group-case')
 
 Vue.use(Router)
 
@@ -61,9 +62,9 @@ export default new Router({
     name: 'CaseAccusation',
     component: CaseAccusation
   }, { // 罪名库中的案例内容
-    path: '/caseDetail/:index',
-    name: 'CaseDetail',
-    component: CaseDetail
+    path: '/accuCaseDetail/:index',
+    name: 'AccuCaseDetail',
+    component: AccuCaseDetail
   }, { // 智能决策中的案例内容
     path: '/decisionCaseDetail/:index',
     name: 'DecisionCaseDetail',
@@ -80,6 +81,10 @@ export default new Router({
     path: '/baikeDetail/:articleTitle',
     name: 'BaikeDetail',
     component: BaikeDetail
+  }, { // 干货内容
+    path: '/caseDetail/:index',
+    name: 'CaseDetail',
+    component: CaseDetail
   }],
   scrollBehavior (to, from, savedPosition) { // 使页面跳转时每次都在顶部出现
     return { x: 0, y: 0 }

@@ -1,7 +1,7 @@
 <template>
   <div class="wraper">
     <case-header :title="headerTitle"></case-header>
-    <div class="fact">
+    <!-- <div class="fact">
       <div class="fact-title border-bottom">案情描述</div>
       <div class="fact-content">{{this.list.fact}}</div>
     </div>
@@ -18,13 +18,13 @@
       <div class="fine-content">
         罚款金额： {{this.list.punish_of_money}}
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 // import { mapState } from 'vuex' // vuex高级一些的API
-import CaseHeader from 'common/Header'
+import CaseHeader from 'common/NewHeader'
 export default {
   name: 'CaseDetail',
   components: {
@@ -46,9 +46,10 @@ export default {
   // },
   activated () { // 因为使用了keep-alive，所以要使用这个钩子取代上面的
     this.list = JSON.parse(sessionStorage.getItem('obbj')) // 转化为对象，否则是数组
-    this.death = this.list.prison.death_penalty ? '是' : '否'
-    this.life = this.list.prison.life_imprisonment ? '是' : '否'
-    this.imprisonment = this.list.prison.imprisonment
+    console.log(this.list)
+    // this.death = this.list.prison.death_penalty ? '是' : '否'
+    // this.life = this.list.prison.life_imprisonment ? '是' : '否'
+    // this.imprisonment = this.list.prison.imprisonment
   }
   // computed: {
   //   // ...mapState(['item']) // 将vuex公用数据映射给计算属性并命名为city,用this.city取代html中this.$store.state.city

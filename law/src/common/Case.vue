@@ -58,7 +58,7 @@ export default {
       //   let str = JSON.stringify(item)
       //   sessionStorage.setItem('obbj', str)
       // }
-      this.$router.push({path: '/caseDetail/' + index, query: {item: item}})
+      this.$router.push({path: '/accuCaseDetail/' + index, query: {item: item}})
     }
     // ...mapMutations(['pushCaseList']) // 该方法相当于commit一个请求
   }
