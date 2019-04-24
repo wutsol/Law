@@ -2,18 +2,18 @@
   <div class="wraper">
     <case-header :title="headerTitle"></case-header>
     <div class="title">
-      {{this.list.summary}}
+      {{this.article.summary}}
     </div>
     <div class="case">
       <div class="case-title">案情</div>
-      <div class="case-text">{{this.list.fact}}</div>
+      <div class="case-text">{{this.article.fact}}</div>
     </div>
     <div class="accusation">
       <div class="accusation-title">罪名</div>
-      <ul v-if="list.meta" class="accusation-text"><!-- 解决accusation渲染失败的情况 -->
+      <ul class="accusation-text"><!-- v-if="article.meta" 解决accusation渲染失败的情况 -->
         <router-link
           tag="li"
-          v-for="(item, index) of list.meta.accusation"
+          v-for="(item, index) of article.meta.accusation"
           :key="index"
           :to="'/crimeDetail/' + item"
         >
@@ -21,6 +21,34 @@
           {{item}}
         </router-link>
       </ul>
+    </div>
+    <div class="law">
+      <div class="law-title">相关法条</div>
+      <ul class="law-text"><!-- 解决accusation渲染失败的情况 -->
+        <li
+          v-for="(item, index) of article.meta.relevant_articles"
+          :key="index"
+        >
+          <p>
+            <Icon type="ios-link" />
+            《中华人民共和国刑法》第{{item}}条
+          </p>
+          <p class="law-text-content">
+            {{contentList[index]}}
+          </p>
+        </li>
+      </ul>
+    </div>
+    <div class="judge">
+      <div class="judge-title">判决详情</div>
+      <div class="judge-text">
+        <div class="judge-content">
+          <span v-show="death">死刑 <br></span>
+          <span v-show="life">无期徒刑 <br></span>
+          <span v-show="!death && !life">刑期： {{this.imprisonment}}  个月 <br></span>
+          罚款金额： {{this.money}}
+        </div>
+      </div>
     </div>
     <!-- <div class="fact">
       <div class="fact-title border-bottom">案情描述</div>
@@ -44,7 +72,8 @@
 </template>
 
 <script>
-// import { mapState } from 'vuex' // vuex高级一些的API
+import { mapState } from 'vuex' // vuex高级一些的API
+import axios from 'axios'
 import CaseHeader from 'common/NewHeader'
 export default {
   name: 'CaseDetail',
@@ -54,10 +83,12 @@ export default {
   data () {
     return {
       headerTitle: '罪名库',
-      death: '',
-      life: '',
+      death: false,
+      life: false,
       list: {type: Object},
-      imprisonment: ''
+      imprisonment: '',
+      contentList: [],
+      money: 0
     }
   },
   // created () {
@@ -65,15 +96,50 @@ export default {
   //   this.death = this.list.prison.death_penalty ? '是' : '否'
   //   this.life = this.list.prison.life_imprisonment ? '是' : '否'
   // },
-  activated () { // 因为使用了keep-alive，所以要使用这个钩子取代上面的
-    this.list = JSON.parse(sessionStorage.getItem('obbj')) // 转化为对象，否则是数组
-    this.list.meta.accusation.forEach((item, index) => {
-      this.list.meta.accusation[index] = item + '罪'
+  computed: {
+    ...mapState(['article']) // 将vuex公用数据映射给计算属性并命名为city,用this.city取代html中this.$store.state.city
+  },
+  mounted () {
+    console.log(this.article)
+    this.article.meta.accusation.forEach((item, index) => { // 为了能正确给casedetail发送数据
+      this.article.meta.accusation[index] = item + '罪'
     })
-    console.log(this.list)
-    // this.death = this.list.prison.death_penalty ? '是' : '否'
-    // this.life = this.list.prison.life_imprisonment ? '是' : '否'
-    // this.imprisonment = this.list.prison.imprisonment
+    this.acticle.meta.relevant_articles.forEach((item, index) => {
+      axios.request({ // 向django发送请求,获取推荐内容
+        url: 'http://47.101.221.46:8050/xingfa',
+        method: 'post',
+        data: item
+      }).then((res) => {
+        // console.log(res)
+        this.contentList[index] = res.data[0]
+        console.log(this.contentList[index])
+      })
+        .catch((response) => {
+          console.log(response)
+        })
+    })
+  },
+  activated () { // 因为使用了keep-alive，所以要使用这个钩子取代上面的
+    console.log(this.article)
+    // this.list = JSON.parse(sessionStorage.getItem('obbj')) // 转化为对象，否则是数组
+    // this.article.meta.relevant_articles.forEach((item, index) => {
+    //   axios.request({ // 向django发送请求,获取推荐内容
+    //     url: 'http://47.101.221.46:8050/xingfa',
+    //     method: 'post',
+    //     data: item
+    //   }).then((res) => {
+    //     // console.log(res)
+    //     this.contentList[index] = res.data[0]
+    //     console.log(this.contentList[index])
+    //   })
+    //     .catch((response) => {
+    //       console.log(response)
+    //     })
+    // })
+    this.money = this.article.meta.punish_of_money
+    this.death = this.article.meta.term_of_imprisonment.death_penalty
+    this.life = this.article.meta.term_of_imprisonment.life_imprisonment
+    this.imprisonment = this.article.meta.term_of_imprisonment.imprisonment
   }
   // computed: {
   //   // ...mapState(['item']) // 将vuex公用数据映射给计算属性并命名为city,用this.city取代html中this.$store.state.city
@@ -94,9 +160,13 @@ export default {
       line-height .4rem
     .case
     .accusation
+    .law
+    .judge
       margin-top .3rem
       .case-title
       .accusation-title
+      .law-title
+      .judge-title
         height .7rem
         line-height .7rem
         font-size .355rem
@@ -106,6 +176,8 @@ export default {
         font-weight: bold
       .case-text
       .accusation-text
+      .law-text
+      .judge-text
         font-size .3rem
         padding .25rem .35rem
         margin-top .1rem

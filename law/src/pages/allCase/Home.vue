@@ -1,7 +1,7 @@
 <template>
   <div class="case"> <!-- 使用组件时最外层必须包裹一个div -->
-    <case-header :title="title"></case-header>
-    <case-init></case-init>
+    <case-header :title="title" @show="changeFlag"></case-header>
+    <case-init v-if="!showSearch"></case-init>
     <!-- <case-pictures :imgUrl="imgUrl"></case-pictures> -->
     <!-- <case-search></case-search>
     <case-classify :classifyList="classifyList"></case-classify>
@@ -32,7 +32,13 @@ export default {
     return {
       title: '罪名库',
       classifyList: [],
-      isSpinShow: false
+      isSpinShow: false,
+      showSearch: false
+    }
+  },
+  methods: {
+    changeFlag (flag) {
+      this.showSearch = flag
     }
   }
   // methods: {

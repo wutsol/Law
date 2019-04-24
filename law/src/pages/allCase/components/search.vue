@@ -1,5 +1,6 @@
 <template>
   <div class="header border-bottom"> <!-- 为了页面向下滚动时header部分不动 -->
+    hi
     <!-- <div class="header-left">
       <div class="iconfont back-icon" @click="handleClick">&#xe62c;</div>
     </div>
@@ -26,10 +27,10 @@
 
 <script> // 除主页的header
 export default{
-  name: 'CaseHeader'
-  // props: {
-  //   title: String
-  // },
+  name: 'Search',
+  props: {
+    keyword: String
+  }
   // data () {
   //   return {
   //     keyword: '',
@@ -55,5 +56,7 @@ export default{
   @import '~styles/variables.styl'
   @import '~styles/mixins.styl'
   .header
+    z-index 10
     margin-top $headerHeight
+    height 100%
 </style>

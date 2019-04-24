@@ -16,5 +16,11 @@ export default {
     try {
       localStorage.setItem('articleIndex', JSON.stringify(articleIndex))
     } catch (e) {}
+  },
+  setCase (state, article) {
+    state.article = article
+    try {
+      localStorage.setItem('article', JSON.stringify(article))
+    } catch (e) {}
   }
 }

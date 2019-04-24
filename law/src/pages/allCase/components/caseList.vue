@@ -49,6 +49,7 @@
 
 <script> // 二级标题
 import axios from 'axios'
+import { mapMutations } from 'vuex' // vuex高级一些的API
 // import LawHeader from 'common/Header'
 // import LawBanner from './lawBanner'
 import Loading from 'common/Loading'
@@ -73,8 +74,9 @@ export default {
     handleCaseDetail (index, item) { // 使用动态路由的时候使用query要写成 path: '/caseDetail/' + index的形式。而且传递item对象时也不要使用router-link
       // this.lastFact = item.fact
       // let fact = JSON.stringify(item.fact)
-      let str = JSON.stringify(item)// 把对象转化为字符串（stringify）存放进sessionStorage
-      sessionStorage.setItem('obbj', str) // 使用localStorage没起作用，待解
+      this.setCase(item)
+      // let str = JSON.stringify(item)// 把对象转化为字符串（stringify）存放进sessionStorage
+      // sessionStorage.setItem('obbj', str) // 使用localStorage没起作用，待解
       // sessionStorage.setItem('fact', fact)
       // if (this.lastFact !== JSON.parse(sessionStorage.getItem('fact'))) {
       //   sessionStorage.clear('obbj')
@@ -102,12 +104,13 @@ export default {
     },
     getDetailInfoSucc (res) {
       if (res && res.data) {
-        console.log(res.data)
+        // console.log(res.data)
         const data = res.data
         this.caseList = data
         this.isSpinShow = false
       }
-    }
+    },
+    ...mapMutations(['setCase']) // 该方法相当于commit一个请求
   },
   computed: { // 实现多余的icon出现在第二张page上
     pages () {
