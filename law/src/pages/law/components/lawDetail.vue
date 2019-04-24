@@ -179,7 +179,7 @@ export default {
       .law-detail
         font-size .3rem
         padding 0 .35rem
-        text-indent .02rem
+        text-indent 2em
         span
           font-weight bold
         .law-one

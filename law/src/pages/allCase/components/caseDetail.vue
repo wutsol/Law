@@ -1,6 +1,27 @@
 <template>
   <div class="wraper">
     <case-header :title="headerTitle"></case-header>
+    <div class="title">
+      {{this.list.summary}}
+    </div>
+    <div class="case">
+      <div class="case-title">案情</div>
+      <div class="case-text">{{this.list.fact}}</div>
+    </div>
+    <div class="accusation">
+      <div class="accusation-title">罪名</div>
+      <ul v-if="list.meta" class="accusation-text"><!-- 解决accusation渲染失败的情况 -->
+        <router-link
+          tag="li"
+          v-for="(item, index) of list.meta.accusation"
+          :key="index"
+          :to="'/crimeDetail/' + item"
+        >
+          <Icon type="ios-link" />
+          {{item}}
+        </router-link>
+      </ul>
+    </div>
     <!-- <div class="fact">
       <div class="fact-title border-bottom">案情描述</div>
       <div class="fact-content">{{this.list.fact}}</div>
@@ -46,6 +67,9 @@ export default {
   // },
   activated () { // 因为使用了keep-alive，所以要使用这个钩子取代上面的
     this.list = JSON.parse(sessionStorage.getItem('obbj')) // 转化为对象，否则是数组
+    this.list.meta.accusation.forEach((item, index) => {
+      this.list.meta.accusation[index] = item + '罪'
+    })
     console.log(this.list)
     // this.death = this.list.prison.death_penalty ? '是' : '否'
     // this.life = this.list.prison.life_imprisonment ? '是' : '否'
@@ -59,8 +83,34 @@ export default {
 
 <style lang="stylus" scoped>
   @import '~styles/mixins.styl'
+  @import '~styles/variables.styl'
   .wraper
-    background-color: #eee
+    background-color: #fff
+    .title
+      margin-top $headerHeight + .1rem
+      padding .1rem .12rem
+      font-size .35rem
+      color #414141
+      line-height .4rem
+    .case
+    .accusation
+      margin-top .3rem
+      .case-title
+      .accusation-title
+        height .7rem
+        line-height .7rem
+        font-size .355rem
+        text-align left
+        padding-left .2rem
+        color: #2c3e50
+        font-weight: bold
+      .case-text
+      .accusation-text
+        font-size .3rem
+        padding .25rem .35rem
+        margin-top .1rem
+        line-height .53rem
+        border()
     .fact
       background-color: #FFF
       margin-top 1.12rem

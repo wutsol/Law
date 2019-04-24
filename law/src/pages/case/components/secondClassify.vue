@@ -77,6 +77,7 @@ export default {
     getDetailInfoSucc (res) {
       if (res && res.data) {
         this.accusationList = res.data
+        console.log(this.accusationList)
         this.isSpinShow = false
       }
     }
