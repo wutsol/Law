@@ -16,6 +16,24 @@
             <div class="item-title">
              {{item.chinese_name}}
             </div>
+            <Tag
+              class="item-lables"
+              color="success"
+            >
+              {{item.effective}}
+            </Tag>
+            <div class="item-init">
+              <span>{{item.level}}</span>
+              <Divider type="vertical" />
+              <span>{{item.department}}</span>
+              <Divider type="vertical" />
+              <span>{{item.store_issue}}</span>
+              <Divider type="vertical" />
+              <span>{{item.start_date}} 发布</span>
+              <Divider type="vertical" />
+              <span>{{item.exec_date}} 实施</span>
+              <Divider type="vertical" />
+            </div>
           </router-link>
         </swiper-slide>
         <!-- Optional controls -->
@@ -75,7 +93,20 @@ export default {
     getDetailInfoSucc (res) {
       if (res && res.data) {
         console.log(res.data)
-        this.lawList = res.data
+        const data = res.data
+        this.lawList = data
+        // data.forEach((item, index) => {
+        //   if (index <= 100)
+        //   {
+        //     this.lawList[index] = item
+        //   }
+        // })
+        // for (var i = 0; i <= 50; i++) {
+        //   this.lawList[i] = data[i]
+        // }
+        // for (var t = 0; t <= 50; t++) {
+        //   console.log(this.lawList[t])
+        // }
         this.isSpinShow = false
       }
       // res = res.data
@@ -128,11 +159,11 @@ export default {
         // position relative
         // width 100%
         min-height 1rem
-        line-height 1rem
+        line-height .45rem
         // padding-left .4rem
         // padding-right .1rem
-        font-size .25rem
-        padding .1rem 0
+        font-size .3rem
+        padding .1rem
         margin .15rem .1rem 0 .1rem
         background-color: #fff
         border .01rem solid #ccc
@@ -143,7 +174,15 @@ export default {
         // left .4rem
         // right 1rem
         // top 0
+        .item-lables
+          margin-top .1rem
+          margin-right .08rem
+        .item-init
+          margin .05rem 0
+          font-size .26rem
+          padding-left .1rem
+          color #999
       .swiper-pagination
         color #bbb
-        bottom -.5rem // 使1/30在图片下方显示
+        bottom -.3rem // 使1/30在图片下方显示
 </style>

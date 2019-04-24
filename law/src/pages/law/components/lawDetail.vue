@@ -140,9 +140,9 @@ export default {
   .container
     margin-top $headerHeight
     .law-special
-      border-top .02rem solid #999
-      // border-bottom .02rem solid #999
-      border-radius .2rem
+      // border-top .02rem solid #999
+      // // border-bottom .02rem solid #999
+      // border-radius .2rem
       padding .1rem 0 .3rem 0
       .law-title
         padding-top .2rem

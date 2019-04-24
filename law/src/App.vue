@@ -26,6 +26,9 @@ export default {
   input // 改变组件中的字体
     font-family: Arial, "Microsoft Yahei", "Helvetica Neue", Helvetica, sans-serif
     height .72rem!important
+  .ivu-divider
+  .ivu-divider-vertical
+    margin 0 .06rem
   .ivu-breadcrumb
     ellipsis()
   .ivu-input // 搜索框字体
