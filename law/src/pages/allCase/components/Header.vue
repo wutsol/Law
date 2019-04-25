@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="all">
     <div class="header border-bottom"> <!-- 为了页面向下滚动时header部分不动 -->
       <div class="header-left">
         <div class="iconfont back-icon" @click="handleClick">&#xe62c;</div>
@@ -7,7 +7,6 @@
       <div class="header-middle">
         <i-input
           search
-          enter-button
           v-model="keyword"
           placeholder="输入罪名关键词"
           @on-focus="handleFocus"
@@ -16,42 +15,60 @@
         </i-input>
       </div>
       <router-link
+        v-if="!showSearch"
         tag="div"
         class="header-right"
         to="/"
       >
         <div class="iconfont home-icon">&#xe61e;</div>
       </router-link>
+      <div v-if="showSearch" class="header-right" @click="handleQuit">取消</div>
       <!-- </div> -->
     </div>
-    <div v-if="showSearch" class="search">
-      <!-- <ul>
-        <li
-        > -->
-      <Tag
-        v-for="(item, index) of tagList"
-        :key="index"
-        :name="index"
-        type="dot"
-        closable
-        color="primary"
-        @on-close="handleClose"
-      >
-        {{item}}
-      </Tag>
-        <!-- </li>
-      </ul> -->
-    </div>
+    <search-list v-show="showSearchList" :searchList="searchList"></search-list>
+    <transition
+      mode="out-in"
+      enter-active-class="animated bounceInRight"
+      leave-active-class="animated bounceOutRight"
+    >
+      <div v-show="showSearch" class="search">
+        <div v-show="showIcon" class="empty">
+          <div>
+            <div class="iconfont empty-icon">&#xe6b2;</div>
+            <p class="empty-text">未找到相关案例...</p>
+          </div>
+        </div>
+        <Tag
+          v-for="item of tagList"
+          :key="item"
+          :name="item"
+          closable
+          @on-close="handleClose"
+        >
+          {{item}}
+        </Tag>
+        <div class="btn" v-show="showBtn">
+          <i-button class="clear-btn" :size="buttonSize" type="success" icon="md-close" @click="handleClearAll">清除</i-button>
+          <i-button class="search-btn" :size="buttonSize" type="success" icon="ios-search" @click="handleSearchAll">搜索</i-button>
+        </div>
+        <loading :isSpinShow="isSpinShow"></loading>
+      </div>
+    </transition>
   </div>
 </template>
 
 <script> // 除主页的header
 // import Search from './search'
+import SearchList from './searchList'
+import axios from 'axios'
+import Qs from 'qs'
+import Loading from 'common/Loading'
 export default{
   name: 'CaseHeader',
-  // components: {
-  //   Search
-  // },
+  components: {
+    SearchList,
+    Loading
+  },
   props: {
     title: String
   },
@@ -59,28 +76,93 @@ export default{
     return {
       keyword: '',
       showSearch: false,
-      opacityStyle: {
-        opacity: 0
-      },
+      showSearchList: false,
+      searchList: [],
       data4: ['中华人民共和国刑法', '中华人民共和国民法总则', '中华人民共和国劳动法'],
-      tagList: []
+      tagList: [],
+      buttonSize: 'large',
+      showBtn: true,
+      showIcon: false,
+      isSpinShow: false
     }
   },
   methods: {
     handleClick () {
+      this.tagList = []
+      this.showSearch = false
+      this.searchList = []
+      this.showSearchList = false
+      this.showBtn = true
+      this.showIcon = false
       this.$router.go(-1) // 返回上一页
     },
     handleFocus () {
       this.showSearch = true
+      this.searchList = []
+      this.showSearchList = false
+      this.showBtn = true
+      this.showIcon = false
       this.$emit('show', this.showSearch)
     },
     handleSearch () {
-      this.tagList.push(this.keyword)
-      this.keyword = ''
+      if (this.keyword) {
+        this.tagList.push(this.keyword)
+        this.keyword = ''
+      } else {
+        this.getData()
+      }
     },
     handleClose (event, name) {
       const index = this.tagList.indexOf(name)
       this.tagList.splice(index, 1)
+    },
+    handleQuit () {
+      this.showSearch = false
+      this.tagList = []
+      this.showSearchList = []
+      this.showSearchList = false
+      this.showBtn = true
+      this.showIcon = false
+      this.$emit('show', this.showSearch)
+    },
+    handleClearAll () {
+      this.tagList = []
+    },
+    handleSearchAll () {
+      if (this.keyword) {
+        this.handleSearch()
+      } else {
+        this.getData()
+      }
+    },
+    getData () {
+      if (this.isSpinShow === false) {
+        this.isSpinShow = true
+        axios.request({ // 向django发送请求,获取推荐内容
+          url: 'http://47.101.221.46:8050/anli_find',
+          method: 'post',
+          data: Qs.stringify(this.tagList)
+        }).then(this.getDataSucc)
+          .catch((response) => {
+            console.log(response)
+          })
+      }
+    },
+    getDataSucc (res) {
+      if (res && res.data) {
+        this.tagList = []
+        this.showBtn = false
+        if (res.data.length > 0) {
+          console.log(res)
+          this.searchList = res.data
+          this.showSearchList = true
+          this.showSearch = false
+        } else {
+          console.log(res)
+          this.showIcon = true
+        }
+        this.isSpinShow = false
+      }
     }
   }
 }
@@ -89,6 +171,18 @@ export default{
 <style lang="stylus" scoped>
   @import '~styles/variables.styl'
   @import '~styles/mixins.styl'
+  .all > .search >>> .ivu-tag // 局部改变tag样式
+    margin .2rem .1rem .1rem .2rem
+    height .75rem
+    line-height .75rem
+    font-size .28rem
+  .all > .search >>> .ivu-btn // 搜索和清除按钮
+    height .85rem
+    min-width 1.8rem
+    width 2rem
+    font-size .28rem
+  .all > .header-middle >>> .ivu-input // input
+    background-color: #f7f7f7
   .header
     display flex
     position fixed
@@ -131,4 +225,24 @@ export default{
     left 0
     right 0
     z-index 10
+    .btn
+      position absolute
+      left 1.5rem
+      right 1.5rem
+      bottom 1rem
+      .clear-btn
+        float left
+      .search-btn
+        float right
+    .empty
+      height 100%
+      text-align center
+      vertical()
+      .empty-icon
+        font-size 1.2rem
+        color #666
+      .empty-text
+        margin-top .2rem
+        font-size .26rem
+        color #999
 </style>

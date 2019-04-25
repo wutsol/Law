@@ -22,5 +22,11 @@ export default {
     try {
       localStorage.setItem('article', JSON.stringify(article))
     } catch (e) {}
+  },
+  setContentList (state, contentList) {
+    state.contentList = contentList
+    try {
+      localStorage.setItem('contentList', JSON.stringify(contentList))
+    } catch (e) {}
   }
 }

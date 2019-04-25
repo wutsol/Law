@@ -40,6 +40,9 @@ export default {
     changeFlag (flag) {
       this.showSearch = flag
     }
+  },
+  activated () {
+    this.showSearch = false
   }
   // methods: {
   //   getCaseInfo () {

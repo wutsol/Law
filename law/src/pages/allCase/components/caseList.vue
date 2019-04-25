@@ -67,13 +67,39 @@ export default {
         observer: true
       },
       caseList: [],
-      isSpinShow: false
+      isSpinShow: false,
+      contentList: [[]],
+      ok: false
     }
   },
   methods: {
     handleCaseDetail (index, item) { // 使用动态路由的时候使用query要写成 path: '/caseDetail/' + index的形式。而且传递item对象时也不要使用router-link
       // this.lastFact = item.fact
       // let fact = JSON.stringify(item.fact)
+      let newMeta = item.meta
+      console.log(newMeta.accusation)
+      newMeta.accusation.forEach((item, index) => { // 为了能正确给casedetail发送数据
+        if (item.indexOf('罪') < 0) {
+          newMeta.accusation[index] = item + '罪'
+        }
+      })
+      item.meta = newMeta
+      // newMeta.relevant_articles.forEach((item, index) => {
+      //   axios.request({ // 向django发送请求,获取推荐内容
+      //     url: 'http://47.101.221.46:8050/xingfa',
+      //     method: 'post',
+      //     data: item
+      //   }).then((res) => {
+      //     // console.log(res)
+      //     this.contentList[index] = []
+      //     this.contentList[index] = res.data[0]
+      //   }).catch((response) => {
+      //     console.log(response)
+      //   })
+      //   console.log('axios')
+      // })
+      // this.setContentList(this.contentList)
+      // console.log('list')
       this.setCase(item)
       // let str = JSON.stringify(item)// 把对象转化为字符串（stringify）存放进sessionStorage
       // sessionStorage.setItem('obbj', str) // 使用localStorage没起作用，待解
@@ -110,7 +136,8 @@ export default {
         this.isSpinShow = false
       }
     },
-    ...mapMutations(['setCase']) // 该方法相当于commit一个请求
+    ...mapMutations(['setCase']), // 该方法相当于commit一个请求
+    ...mapMutations(['setContentList']) // 该方法相当于commit一个请求
   },
   computed: { // 实现多余的icon出现在第二张page上
     pages () {

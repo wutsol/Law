@@ -23,6 +23,8 @@ export default {
 <style lang="stylus">
   @import './assets/styles/animate.css'
   @import '~styles/mixins.styl'
+  button
+    font-family: Arial, "Microsoft Yahei", "Helvetica Neue", Helvetica, sans-serif
   input // 改变组件中的字体
     font-family: Arial, "Microsoft Yahei", "Helvetica Neue", Helvetica, sans-serif
     height .72rem!important

@@ -1,6 +1,6 @@
 <template>
   <div class="wraper">
-    <case-header :title="headerTitle"></case-header>
+    <case-header :title="article.summary"></case-header>
     <div class="title">
       {{this.article.summary}}
     </div>
@@ -13,6 +13,7 @@
       <ul class="accusation-text"><!-- v-if="article.meta" 解决accusation渲染失败的情况 -->
         <router-link
           tag="li"
+          v-if="article && article.meta"
           v-for="(item, index) of article.meta.accusation"
           :key="index"
           :to="'/crimeDetail/' + item"
@@ -24,50 +25,56 @@
     </div>
     <div class="law">
       <div class="law-title">相关法条</div>
-      <ul class="law-text"><!-- 解决accusation渲染失败的情况 -->
-        <li
+      <Collapse simple> <!-- 折叠面板 -->
+        <Panel
+          v-if="article && article.meta"
+          v-for="(item, index) of article.meta.relevant_articles"
+          :key="index"
+        ><!-- class="law-text" -->
+          <div class="law-text-title">
+            <Icon type="ios-link" />
+            《中华人民共和国刑法》第{{item}}条
+          </div>
+          <p slot="content">
+            <span>{{contentList[index]}}</span>
+            hi
+           <!--  <div v-if="contentList"> --><!--  class="law-text-content" -->
+             <!--  <p>{{contentList[index]}}</p> --> <!-- class="law-down" -->
+            <!-- </div> -->
+          </p>
+        </Panel>
+      </Collapse>
+    </div>
+    <!-- <div class="law">
+      <div class="law-title">相关法条</div>
+      <ul class="law-text"> --><!-- 解决accusation渲染失败的情况 -->
+       <!--  <li
+          v-if="article && article.meta"
           v-for="(item, index) of article.meta.relevant_articles"
           :key="index"
         >
-          <p>
+          <p class="law-text-title">
             <Icon type="ios-link" />
             《中华人民共和国刑法》第{{item}}条
           </p>
-          <p class="law-text-content">
-            {{contentList[index]}}
-          </p>
+          <div v-if="contentList" class="law-text-content">
+            <p class="law-down">{{contentList[index]}}</p>
+          </div>
         </li>
       </ul>
-    </div>
-    <div class="judge">
+    </div> -->
+    <div v-if="article && article.meta" class="judge">
       <div class="judge-title">判决详情</div>
       <div class="judge-text">
         <div class="judge-content">
-          <span v-show="death">死刑 <br></span>
-          <span v-show="life">无期徒刑 <br></span>
-          <span v-show="!death && !life">刑期： {{this.imprisonment}}  个月 <br></span>
-          罚款金额： {{this.money}}
+          <span v-show="article.meta.term_of_imprisonment.death_penalty">死刑 <br></span>
+          <span v-show="article.meta.term_of_imprisonment.life_imprisonment">无期徒刑 <br></span>
+          <span v-show="!death && !life">刑期： {{article.meta.term_of_imprisonment.imprisonment}}  个月 <br></span>
+          罚款金额： {{article.meta.punish_of_money}}
+          <span v-show="article.meta.punish_of_money > 0">人民币</span>
         </div>
       </div>
     </div>
-    <!-- <div class="fact">
-      <div class="fact-title border-bottom">案情描述</div>
-      <div class="fact-content">{{this.list.fact}}</div>
-    </div>
-    <div class="prison">
-      <div class="prison-title border-bottom">判刑详情</div>
-      <div class="prison-content">
-        是否死刑： {{this.death}} <br>
-        是否无期徒刑： {{this.life}} <br>
-        刑期： {{this.imprisonment}}  个月
-      </div>
-    </div>
-    <div class="fine">
-      <div class="fine-title border-bottom">罚金</div>
-      <div class="fine-content">
-        罚款金额： {{this.list.punish_of_money}}
-      </div>
-    </div> -->
   </div>
 </template>
 
@@ -82,7 +89,6 @@ export default {
   },
   data () {
     return {
-      headerTitle: '罪名库',
       death: false,
       life: false,
       list: {type: Object},
@@ -91,36 +97,60 @@ export default {
       money: 0
     }
   },
-  // created () {
-  //   this.list = JSON.parse(sessionStorage.getItem('obbj')) // 转化为对象，否则是数组
-  //   this.death = this.list.prison.death_penalty ? '是' : '否'
-  //   this.life = this.list.prison.life_imprisonment ? '是' : '否'
-  // },
   computed: {
     ...mapState(['article']) // 将vuex公用数据映射给计算属性并命名为city,用this.city取代html中this.$store.state.city
   },
-  mounted () {
-    console.log(this.article)
-    this.article.meta.accusation.forEach((item, index) => { // 为了能正确给casedetail发送数据
-      this.article.meta.accusation[index] = item + '罪'
-    })
-    this.acticle.meta.relevant_articles.forEach((item, index) => {
-      axios.request({ // 向django发送请求,获取推荐内容
-        url: 'http://47.101.221.46:8050/xingfa',
-        method: 'post',
-        data: item
-      }).then((res) => {
-        // console.log(res)
-        this.contentList[index] = res.data[0]
-        console.log(this.contentList[index])
-      })
-        .catch((response) => {
-          console.log(response)
+  watch: {
+    article () {
+      if (this.article && this.article.meta) {
+        // console.log(this.article.meta)
+        const newMeta = this.article.meta
+        // newMeta.accusation.forEach((item, index) => { // 为了能正确给casedetail发送数据
+        //   this.article.meta.accusation[index] = item + '罪'
+        // })
+        newMeta.relevant_articles.forEach((item, index) => {
+          axios.request({ // 向django发送请求,获取推荐内容
+            url: 'http://47.101.221.46:8050/xingfa',
+            method: 'post',
+            data: item
+          }).then((res) => {
+            console.log(res)
+            // this.contentList[index] = []
+            this.contentList.push(res.data[0].content)
+            console.log(this.contentList[index])
+          })
+            .catch((response) => {
+              console.log(response)
+            })
         })
-    })
+      }
+    }
+  },
+  mounted () {
+    // if (this.article && this.article.meta) {
+    //   console.log(this.article + 'mounted')
+    //   const newMeta = this.article.meta
+    //   // newMeta.accusation.forEach((item, index) => { // 为了能正确给casedetail发送数据
+    //   //   this.article.meta.accusation[index] = item + '罪'
+    //   // })
+    //   newMeta.relevant_articles.forEach((item, index) => {
+    //     axios.request({ // 向django发送请求,获取推荐内容
+    //       url: 'http://47.101.221.46:8050/xingfa',
+    //       method: 'post',
+    //       data: item
+    //     }).then((res) => {
+    //       // console.log(res)
+    //       this.contentList[index] = res.data[0]
+    //       console.log(this.contentList[index])
+    //     })
+    //       .catch((response) => {
+    //         console.log(response)
+    //       })
+    //   })
+    // }
   },
   activated () { // 因为使用了keep-alive，所以要使用这个钩子取代上面的
-    console.log(this.article)
+    // console.log(this.article)
     // this.list = JSON.parse(sessionStorage.getItem('obbj')) // 转化为对象，否则是数组
     // this.article.meta.relevant_articles.forEach((item, index) => {
     //   axios.request({ // 向django发送请求,获取推荐内容
@@ -128,18 +158,19 @@ export default {
     //     method: 'post',
     //     data: item
     //   }).then((res) => {
-    //     // console.log(res)
-    //     this.contentList[index] = res.data[0]
+    //     console.log(res)
+    //     this.contentList[index] = []
+    //     this.contentList[index].push(res.data[0].content)
     //     console.log(this.contentList[index])
     //   })
     //     .catch((response) => {
     //       console.log(response)
     //     })
     // })
-    this.money = this.article.meta.punish_of_money
-    this.death = this.article.meta.term_of_imprisonment.death_penalty
-    this.life = this.article.meta.term_of_imprisonment.life_imprisonment
-    this.imprisonment = this.article.meta.term_of_imprisonment.imprisonment
+    // this.money = this.article.meta.punish_of_money
+    // this.death = this.article.meta.term_of_imprisonment.death_penalty
+    // this.life = this.article.meta.term_of_imprisonment.life_imprisonment
+    // this.imprisonment = this.article.meta.term_of_imprisonment.imprisonment
   }
   // computed: {
   //   // ...mapState(['item']) // 将vuex公用数据映射给计算属性并命名为city,用this.city取代html中this.$store.state.city
@@ -183,6 +214,16 @@ export default {
         margin-top .1rem
         line-height .53rem
         border()
+    .law-text-title
+      display inline-block
+      margin-left -.15rem
+      font-size .32rem
+      color #333
+    .law-down
+      line-height .5rem
+      font-size .28rem
+      color #666666e8
+      text-indent 2em
     .fact
       background-color: #FFF
       margin-top 1.12rem
