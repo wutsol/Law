@@ -67,7 +67,7 @@ export default {
           // headers: {
           //   'deviceCode': 'A95ZEF1-47B5-AC90BF3'
           // }, 不添加该语句直接用Qs是可以成功的
-          url: 'http://148.70.210.143:8050/register',
+          url: 'http://148.70.210.143:8000/register',
           method: 'post',
           data: Qs.stringify(this.param)
         }).then(this.registerSuccessful)

@@ -28,7 +28,6 @@ export default {
   data () {
     return {
       title: '罪名库',
-      imgUrl: 'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1551018518&di=370e53fb5e39f42594a6009f0513fa39&src=http://img3.iyiou.com/Cover/2016-12-04/hangye-falvfuwu1204.jpg',
       classifyList: [],
       isSpinShow: false
     }
@@ -38,7 +37,7 @@ export default {
       if (this.isSpinShow === false) {
         this.isSpinShow = true
         axios.request({ // 向django发送请求,获取推荐内容
-          url: 'http://47.101.221.46:8050/new_classify2',
+          url: 'http://47.101.221.46:8000/new_classify2',
           method: 'post'
         }).then(this.getCaseInfoSucc)
           .catch((response) => {
@@ -48,7 +47,11 @@ export default {
     },
     getCaseInfoSucc (res) { // 数据的获取
       if (res && res.data) {
-        this.classifyList = res.data
+        res.data.forEach((item, index) => {
+          if (index !== 0) { // 去掉那个null
+            this.classifyList.push(item)
+          }
+        })
         this.isSpinShow = false
       }
       // res = res.data

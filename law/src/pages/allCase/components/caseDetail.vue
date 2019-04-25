@@ -1,20 +1,21 @@
 <template>
   <div class="wraper">
-    <case-header :title="article.summary"></case-header>
+    <case-header :title="newItem.summary"></case-header>
     <div class="title">
-      {{this.article.summary}}
+      {{this.newItem.summary}}
     </div>
     <div class="case">
       <div class="case-title">案情</div>
-      <div class="case-text">{{this.article.fact}}</div>
+      <div class="case-text">{{this.newItem.fact}}</div>
     </div>
     <div class="accusation">
       <div class="accusation-title">罪名</div>
       <ul class="accusation-text"><!-- v-if="article.meta" 解决accusation渲染失败的情况 -->
         <router-link
+          class="accusation-li"
           tag="li"
-          v-if="article && article.meta"
-          v-for="(item, index) of article.meta.accusation"
+          v-if="newItem && newItem.meta && newItem.meta.accusation"
+          v-for="(item, index) of newItem.meta.accusation"
           :key="index"
           :to="'/crimeDetail/' + item"
         >
@@ -25,19 +26,19 @@
     </div>
     <div class="law">
       <div class="law-title">相关法条</div>
-      <Collapse simple> <!-- 折叠面板 -->
+      <Collapse simple class="law-text"> <!-- 折叠面板 -->
         <Panel
-          v-if="article && article.meta"
-          v-for="(item, index) of article.meta.relevant_articles"
+          v-if="newItem && newItem.meta"
+          v-for="(item, index) of newItem.meta.relevant_articles"
           :key="index"
         ><!-- class="law-text" -->
           <div class="law-text-title">
-            <Icon type="ios-link" />
+            <!-- <Icon type="ios-link" /> -->
             《中华人民共和国刑法》第{{item}}条
           </div>
-          <p slot="content">
-            <span>{{contentList[index]}}</span>
-            hi
+          <p slot="content" class="law-down">
+            <!-- <Divider></Divider> -->
+            <span v-if="contentList">{{contentList[index]}}</span>
            <!--  <div v-if="contentList"> --><!--  class="law-text-content" -->
              <!--  <p>{{contentList[index]}}</p> --> <!-- class="law-down" -->
             <!-- </div> -->
@@ -63,15 +64,15 @@
         </li>
       </ul>
     </div> -->
-    <div v-if="article && article.meta" class="judge">
+    <div v-if="newItem && newItem.meta" class="judge">
       <div class="judge-title">判决详情</div>
       <div class="judge-text">
         <div class="judge-content">
-          <span v-show="article.meta.term_of_imprisonment.death_penalty">死刑 <br></span>
-          <span v-show="article.meta.term_of_imprisonment.life_imprisonment">无期徒刑 <br></span>
-          <span v-show="!death && !life">刑期： {{article.meta.term_of_imprisonment.imprisonment}}  个月 <br></span>
-          罚款金额： {{article.meta.punish_of_money}}
-          <span v-show="article.meta.punish_of_money > 0">人民币</span>
+          <span v-show="newItem.meta.term_of_imprisonment.death_penalty">死刑 <br></span>
+          <span v-show="newItem.meta.term_of_imprisonment.life_imprisonment">无期徒刑 <br></span>
+          <span v-show="!death && !life">刑期： {{newItem.meta.term_of_imprisonment.imprisonment}}  个月 <br></span>
+          罚款金额： {{newItem.meta.punish_of_money}}
+          <span v-show="newItem.meta.punish_of_money > 0">人民币</span>
         </div>
       </div>
     </div>
@@ -94,39 +95,71 @@ export default {
       list: {type: Object},
       imprisonment: '',
       contentList: [],
-      money: 0
+      money: 0,
+      lastItem: {},
+      newItem: {}
     }
   },
   computed: {
     ...mapState(['article']) // 将vuex公用数据映射给计算属性并命名为city,用this.city取代html中this.$store.state.city
   },
-  watch: {
-    article () {
-      if (this.article && this.article.meta) {
-        // console.log(this.article.meta)
-        const newMeta = this.article.meta
-        // newMeta.accusation.forEach((item, index) => { // 为了能正确给casedetail发送数据
-        //   this.article.meta.accusation[index] = item + '罪'
-        // })
-        newMeta.relevant_articles.forEach((item, index) => {
-          axios.request({ // 向django发送请求,获取推荐内容
-            url: 'http://47.101.221.46:8050/xingfa',
-            method: 'post',
-            data: item
-          }).then((res) => {
-            console.log(res)
-            // this.contentList[index] = []
-            this.contentList.push(res.data[0].content)
-            console.log(this.contentList[index])
-          })
-            .catch((response) => {
-              console.log(response)
-            })
+  // watch: { // 本来是解决vuex读取问题的，但傻逼的我忘记前面detail的方法了
+  //   article () {
+  //     // if (this.article && this.article.meta) {
+  //     //   // console.log(this.article.meta)
+  //     //   this.lastItem = this.article
+  //     //   const newMeta = this.article.meta
+  //     //   // newMeta.accusation.forEach((item, index) => { // 为了能正确给casedetail发送数据
+  //     //   //   this.article.meta.accusation[index] = item + '罪'
+  //     //   // })
+  //     //   newMeta.relevant_articles.forEach((item, index) => {
+  //     //     axios.request({ // 向django发送请求,获取推荐内容
+  //     //       url: 'http://47.101.221.46:8050/xingfa',
+  //     //       method: 'post',
+  //     //       data: item
+  //     //     }).then((res) => {
+  //     //       // console.log(res)
+  //     //       // this.contentList[index] = []
+  //     //       this.contentList.push(res.data[0].content)
+  //     //       // console.log(this.contentList[index])
+  //     //     })
+  //     //       .catch((response) => {
+  //     //         console.log(response)
+  //     //       })
+  //     //   })
+  //     // }
+  //   }
+  // },
+  methods: {
+    getData () {
+      this.newItem = JSON.parse(sessionStorage.getItem('art')) // 转化为对象，否则是数组
+      this.lastItem = this.newItem
+      const newMeta = this.newItem.meta
+      newMeta.relevant_articles.forEach((item, index) => {
+        axios.request({ // 向django发送请求,获取推荐内容
+          url: 'http://47.101.221.46:8000/xingfa',
+          method: 'post',
+          data: item
+        }).then((res) => {
+          // console.log(res)
+          // this.contentList[index] = []
+          const data = res.data[0]
+          this.contentList.push(data.content) // 用push的话要在初始时置空
+          // console.log(this.contentList[index])
         })
-      }
+          .catch((response) => {
+            console.log(response)
+          })
+      })
+      this.money = newMeta.punish_of_money
+      this.death = newMeta.term_of_imprisonment.death_penalty
+      this.life = newMeta.term_of_imprisonment.life_imprisonment
+      this.imprisonment = newMeta.term_of_imprisonment.imprisonment
     }
   },
   mounted () {
+    // console.log('moun')
+    // this.getData()
     // if (this.article && this.article.meta) {
     //   console.log(this.article + 'mounted')
     //   const newMeta = this.article.meta
@@ -150,8 +183,22 @@ export default {
     // }
   },
   activated () { // 因为使用了keep-alive，所以要使用这个钩子取代上面的
+    this.contentList = []
+    this.getData()
+    // if (this.lastItem !== JSON.parse(sessionStorage.getItem('art'))) {
+    //   console.log('act')
+    //   console.log(this.lastItem)
+    //   console.log(JSON.parse(sessionStorage.getItem('art')))
+    //   this.getData()
+    // }
     // console.log(this.article)
     // this.list = JSON.parse(sessionStorage.getItem('obbj')) // 转化为对象，否则是数组
+    //
+    // if (this.lastItem !== this.article) {
+    //   console.log(this.lastItem)
+    //   console.log('hi')
+    // }
+    //
     // this.article.meta.relevant_articles.forEach((item, index) => {
     //   axios.request({ // 向django发送请求,获取推荐内容
     //     url: 'http://47.101.221.46:8050/xingfa',
@@ -181,6 +228,9 @@ export default {
 <style lang="stylus" scoped>
   @import '~styles/mixins.styl'
   @import '~styles/variables.styl'
+  .wraper >>> .ivu-collapse-header
+    height 1rem !important
+    line-height 1rem !important
   .wraper
     background-color: #fff
     .title
@@ -214,42 +264,18 @@ export default {
         margin-top .1rem
         line-height .53rem
         border()
-    .law-text-title
-      display inline-block
-      margin-left -.15rem
-      font-size .32rem
-      color #333
-    .law-down
-      line-height .5rem
-      font-size .28rem
-      color #666666e8
-      text-indent 2em
-    .fact
-      background-color: #FFF
-      margin-top 1.12rem
-      .fact-title
-        casetitle()
-      .fact-content
+    .accusation-li
+      margin .1rem 0
+    .law-text
+      padding 0 !important
+      .law-text-title
+        display inline-block
+        margin-left -.15rem
+        font-size .3rem
+        color #333
+      .law-down
+        line-height .5rem
+        font-size .28rem
+        color #666666e8
         text-indent 2em
-        padding .4rem
-        font-size .3rem
-        line-height .55rem
-    .prison
-      background-color: #FFF
-      margin-top .2rem
-      .prison-title
-        casetitle()
-      .prison-content
-        padding .4rem
-        font-size .3rem
-        line-height .58rem
-    .fine
-      background-color: #FFF
-      margin-top .2rem
-      .fine-title
-        casetitle()
-      .fine-content
-        padding .4rem
-        font-size .3rem
-        line-height .58rem
 </style>

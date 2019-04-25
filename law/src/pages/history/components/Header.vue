@@ -43,7 +43,7 @@ export default{
         // headers: {
         //   'deviceCode': 'A95ZEF1-47B5-AC90BF3'
         // },
-        url: 'http://148.70.210.143:8050/delete_history',
+        url: 'http://148.70.210.143:8000/delete_history',
         method: 'post',
         data: this.userName
       }).then((res) => {

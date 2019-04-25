@@ -64,7 +64,7 @@ export default {
         //   // 对 data 进行任意转换处理
         //   return Qs.stringify(data)
         // }],
-        url: 'http://148.70.210.143:8050/login',
+        url: 'http://148.70.210.143:8000/login',
         method: 'post',
         data: Qs.stringify(this.param)
       }).then(this.loginSuccessful)

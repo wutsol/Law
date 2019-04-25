@@ -69,7 +69,8 @@ export default {
       caseList: [],
       isSpinShow: false,
       contentList: [[]],
-      ok: false
+      ok: false,
+      lastItem: {}
     }
   },
   methods: {
@@ -77,7 +78,7 @@ export default {
       // this.lastFact = item.fact
       // let fact = JSON.stringify(item.fact)
       let newMeta = item.meta
-      console.log(newMeta.accusation)
+      // console.log(newMeta.accusation)
       newMeta.accusation.forEach((item, index) => { // 为了能正确给casedetail发送数据
         if (item.indexOf('罪') < 0) {
           newMeta.accusation[index] = item + '罪'
@@ -100,14 +101,14 @@ export default {
       // })
       // this.setContentList(this.contentList)
       // console.log('list')
-      this.setCase(item)
-      // let str = JSON.stringify(item)// 把对象转化为字符串（stringify）存放进sessionStorage
-      // sessionStorage.setItem('obbj', str) // 使用localStorage没起作用，待解
-      // sessionStorage.setItem('fact', fact)
-      // if (this.lastFact !== JSON.parse(sessionStorage.getItem('fact'))) {
-      //   sessionStorage.clear('obbj')
+      // this.setCase(item)
+      this.lastItem = item
+      let str = JSON.stringify(item)// 把对象转化为字符串（stringify）存放进sessionStorage
+      sessionStorage.setItem('art', str) // 使用localStorage没起作用，待解
+      // if (this.lastItem !== JSON.parse(sessionStorage.getItem('art'))) {
+      //   sessionStorage.clear('art')
       //   let str = JSON.stringify(item)
-      //   sessionStorage.setItem('obbj', str)
+      //   sessionStorage.setItem('art', str)
       // }
       this.$router.push({path: '/caseDetail/' + index, query: {item: item}})
     },
@@ -115,7 +116,7 @@ export default {
       if (this.isSpinShow === false) {
         this.isSpinShow = true
         axios.request({ // 向django发送请求,获取推荐内容
-          url: 'http://47.101.221.46:8050/anli_list',
+          url: 'http://47.101.221.46:8000/anli_list',
           method: 'post'
         }).then(this.getDetailInfoSucc)
           .catch((response) => {

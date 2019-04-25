@@ -55,9 +55,7 @@ export default {
         if (!pages[page]) {
           pages[page] = []
         }
-        if (index !== 4) { // 去掉那个null
-          pages[page].push(item)
-        }
+        pages[page].push(item)
       })
       return pages
     }
