@@ -23,6 +23,8 @@ export default {
 <style lang="stylus">
   @import './assets/styles/animate.css'
   @import '~styles/mixins.styl'
+  // #app
+  //   height 100%
   button
     font-family: Arial, "Microsoft Yahei", "Helvetica Neue", Helvetica, sans-serif
   input // 改变组件中的字体
@@ -40,14 +42,6 @@ export default {
   .ivu-btn-success // 按钮可点击状态的颜色
     background-color: #5db1ff
     border-color #5db1ff
-  .ivu-tabs-tab // tab
-    color #9a9a9b
-    font-size .28rem
-  .ivu-tabs-tab-active // activetab
-    font-size .36rem
-  .ivu-tabs-bar // 除去下划线
-    border-bottom 0
-    margin-left .2rem
   // .ivu-input // 决策部分的输入框
   //   background-color: #f8f8f896
   .ivu-back-top-inner // 回到顶部的样式

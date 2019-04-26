@@ -25,6 +25,15 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+  .wrapper >>> .ivu-tabs-tab // tab
+    color #9a9a9b
+    font-size .28rem
+  .wrapper >>> .ivu-tabs-tab-active // activetab
+    font-size .36rem
+    color #333
+  .wrapper >>> .ivu-tabs-bar // 除去下划线
+    border-bottom 0
+    margin-left .2rem
   .wrapper
     background-color: #FFF
     .home-border

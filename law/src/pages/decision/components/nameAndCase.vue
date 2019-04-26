@@ -1,17 +1,17 @@
 <template>
   <div class="name">
-    <div class="title border-bottom">罪名预测与案例推荐</div>
-    <Collapse simple accordion> <!-- 折叠面板 -->
-      <Panel
+    <!-- <div class="title border-bottom">罪名预测与案例推荐</div> -->
+    <!-- <Collapse simple accordion> --> <!-- 折叠面板 -->
+      <!-- <Panel
         v-for="(item, index) of accu_rele"
         :key="index"
       >
         <p
           class="test"
         >
-          {{accu[index]}} <!-- 罪名改进 -->
+          {{accu[index]}} --> <!-- 罪名改进 -->
           <!-- {{item[0].meta.accusation[0]}} --> <!-- 罪名 -->
-        </p>
+        <!-- </p>
         <i-circle
           :size="24"
           :trail-width="4"
@@ -28,10 +28,10 @@
           <Divider orientation="center" size="small">
             相关案例
           </Divider>
-          <report-case :list="item"></report-case> <!-- 案例 -->
+          <report-case :list="item"></report-case> 案例
         </p>
       </Panel>
-    </Collapse>
+    </Collapse> -->
     <!-- <ul>
       <li
         class="accu-name"
@@ -58,20 +58,43 @@
         <div class="case-detail-border"></div>
       </li>
     </ul> -->
+    <my-echart
+      :titleText="titleText"
+      :opinion="accu"
+      :opinionData="seriesData"
+    ></my-echart>
   </div>
 </template>
 
 <script>
 import ReportCase from './caseList'
+import MyEchart from 'common/myEcharts'
 export default {
   name: 'ReportName',
   props: {
     accu: Array,
     accu_prob: Array,
-    accu_rele: Array
+    accu_rele: Array,
+    seriesData: Array
   },
   components: {
+    MyEchart,
     ReportCase
+  },
+  data () {
+    return {
+      titleText: "相关罪名概率",
+      titleText2: "学历分布统计",
+      // 扇形区域名称 lengend
+      opinion: ["18-25岁", "26-40岁", "41-50岁"],
+      opinion2: ["硕士", "本科", "专科", "其他"],
+      // series
+      opinionData: [
+        { value: 600, name: "18-25岁" },
+        { value: 300, name: "26-40岁" },
+        { value: 200, name: "41-50岁" }
+      ]
+    }
   }
 }
 </script>

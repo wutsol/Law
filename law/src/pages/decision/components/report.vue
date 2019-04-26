@@ -1,13 +1,14 @@
 <template>
   <div class="report"> <!-- 使用组件时最外层必须包裹一个div -->
     <report-header :title="title"></report-header>
-    <report-name
+    <!-- <report-name
+      v-if="accuSucc"
       :accu="accu"
       :accu_prob="accu_prob"
       :accu_rele="accu_rele"
     >
     </report-name>
-    <report-punishment :list="impr"></report-punishment>
+    <report-punishment :list="impr"></report-punishment> -->
     <loading :isSpinShow="isSpinShow"></loading>
     <!-- <ul>
       <li
@@ -22,7 +23,14 @@
         </div>
       </li>
     </ul> -->
-    <report-law :lawList="tiaoli" :probList="tiaoli_prob"></report-law>
+    <decision-tab
+      :accu="accu"
+      :accu_prob="accu_prob"
+      :accu_rele="accu_rele"
+      :seriesData="seriesData"
+    >
+    </decision-tab>
+    <!-- <report-law :lawList="tiaoli" :probList="tiaoli_prob"></report-law> -->
     <!-- <report-case :caseList="caseList"></report-case> -->
   </div>
 </template>
@@ -33,6 +41,7 @@ import ReportHeader from 'common/Header'
 import ReportLaw from './law'
 import ReportName from './nameAndCase'
 import ReportPunishment from './reportPunishment'
+import DecisionTab from './tab'
 import Loading from 'common/Loading'
 export default {
   name: 'DecisionReport',
@@ -41,7 +50,8 @@ export default {
     ReportLaw,
     ReportName,
     ReportPunishment,
-    Loading
+    Loading,
+    DecisionTab
   },
   data () {
     return {
@@ -54,7 +64,9 @@ export default {
       impr: [], // 刑期
       tiaoli: [], // 法条
       tiaoli_prob: [], // 法条概率
-      count: 0
+      count: 0,
+      accuSucc: false,
+      seriesData: Array
     }
   },
   methods: {
@@ -62,8 +74,8 @@ export default {
       if (this.isSpinShow === false) {
         this.isSpinShow = true
         this.getAccusation()
-        this.getImpr()
-        this.getLaw()
+        // this.getImpr()
+        // this.getLaw()
         // if (this.count === 3) {
         //   this.isSpinShow = false
         // }
@@ -79,7 +91,7 @@ export default {
     },
     getLaw () {
       axios.request({ // 向django发送请求
-        url: 'http://148.70.210.143:8049/predict',
+        url: 'http://47.101.221.46:8051/predict',
         method: 'post',
         data: this.$route.params.fact
       }).then(this.getLawSuc)
@@ -89,17 +101,21 @@ export default {
     },
     getLawSuc (res) {
       if (res && res.data) {
+        console.log(res.data)
         const data = res.data
         this.tiaoli = data.tiaoli
-        data.tiaoli_prob.forEach((item, index) => {
-          this.tiaoli_prob[index] = parseInt((item * 100))
-        }) // 对概率做数据操作
+        if (data.tiaoli_prob) { // 先判断是否存在，否则会出现无法读取未定义的tiaoli_prob
+          data.tiaoli_prob.forEach((item, index) => {
+            this.tiaoli_prob[index] = parseInt((item * 100))
+          }) // 对概率做数据操作
+        }
+        this.isSpinShow = false
         // this.count = this.count + 1
       }
     },
     getAccusation () {
       axios.request({ // 向django发送请求
-        url: 'http://148.70.210.143:8050/predict',
+        url: 'http://35.226.111.16:8000/predict',
         method: 'post',
         data: this.$route.params.fact
       }).then(this.getAccusationSuc)
@@ -109,13 +125,22 @@ export default {
     },
     getAccusationSuc (res) {
       if (res && res.data) {
+        console.log(res.data)
         const data = res.data
         this.accu = data.accu
-        data.accu_prob.forEach((item, index) => {
-          this.accu_prob[index] = parseFloat((item * 100).toFixed(1))
-        }) // 对概率做数据操作
+        this.seriesData = []
+        if (data.accu_prob) { // 先判断是否存在，否则会出现无法读取未定义的accu_prob
+          data.accu_prob.forEach((item, index) => {
+            this.seriesData.push({
+              name: this.accu[index],
+              value: parseFloat((item * 100).toFixed(1))
+            })
+          }) // 对概率做数据操作
+        }
         this.accu_rele = data.accu_rele
         // this.count = this.count + 1
+        this.accuSucc = true
+        this.isSpinShow = false
       }
     },
     getImpr () {
@@ -130,6 +155,7 @@ export default {
     },
     getImprSuc (res) {
       if (res && res.data) {
+        console.log(res.data)
         const data = res.data
         this.impr = data.impr
         // this.count = this.count + 1
@@ -171,11 +197,13 @@ export default {
     // }
   },
   mounted () {
+    this.accuSucc = false
     this.fact = this.$route.params.fact
     this.count = 0
     this.getReportInfo()
   },
   activated () { // 防止缓存后无法重新发送ajax
+    this.accuSucc = false
     if (this.fact !== this.$route.params.fact) {
       this.fact = this.$route.params.fact
       this.count = 0
