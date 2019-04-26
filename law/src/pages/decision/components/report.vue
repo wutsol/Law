@@ -66,7 +66,7 @@ export default {
       tiaoli_prob: [], // 法条概率
       count: 0,
       accuSucc: false,
-      seriesData: Array
+      seriesData: []
     }
   },
   methods: {
@@ -132,11 +132,12 @@ export default {
         if (data.accu_prob) { // 先判断是否存在，否则会出现无法读取未定义的accu_prob
           data.accu_prob.forEach((item, index) => {
             this.seriesData.push({
-              name: this.accu[index],
-              value: parseFloat((item * 100).toFixed(1))
+              value: parseFloat((item * 100).toFixed(1)),
+              name: this.accu[index]
             })
           }) // 对概率做数据操作
         }
+        console.log(this.seriesData)
         this.accu_rele = data.accu_rele
         // this.count = this.count + 1
         this.accuSucc = true
