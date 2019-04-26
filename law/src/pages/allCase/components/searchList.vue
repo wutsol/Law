@@ -36,7 +36,7 @@
 
 <script> // 二级标题
 // import axios from 'axios'
-import { mapMutations } from 'vuex' // vuex高级一些的API
+// import { mapMutations } from 'vuex' // vuex高级一些的API
 // import LawHeader from 'common/Header'
 // import LawBanner from './lawBanner'
 // import Loading from 'common/Loading'
@@ -47,10 +47,20 @@ export default {
   },
   methods: {
     handleCaseDetail (index, item) {
-      this.setCase(item)
-      this.$router.push({path: '/caseDetail/' + index})
-    },
-    ...mapMutations(['setCase']) // 该方法相当于commit一个请求
+      let newMeta = item.meta
+      newMeta.accusation.forEach((item, index) => { // 为了能正确给casedetail发送数据
+        if (item.indexOf('罪') < 0) {
+          newMeta.accusation[index] = item + '罪'
+        }
+      })
+      item.meta = newMeta
+      let str = JSON.stringify(item)// 把对象转化为字符串（stringify）存放进sessionStorage
+      sessionStorage.setItem('art', str) // 使用localStorage没起作用，待解
+      this.$router.push({path: '/caseDetail/' + index, query: {item: item}})
+      // this.setCase(item)
+      // this.$router.push({path: '/caseDetail/' + index})
+    }
+    // ...mapMutations(['setCase']) // 该方法相当于commit一个请求
   }
 }
 </script>

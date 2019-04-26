@@ -73,6 +73,8 @@ export default{
   },
   methods: {
     handleSubmit () {
+      let str = JSON.stringify(this.fact)// 把对象转化为字符串（stringify）存放进sessionStorage
+      sessionStorage.setItem('decisionFact', str) // 使用localStorage没起作用，待解
       this.$router.push({path: '/report/' + this.fact})
     }
   }

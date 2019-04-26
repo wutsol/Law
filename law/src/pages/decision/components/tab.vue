@@ -3,19 +3,20 @@
     <!-- <div class="home-border"></div> -->
     <Tabs size="default" class="tab">
       <TabPane label="罪名预测">
-        <report-name
-          :accu="accu"
+        <report-name>
+        </report-name>
+          <!-- :accu="accu"
           :accu_prob="accu_prob"
           :accu_rele="accu_rele"
-          :seriesData="seriesData"
-        >
-        </report-name>
+          :seriesData="seriesData" -->
       </TabPane>
       <TabPane label="刑期预测">
       </TabPane>
       <TabPane label="相关法规">
+        <report-law></report-law>
       </TabPane>
       <TabPane label="相似案例">
+        <case-list :accu_rele="accu_rele"></case-list>
       </TabPane>
     </Tabs>
   </div>
@@ -23,19 +24,79 @@
 
 <script>
 import ReportName from './nameAndCase'
+import ReportLaw from './law'
+import axios from 'axios'
+import CaseList from './caseList'
 export default {
   name: 'DecisionTab',
   components: {
-    ReportName
+    ReportName,
+    ReportLaw,
+    CaseList
     // Login,
     // Register
   },
   props: {
-    accu: Array,
-    accu_prob: Array,
-    accu_rele: Array,
-    seriesData: Array
+    accu_rele: Array
+  },
+  data () {
+    return {
+      fact: '',
+      accu: [],
+      // accu_rele: [],
+      seriesData: []
+    }
+  },
+  methods: {
+    getAccusation () {
+      axios.request({ // 向django发送请求
+        url: 'http://35.226.111.16:8000/predict',
+        method: 'post',
+        data: this.fact
+      }).then(this.getAccusationSuc)
+        .catch((response) => {
+          console.log(response)
+        })
+    },
+    getAccusationSuc (res) {
+      if (res && res.data) {
+        console.log('hi')
+        console.log(res.data)
+        const data = res.data
+        this.accu_rele = data.accu_rele
+        this.accu = []
+        data.accu.forEach((item, index) => {
+          this.accu[index] = item + '罪'
+        })
+        let accuStr = JSON.stringify(this.accu)
+        sessionStorage.setItem('accu', accuStr)
+        this.seriesData = []
+        if (data.accu_prob) { // 先判断是否存在，否则会出现无法读取未定义的accu_prob
+          data.accu_prob.forEach((item, index) => {
+            this.seriesData.push({
+              value: parseFloat((item * 100).toFixed(1)),
+              name: this.accu[index]
+            })
+          }) // 对概率做数据操作
+        }
+        let probStr = JSON.stringify(this.seriesData)
+        sessionStorage.setItem('prob', probStr)
+      }
+    }
+  },
+  mounted () {
+    this.fact = JSON.parse(sessionStorage.getItem('decisionFact'))
+    // this.accu_rele = JSON.parse(sessionStorage.getItem('accu_rele'))
+    // console.log(this.accu_rele)
+    // console.log('t')
+    // this.getAccusation()
   }
+  // props: {
+  //   accu: Array,
+  //   accu_prob: Array,
+  //   accu_rele: Array,
+  //   seriesData: Array
+  // }
 }
 </script>
 
@@ -44,7 +105,7 @@ export default {
   .wrapper >>> .ivu-tabs-tab
   .wrapper >>> .ivu-tabs-tab-active
   .wrapper >>> .ivu-tabs-tab-focused
-    width 25%
+    width 20%
     float left
   // .wrapper >>> .ivu-tabs
   //   width 100%

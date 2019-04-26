@@ -27,10 +27,10 @@
         </div>
       </div>
       <div class="law-text">
-        <div class="law-detail" v-for="(value, key, index) in article" :key="index">
-          <!-- <div class="law-detail-title">正文</div> -->
-          <div class="law-one">
-            <span>{{key}}</span>    &ensp; {{value}}
+        <div class="law-detail" v-for="(item, index) in articleArr" :key="index">
+          <!-- <div class="law-detail-title">正文</div> v-for="(value, key, index) in article"-->
+          <div v-if="article" class="law-one">
+            <span>{{item}}</span>    &ensp; {{this.article[item]}}
           </div>
         </div>
       </div>
@@ -62,7 +62,8 @@ export default {
       exec_date: '',
       effective: '',
       level: '',
-      article: {}
+      article: {},
+      articleArr: []
       // touchStatus: false,
       // startY: 0
     }
@@ -106,6 +107,7 @@ export default {
     },
     getDetailInfoSucc (res) {
       if (res && res.data) {
+        console.log(res.data)
         const data = res.data[0]
         this.chinese_name = data.chinese_name
         this.department = data.department // 发布部门
@@ -115,6 +117,7 @@ export default {
         this.effective = data.effective // 时效性
         this.level = data.level // 效力级别
         this.article = data.article // 法条
+        this.articleArr = Object.keys(this.article)
         this.isSpinShow = false
       }
     }

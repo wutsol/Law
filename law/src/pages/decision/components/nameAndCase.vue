@@ -60,9 +60,9 @@
     </ul> -->
     <my-echart
       :titleText="titleText"
-      :opinion="accu"
-      :opinionData="seriesData"
     ></my-echart>
+      <!-- :opinion="accu"
+      :opinionData="seriesData" -->
   </div>
 </template>
 
@@ -71,29 +71,18 @@ import ReportCase from './caseList'
 import MyEchart from 'common/myEcharts'
 export default {
   name: 'ReportName',
-  props: {
-    accu: Array,
-    accu_prob: Array,
-    accu_rele: Array,
-    seriesData: Array
-  },
+  // props: {
+  //   accu: Array,
+  //   accu_rele: Array,
+  //   seriesData: Array
+  // },
   components: {
     MyEchart,
     ReportCase
   },
   data () {
     return {
-      titleText: "相关罪名概率",
-      titleText2: "学历分布统计",
-      // 扇形区域名称 lengend
-      opinion: ["18-25岁", "26-40岁", "41-50岁"],
-      opinion2: ["硕士", "本科", "专科", "其他"],
-      // series
-      opinionData: [
-        { value: 600, name: "18-25岁" },
-        { value: 300, name: "26-40岁" },
-        { value: 200, name: "41-50岁" }
-      ]
+      titleText: '相关罪名概率'
     }
   }
 }

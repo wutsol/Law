@@ -24,12 +24,13 @@
       </li>
     </ul> -->
     <decision-tab
-      :accu="accu"
-      :accu_prob="accu_prob"
       :accu_rele="accu_rele"
-      :seriesData="seriesData"
     >
     </decision-tab>
+      <!-- :accu="accu"
+      :accu_prob="accu_prob"
+      :accu_rele="accu_rele"
+      :seriesData="seriesData" -->
     <!-- <report-law :lawList="tiaoli" :probList="tiaoli_prob"></report-law> -->
     <!-- <report-case :caseList="caseList"></report-case> -->
   </div>
@@ -127,7 +128,13 @@ export default {
       if (res && res.data) {
         console.log(res.data)
         const data = res.data
-        this.accu = data.accu
+        this.accu_rele = data.accu_rele
+        this.accu = []
+        data.accu.forEach((item, index) => {
+          this.accu[index] = item + '罪'
+        })
+        let accuStr = JSON.stringify(this.accu)
+        sessionStorage.setItem('accu', accuStr)
         this.seriesData = []
         if (data.accu_prob) { // 先判断是否存在，否则会出现无法读取未定义的accu_prob
           data.accu_prob.forEach((item, index) => {
@@ -137,10 +144,20 @@ export default {
             })
           }) // 对概率做数据操作
         }
-        console.log(this.seriesData)
-        this.accu_rele = data.accu_rele
-        // this.count = this.count + 1
-        this.accuSucc = true
+        let probStr = JSON.stringify(this.seriesData)
+        sessionStorage.setItem('prob', probStr)
+        // this.accu = data.accu
+        // this.seriesData = []
+        // if (data.accu_prob) { // 先判断是否存在，否则会出现无法读取未定义的accu_prob
+        //   data.accu_prob.forEach((item, index) => {
+        //     this.seriesData.push({
+        //       value: parseFloat((item * 100).toFixed(1)),
+        //       name: this.accu[index]
+        //     })
+        //   }) // 对概率做数据操作
+        // }
+        // this.accu_rele = data.accu_rele
+        // this.accuSucc = true
         this.isSpinShow = false
       }
     },
