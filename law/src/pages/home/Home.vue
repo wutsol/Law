@@ -24,10 +24,10 @@ export default{
   },
   data () {
     return {
-      title: '法务通',
+      title: '律界智囊',
       iconList: [{
         'id': '0001',
-        'desc': '辅助办案'
+        'desc': '辅助判案'
       }, {
         'id': '0002',
         'desc': '罪名查询'

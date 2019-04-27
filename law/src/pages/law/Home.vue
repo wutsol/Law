@@ -26,7 +26,7 @@ export default{
   },
   data () {
     return {
-      title: '法条库',
+      title: '法条查询',
       lawList: [],
       nameList: [],
       isSpinShow: false

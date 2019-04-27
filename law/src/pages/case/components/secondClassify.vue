@@ -48,7 +48,7 @@ export default {
         initialSlide: 0
       },
       accusationList: [],
-      headerTitle: '罪名库',
+      headerTitle: '罪名查询',
       accuTitle: '罪名',
       bigTitle: '',
       lastId: '',

@@ -27,7 +27,7 @@ export default {
   },
   data () {
     return {
-      title: '罪名库',
+      title: '罪名查询',
       classifyList: [],
       isSpinShow: false
     }

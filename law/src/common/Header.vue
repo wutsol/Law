@@ -98,11 +98,11 @@ export default{
       width: .86rem
       float: left
       .back-icon
-        font-size: .46rem
+        font-size: .42rem
         text-align: center
     .header-middle
       flex: 1
-      font-size: .46rem
+      font-size: .42rem
       font-weight: 400
       text-align: center
     .header-right
