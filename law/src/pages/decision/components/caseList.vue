@@ -20,6 +20,7 @@
               </p>
               <div
                 class="item-labels"
+                v-if="smallItem.meta && smallItem.meta.accusation"
                 v-for="(labelsItem, labelsIndex) of smallItem.meta.accusation"
                 :key="labelsIndex"
               >

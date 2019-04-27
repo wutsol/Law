@@ -81,7 +81,7 @@ export default {
       if (this.isSpinShow === false) {
         // this.isSpinShow = true
         this.getAccusation()
-        this.getImpr()
+        // this.getImpr()
         // this.getLaw()
         // if (this.count === 3) {
         //   this.isSpinShow = false

@@ -114,13 +114,17 @@ export default {
 
 <style lang="stylus" scoped>
   @import '~styles/variables.styl'
-  // .wrapper >>> .ivu-tabs-tab
+  .wrapper >>> .ivu-tabs-tab
+    width 30%
+    text-align center
+    padding 8px 0
   // .wrapper >>> .ivu-tabs-tab-active
   // .wrapper >>> .ivu-tabs-tab-focused
   //   width 20%
   //   float left
-  // .wrapper >>> .ivu-tabs
-  //   width 100%
+  .wrapper >>> .ivu-tabs-nav
+    width 100%
+    padding .1rem
   //   margin-top $headerHeight
   // .wrapper >>> .ivu-tabs-bar
   // .wrapper >>> .ivu-tabs-nav-container
@@ -128,7 +132,9 @@ export default {
   // .wrapper >>> .ivu-tabs-nav-wrap
   //   width 100%
   // .wrapper >>> .ivu-tabs-tab // tab
-  // .wrapper >>> .ivu-tabs-ink-bar
+  .wrapper >>> .ivu-tabs-ink-bar
+    width 30% !important
+    // left .5%
   //   color #9a9a9b
   //   width 20% !important
   //   width 25%

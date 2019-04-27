@@ -7,7 +7,7 @@
 
 <script>
 import echarts from 'echarts'
-import axios from 'axios'
+// import axios from 'axios'
 export default {
   name: 'MyEchart',
   data () {
@@ -46,40 +46,40 @@ export default {
     push (i) {
       this.$router.push({path: '/crimeDetail/' + i})
     },
-    getAccusation () {
-      axios.request({ // 向django发送请求
-        url: 'http://35.226.111.16:8000/predict',
-        method: 'post',
-        data: this.fact
-      }).then(this.getAccusationSuc)
-        .catch((response) => {
-          console.log(response)
-        })
-    },
-    getAccusationSuc (res) {
-      if (res && res.data) {
-        const data = res.data
-        this.accu = []
-        data.accu.forEach((item, index) => {
-          this.accu[index] = item + '罪'
-        })
-        this.seriesData = []
-        if (data.accu_prob) { // 先判断是否存在，否则会出现无法读取未定义的accu_prob
-          data.accu_prob.forEach((item, index) => {
-            this.seriesData.push({
-              value: parseFloat((item * 100).toFixed(1)),
-              name: this.accu[index]
-            })
-          }) // 对概率做数据操作
-        }
-        // this.accu_rele = data.accu_rele
-        // let str = JSON.stringify(this.accu_rele)
-        // sessionStorage.setItem('accu_rele', str)
-        this.Pie()
-        // this.accuSucc = true
-        // this.isSpinShow = false
-      }
-    },
+    // getAccusation () {
+    //   axios.request({ // 向django发送请求
+    //     url: 'http://35.226.111.16:8000/predict',
+    //     method: 'post',
+    //     data: this.fact
+    //   }).then(this.getAccusationSuc)
+    //     .catch((response) => {
+    //       console.log(response)
+    //     })
+    // },
+    // getAccusationSuc (res) {
+    //   if (res && res.data) {
+    //     const data = res.data
+    //     this.accu = []
+    //     data.accu.forEach((item, index) => {
+    //       this.accu[index] = item + '罪'
+    //     })
+    //     this.seriesData = []
+    //     if (data.accu_prob) { // 先判断是否存在，否则会出现无法读取未定义的accu_prob
+    //       data.accu_prob.forEach((item, index) => {
+    //         this.seriesData.push({
+    //           value: parseFloat((item * 100).toFixed(1)),
+    //           name: this.accu[index]
+    //         })
+    //       }) // 对概率做数据操作
+    //     }
+    //     // this.accu_rele = data.accu_rele
+    //     // let str = JSON.stringify(this.accu_rele)
+    //     // sessionStorage.setItem('accu_rele', str)
+    //     this.Pie()
+    //     // this.accuSucc = true
+    //     // this.isSpinShow = false
+    //   }
+    // },
     eConsole (param) { // 监听扇形图点击
       console.log(param)
       // 向父组件传值 看需求

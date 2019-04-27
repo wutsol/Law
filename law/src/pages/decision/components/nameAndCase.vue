@@ -36,8 +36,9 @@
             {{oneCase.summary}}
           </p>
           <div
+            v-if="oneCase.meta && oneCase.meta.accusation"
             class="item-labels"
-            v-for="(labelsItem, labelsIndex) of oneCase.meta.accusation"
+            v-for="(labelsItem, labelsIndex) of this.oneCase.meta"
             :key="labelsIndex"
           >
             <Tag
@@ -143,6 +144,18 @@ export default {
   methods: {
     handleCase () {
 
+    },
+    handleCaseDetail () {
+      let newMeta = this.oneCase.meta
+      newMeta.accusation.forEach((item, index) => { // 为了能正确给casedetail发送数据
+        if (item.indexOf('罪') < 0) { // 有的有罪，有的没有
+          newMeta.accusation[index] = item + '罪'
+        }
+      })
+      this.oneCase.meta = newMeta
+      let str = JSON.stringify(this.oneCase)// 把对象转化为字符串（stringify）存放进sessionStorage
+      sessionStorage.setItem('art', str) // 使用localStorage没起作用，待解
+      this.$router.push({path: '/caseDetail/' + 0, query: {item: this.oneCase}})
     }
   }
 }
