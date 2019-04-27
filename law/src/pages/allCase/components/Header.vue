@@ -139,7 +139,7 @@ export default{
       if (this.isSpinShow === false) {
         this.isSpinShow = true
         axios.request({ // 向django发送请求,获取推荐内容
-          url: 'http://47.101.221.46:8000/anli_find',
+          url: 'http://47.101.221.46:8050/anli_find',
           method: 'post',
           data: Qs.stringify(this.tagList)
         }).then(this.getDataSucc)

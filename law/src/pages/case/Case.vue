@@ -37,7 +37,7 @@ export default {
       if (this.isSpinShow === false) {
         this.isSpinShow = true
         axios.request({ // 向django发送请求,获取推荐内容
-          url: 'http://47.101.221.46:8000/new_classify2',
+          url: 'http://47.101.221.46:8050/new_classify2',
           method: 'post'
         }).then(this.getCaseInfoSucc)
           .catch((response) => {

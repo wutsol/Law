@@ -1,13 +1,13 @@
 <template>
   <div class="login">
+    <Alert class="err" type="error" show-icon v-if="loginErrTip">用户名或密码错误</Alert>
+    <Alert class="err" type="success" show-icon v-show="loginSucc">登陆成功</Alert>
     <div class="login-name">
        <Input type="text" size="large" v-model="userName" placeholder="用户名" clearable/>
     </div>
     <div class="login-psw">
       <Input type="password" size="large" v-model="userPsw" placeholder="密码" clearable/>
     </div>
-    <Alert class="err" type="error" show-icon v-if="loginErrTip">用户名或密码错误</Alert>
-    <Alert class="err" type="success" show-icon v-show="loginSucc">登陆成功</Alert>
     <div class="login-btn">
       <i-button type="success" class="btn" :disabled="userName.length <= 0 || userPsw.length <= 0" long @click="login">登   录</i-button>
     </div>
@@ -64,7 +64,7 @@ export default {
         //   // 对 data 进行任意转换处理
         //   return Qs.stringify(data)
         // }],
-        url: 'http://148.70.210.143:8000/login',
+        url: 'http://47.101.221.46:8050/login',
         method: 'post',
         data: Qs.stringify(this.param)
       }).then(this.loginSuccessful)

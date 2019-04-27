@@ -15,16 +15,20 @@
       <report-punishment :list="impr"></report-punishment>
     </div>
     <div class="law">
-      <p class="law-title">相关法规</p>
+      <div class="law-title">
+        相关法规
+        <p class="law-more" @click="handleMore('law')">更多</p>
+      </div>
       <Divider></Divider>
       <div class="law-content">
-        <p class="law-content-title">{{tiaoli[0]}}</p>
+        <p class="law-content-title">《中华人民共和国刑法》第{{tiaoli[0]}}条</p>
+        <p class="law-content-text">{{contentList[0]}}</p>
       </div>
     </div>
     <div class="case">
       <div class="case-title">
         相似案例
-        <p class="case-more" @click="handleCase">更多</p>
+        <p class="case-more" @click="handleMore('case')">更多</p>
       </div>
       <Divider></Divider>
       <div class="item">
@@ -38,7 +42,7 @@
           <div
             v-if="oneCase.meta && oneCase.meta.accusation"
             class="item-labels"
-            v-for="(labelsItem, labelsIndex) of this.oneCase.meta"
+            v-for="(labelsItem, labelsIndex) of oneCase.meta.accusation"
             :key="labelsIndex"
           >
             <Tag
@@ -142,8 +146,8 @@ export default {
     }
   },
   methods: {
-    handleCase () {
-
+    handleMore (name) {
+      this.$emit('changeTab', name)
     },
     handleCaseDetail () {
       let newMeta = this.oneCase.meta
@@ -169,19 +173,6 @@ export default {
   .report
     // margin-top $headerHeight
     background-color: #4a42d8bd
-    // .test
-    //   display inline-block
-    //   margin-left -.15rem
-    //   font-size .32rem
-    //   color #333
-    // .ivu-chart-circle
-    //   float right
-    //   .demo-Circle-custom
-    //     margin-top .5rem
-    //     & span
-    //       display block
-    //       color #657180
-    //       font-size .2rem
     .title
       padding-top .1rem
       height 1rem
@@ -210,12 +201,23 @@ export default {
         line-height .4rem
         margin .1rem 0 .15rem 0
         color #333
+        .law-more
         .case-more
           font-weight normal
           font-size .28rem
           display inline
           float right
           color rgba(62, 53, 212, 0.99)
+    .law-content
+      padding .1rem .1rem .1rem .2rem
+      line-height .55rem
+      .law-content-title
+        font-size .3rem
+        color #333
+      .law-content-text
+        text-indent 2em
+        font-size .28rem
+        color #999
     .item
       padding .1rem 0
       // margin .15rem .1rem 0 .1rem

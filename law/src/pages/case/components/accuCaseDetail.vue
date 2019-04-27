@@ -63,7 +63,7 @@ export default {
       this.newItem = JSON.parse(sessionStorage.getItem('obbj')) // 转化为对象，否则是数组
       this.newItem.label.forEach((item, index) => {
         axios.request({ // 向django发送请求,获取推荐内容
-          url: 'http://47.101.221.46:8000/xingfa',
+          url: 'http://47.101.221.46:8050/xingfa',
           method: 'post',
           data: item
         }).then((res) => {

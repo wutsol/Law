@@ -16,8 +16,7 @@
         <Alert type="error" show-icon v-if="showErr">请输入长度大于5</Alert>
         <p class="decision-notice">
           <span style="color: #5151f7">输入示例:   </span>
-          <span style="color: #4e4d4df0">绍兴市越城区人民检察院指控：一、行贿2012年年初，被告人金2某欲以虚假外资企业、虚假高新技术项目的名义，向绍兴市袍某经济技术开发区管委会申请工业用地的土地使用权，在取得土地使用权后建造部分厂房用于非法转让获利。被告人金2某为谋取上述不正当利益，以合伙经营的名义，向袍某管委会原副主任陈6某、国际投资合作局原局长朱某（均已起诉）赠送由其实际控制的绍兴市宝力得电子有限公司、绍兴市得格数控科技有限公司的股权，合计价值人民币45万元。其中，陈6某以其亲戚余某的名义分得价值人民币30万元的股权，朱某以其亲戚陈2某的名义分得价值人民币15万元的股权。
-          </span>
+          <span style="color: #4e4d4df0">绍兴市越城区人民检察院指控：行贿2012年年初，被告人金2某欲以虚假外资企业、虚假高新技术项目的名义，向绍兴市袍某经济技术开发区管委会申请工业用地的土地使用权，在取得土地使用权后建造部分厂房用于非法转让获利。</span>
         </p>
       </div>
       <!-- <Spin fix v-show="isSpinShow">
@@ -50,7 +49,7 @@
 
 <script>
 // import axios from 'axios'
-import DecisionHeader from 'common/NewHeader'
+import DecisionHeader from 'common/fixHeader'
 export default{
   name: 'Decision',
   components: {
@@ -58,7 +57,7 @@ export default{
   },
   data () {
     return {
-      title: '智能决策',
+      title: '案情描述',
       fact: '',
       changeColor: false,
       showErr: false
@@ -82,10 +81,15 @@ export default{
 </script>
 
 <style lang="stylus" scoped>
+  @import '~styles/variables.styl'
+  .decision >>> .ivu_input
+    background-color: #f3f3f3
+  .decision >>> textarea.ivu-input
+    font-family: Arial, "Microsoft Yahei", "Helvetica Neue", Helvetica, sans-serif
   .changeColor
     background-color: #19be6b
   .decision
-    background-color: #ccc
+    background-color: #f7f7f7c2
     height 100%
     .decision-wrapper
       height 100%
@@ -93,7 +97,7 @@ export default{
       .wrapper
         width 95%
         margin 0 auto
-        margin-top 1.3rem
+        margin-top $headerHeight
         // border 1px solid #dcdee2c2
         // border-radius .12rem
         padding .25rem

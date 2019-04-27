@@ -34,7 +34,7 @@
 
 <script>
 // import axios from 'axios'
-import LoginHeader from 'common/Header'
+import LoginHeader from 'common/fixHeader'
 import Tab from './components/tab'
 // import { mapMutations } from 'vuex' // vuex高级一些的API
 // import Qs from 'qs' // 这种方法只能在chrome上有效果
@@ -59,15 +59,15 @@ export default {
       // timer: null
       // clickErrTip: false
     }
-  },
-  computed: {
-    param () {
-      return {
-        'userName': this.userName,
-        'userPsw': this.userPsw
-      }
-    }
   }
+  // computed: {
+  //   param () {
+  //     return {
+  //       'userName': this.userName,
+  //       'userPsw': this.userPsw
+  //     }
+  //   }
+  // }
   // methods: {
   //   login () { // 登录
   //     // axios.post('http://148.70.210.143:8050/login', {
@@ -215,19 +215,22 @@ export default {
 <style lang="stylus" scoped>
   @import '~styles/variables.styl'
   @import '~styles/mixins.styl'
-  .login-content
-    position relative
-    margin-top 1.5rem
-    height 8rem
-    .login-img
-      margin-top -.5rem
-      width 100%
-      height 0
-      padding-left 1.7rem
-      padding-bottom 50%
-      overflow hidden
-      img
-        width 70%
+  .login
+    background-color: #fff
+    height 100%
+    .login-content
+      position relative
+      margin-top 1.5rem
+      height 8rem
+      .login-img
+        margin-top -.5rem
+        width 100%
+        height 0
+        padding-left 1.7rem
+        padding-bottom 50%
+        overflow hidden
+        img
+          width 70%
     // .login-name
     //   position absolute
     //   top 4rem

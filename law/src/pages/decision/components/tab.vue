@@ -1,13 +1,14 @@
 <template>
   <div class="wrapper">
     <!-- <div class="home-border"></div> -->
-    <Tabs size="default" class="tab">
-      <TabPane label="分析报告">
+    <Tabs size="default" class="tab" v-model="tabName" :animated="false">
+      <TabPane label="分析报告" name="report">
         <report-name
           :impr="impr"
           :tiaoli="tiaoli"
           :contentList="contentList"
           :oneCase="oneCase"
+          @changeTab="updateTab"
         >
         </report-name>
           <!-- :accu="accu"
@@ -18,10 +19,10 @@
       <!-- <TabPane label="刑期预测">
         <report-punishment :list="impr"></report-punishment>
       </TabPane> -->
-      <TabPane label="相关法规">
+      <TabPane label="相关法规" name="law">
         <report-law :tiaoli="tiaoli" :contentList="contentList"></report-law>
       </TabPane>
-      <TabPane label="相似案例">
+      <TabPane label="相似案例" name="case">
         <case-list :accu_rele="accu_rele"></case-list>
       </TabPane>
     </Tabs>
@@ -31,7 +32,7 @@
 <script>
 import ReportName from './nameAndCase'
 import ReportLaw from './law'
-import axios from 'axios'
+// import axios from 'axios'
 import CaseList from './caseList'
 import ReportPunishment from './reportPunishment'
 export default {
@@ -53,55 +54,70 @@ export default {
   },
   data () {
     return {
-      fact: '',
-      accu: [],
-      // accu_rele: [],
-      seriesData: []
+      // fact: '',
+      // accu: [],
+      // // accu_rele: [],
+      // seriesData: [],
+      tabName: ''
     }
   },
   methods: {
-    getAccusation () {
-      axios.request({ // 向django发送请求
-        url: 'http://35.226.111.16:8000/predict',
-        method: 'post',
-        data: this.fact
-      }).then(this.getAccusationSuc)
-        .catch((response) => {
-          console.log(response)
-        })
+    updateTab (name) {
+      this.tabName = name
+      this.toTop()
     },
-    getAccusationSuc (res) {
-      if (res && res.data) {
-        console.log('hi')
-        console.log(res.data)
-        const data = res.data
-        this.accu_rele = data.accu_rele
-        this.accu = []
-        data.accu.forEach((item, index) => {
-          this.accu[index] = item + '罪'
-        })
-        let accuStr = JSON.stringify(this.accu)
-        sessionStorage.setItem('accu', accuStr)
-        this.seriesData = []
-        if (data.accu_prob) { // 先判断是否存在，否则会出现无法读取未定义的accu_prob
-          data.accu_prob.forEach((item, index) => {
-            this.seriesData.push({
-              value: parseFloat((item * 100).toFixed(1)),
-              name: this.accu[index]
-            })
-          }) // 对概率做数据操作
-        }
-        let probStr = JSON.stringify(this.seriesData)
-        sessionStorage.setItem('prob', probStr)
-      }
+    toTop () {
+      document.body.scrollTop = 0 // 实现tab切换时自动在页面顶部
+      document.documentElement.scrollTop = 0
     }
+    // getAccusation () {
+    //   axios.request({ // 向django发送请求
+    //     url: 'http://35.226.111.16:8000/predict',
+    //     method: 'post',
+    //     data: this.fact
+    //   }).then(this.getAccusationSuc)
+    //     .catch((response) => {
+    //       console.log(response)
+    //     })
+    // },
+    // getAccusationSuc (res) {
+    //   if (res && res.data) {
+    //     // console.log('hi')
+    //     // console.log(res.data)
+    //     const data = res.data
+    //     this.accu_rele = data.accu_rele
+    //     this.accu = []
+    //     data.accu.forEach((item, index) => {
+    //       this.accu[index] = item + '罪'
+    //     })
+    //     let accuStr = JSON.stringify(this.accu)
+    //     sessionStorage.setItem('accu', accuStr)
+    //     this.seriesData = []
+    //     if (data.accu_prob) { // 先判断是否存在，否则会出现无法读取未定义的accu_prob
+    //       data.accu_prob.forEach((item, index) => {
+    //         this.seriesData.push({
+    //           value: parseFloat((item * 100).toFixed(1)),
+    //           name: this.accu[index]
+    //         })
+    //       }) // 对概率做数据操作
+    //     }
+    //     let probStr = JSON.stringify(this.seriesData)
+    //     sessionStorage.setItem('prob', probStr)
+    //   }
+    // }
   },
-  mounted () {
-    this.fact = JSON.parse(sessionStorage.getItem('decisionFact'))
-    // this.accu_rele = JSON.parse(sessionStorage.getItem('accu_rele'))
-    // console.log(this.accu_rele)
-    // console.log('t')
-  //   this.getAccusation()
+  // mounted () {
+  //   this.fact = JSON.parse(sessionStorage.getItem('decisionFact'))
+  //   // this.accu_rele = JSON.parse(sessionStorage.getItem('accu_rele'))
+  //   // console.log(this.accu_rele)
+  //   // console.log('t')
+  // //   this.getAccusation()
+  // },
+  activated () {
+    window.addEventListener('scroll', this.scrollToTop)
+  },
+  deactivated () {
+    window.removeEventListener('scroll', this.scrollToTop)
   }
   // props: {
   //   accu: Array,
@@ -143,6 +159,7 @@ export default {
   //   color #333
   .wrapper >>> .ivu-tabs-bar // 除去下划线
     border-bottom 0
+    margin-bottom 0
     // margin-left .2rem
   .wrapper
     margin-top $headerHeight

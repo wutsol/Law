@@ -76,7 +76,7 @@ export default {
       if (this.isSpinShow === false) {
         this.isSpinShow = true
         axios.request({ // 向django发送请求,获取二级罪名
-          url: 'http://47.101.221.46:8000/final',
+          url: 'http://47.101.221.46:8050/final',
           method: 'post',
           data: this.$route.params.accu_name
         }).then(this.getDetailInfoSucc)

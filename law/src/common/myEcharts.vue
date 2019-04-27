@@ -29,12 +29,14 @@ export default {
     //   type: Array
     // }
   },
-  // mounted () {
-  //   this.Pie()
-  //   // this.$nextTick(function () {
-  //   //   this.Pie()
-  //   // })
-  // },
+  mounted () {
+    this.accu = JSON.parse(sessionStorage.getItem('accu'))
+    this.seriesData = JSON.parse(sessionStorage.getItem('prob'))
+    this.Pie()
+    // this.$nextTick(function () {
+    //   this.Pie()
+    // })
+  },
   activated () {
     // this.fact = JSON.parse(sessionStorage.getItem('decisionFact')) // 转化为对象，否则是数组
     // this.getAccusation()
@@ -88,15 +90,18 @@ export default {
     Pie () { // 饼状图
       this.charts = echarts.init(this.$refs.myChart)
       const this_ = this // 先保存，否则进入on之后this就是echarts里的了
-      this.charts.on('legendselectchanged', function (obj) {
-        var selected = obj.selected
-        for (var i in selected) {
-          if (selected[i] === false) {
-            this_.push(i)
-          }
-        }
-        // this.$router.push('/crimeDetail/' + item)
+      this.charts.on('click', function (params) {
+        this_.push(params.data.name)
       })
+      // this.charts.on('legendselectchanged', function (obj) {
+      //   var selected = obj.selected
+      //   for (var i in selected) {
+      //     if (selected[i] === false) {
+      //       this_.push(i)
+      //     }
+      //   }
+      //   // this.$router.push('/crimeDetail/' + item)
+      // })
       this.charts.setOption({
         title: {
           x: 'center',
@@ -120,7 +125,7 @@ export default {
             fontWeight: 'normal',
             fontSize: 14
           },
-          // selectedMode: false,
+          selectedMode: false, // 组织legend点击事件
           orient: 'vertical',
           padding: [10, 23, 10, 23],
           // itemGap: 8,

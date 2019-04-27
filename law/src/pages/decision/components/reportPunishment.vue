@@ -3,9 +3,9 @@
     <div class="punishment">
       <!-- <div class="punishment-title border-bottom">刑期预测</div> -->
       <div class="punishment-content">
-        <p v-if="this.punishment > 0">{{this.punishment}}  个月</p>
-        <p v-if="this.death">死刑</p>
-        <p v-if="this.life">无期徒刑</p>
+        <p v-if="this.list[1]">死刑</p>
+        <p v-if="this.list[2]">无期徒刑</p>
+        <p>{{this.list[0]}}  个月</p>
       </div>
     </div>
   </div>
@@ -16,26 +16,26 @@ export default {
   name: 'reportPunishment',
   props: {
     list: Array
-  },
-  data () {
-    return {
-      death: false,
-      life: false,
-      punishment: 0
-    }
-  },
-  watch: { // 获取刑期
-    list () {
-      if (this.list[0] > 0) {
-        this.punishment = Math.ceil(this.list[0])
-        // this.punishment = Math.round(this.punishment)
-      } else if (this.list[1] === true) { // 死刑
-        this.death = this.list[1]
-      } else {
-        this.life = this.list[2]
-      }
-    }
   }
+  // data () {
+  //   return {
+  //     death: false,
+  //     life: false,
+  //     punishment: 0
+  //   }
+  // },
+  // watch: { // 获取刑期
+  //   list () {
+  //     if (this.list[0] > 0) {
+  //       this.punishment = this.list[0]
+  //       // this.punishment = Math.round(this.punishment)
+  //     } else if (this.list[1] === true) { // 死刑
+  //       this.death = this.list[1]
+  //     } else {
+  //       this.life = this.list[2]
+  //     }
+  //   }
+  // }
 }
 </script>
 

@@ -25,7 +25,7 @@
         </p>
       </Panel>
     </Collapse>
-    <loading :isSpinShow="isSpinShow"></loading>
+    <!-- <loading :isSpinShow="isSpinShow"></loading> -->
         <!-- <i-circle
           :size="24"
           :trail-width="4"
@@ -44,80 +44,80 @@
 </template>
 
 <script>
-import axios from 'axios'
-import Loading from 'common/Loading'
+// import axios from 'axios'
+// import Loading from 'common/Loading'
 export default {
   name: 'ReportLaw',
   props: {
     contentList: Array,
     tiaoli: Array
-  },
-  components: {
-    Loading
-  },
-  data () {
-    return {
-      isSpinShow: false,
-      fact: '',
-      // tiaoli: [],
-      tiaoli_prob: []
-      // contentList: []
-    }
-  },
-  methods: {
-    getLaw () {
-      if (this.isSpinShow === false) {
-        this.isSpinShow = true
-        axios.request({ // 向django发送请求
-          url: 'http://47.101.221.46:8051/predict',
-          method: 'post',
-          data: this.fact
-        }).then(this.getLawSuc)
-          .catch((response) => {
-            console.log(response)
-          })
-      }
-    },
-    getLawSuc (res) {
-      if (res && res.data) {
-        console.log(res.data)
-        const data = res.data
-        this.tiaoli = data.tiaoli
-        this.getLawContent()
-        // if (data.tiaoli_prob) { // 先判断是否存在，否则会出现无法读取未定义的tiaoli_prob
-        //   data.tiaoli_prob.forEach((item, index) => {
-        //     this.tiaoli_prob[index] = parseInt((item * 100))
-        //   }) // 对概率做数据操作
-        // }
-        // this.isSpinShow = false
-        // this.count = this.count + 1
-      }
-    },
-    getLawContent () {
-      this.tiaoli.forEach((item, index) => {
-        axios.request({ // 向django发送请求,获取推荐内容
-          url: 'http://47.101.221.46:8000/xingfa',
-          method: 'post',
-          data: item
-        }).then((res) => {
-          console.log(res)
-          // this.contentList[index] = []
-          const data = res.data[0]
-          this.contentList.push(data.content) // 用push的话要在初始时置空
-          // console.log(this.contentList[index])
-        })
-          .catch((response) => {
-            console.log(response)
-          })
-      })
-      this.isSpinShow = false
-    }
-  },
-  mounted () {
-    // this.contentList = []
-    this.fact = JSON.parse(sessionStorage.getItem('decisionFact'))
-    // this.getLaw()
   }
+  // components: {
+  //   Loading
+  // },
+  // data () {
+  //   return {
+  //     isSpinShow: false,
+  //     fact: '',
+  //     // tiaoli: [],
+  //     tiaoli_prob: []
+  //     // contentList: []
+  //   }
+  // },
+  // methods: {
+  //   getLaw () {
+  //     if (this.isSpinShow === false) {
+  //       this.isSpinShow = true
+  //       axios.request({ // 向django发送请求
+  //         url: 'http://47.101.221.46:8051/predict',
+  //         method: 'post',
+  //         data: this.fact
+  //       }).then(this.getLawSuc)
+  //         .catch((response) => {
+  //           console.log(response)
+  //         })
+  //     }
+  //   },
+  //   getLawSuc (res) {
+  //     if (res && res.data) {
+  //       console.log(res.data)
+  //       const data = res.data
+  //       this.tiaoli = data.tiaoli
+  //       this.getLawContent()
+  //       // if (data.tiaoli_prob) { // 先判断是否存在，否则会出现无法读取未定义的tiaoli_prob
+  //       //   data.tiaoli_prob.forEach((item, index) => {
+  //       //     this.tiaoli_prob[index] = parseInt((item * 100))
+  //       //   }) // 对概率做数据操作
+  //       // }
+  //       // this.isSpinShow = false
+  //       // this.count = this.count + 1
+  //     }
+  //   },
+  //   getLawContent () {
+  //     this.tiaoli.forEach((item, index) => {
+  //       axios.request({ // 向django发送请求,获取推荐内容
+  //         url: 'http://47.101.221.46:8000/xingfa',
+  //         method: 'post',
+  //         data: item
+  //       }).then((res) => {
+  //         console.log(res)
+  //         // this.contentList[index] = []
+  //         const data = res.data[0]
+  //         this.contentList.push(data.content) // 用push的话要在初始时置空
+  //         // console.log(this.contentList[index])
+  //       })
+  //         .catch((response) => {
+  //           console.log(response)
+  //         })
+  //     })
+  //     this.isSpinShow = false
+  //   }
+  // },
+  // mounted () {
+  //   // this.contentList = []
+  //   this.fact = JSON.parse(sessionStorage.getItem('decisionFact'))
+  //   // this.getLaw()
+  // }
 }
 </script>
 

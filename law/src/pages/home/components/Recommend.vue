@@ -55,7 +55,7 @@ export default {
       if (this.isSpinShow === false) {
         this.isSpinShow = true
         axios.request({ // 向django发送请求,获取推荐内容
-          url: 'http://47.101.221.46:8000/recommend',
+          url: 'http://47.101.221.46:8050/recommend',
           method: 'post',
           data: 0
         }).then(this.getRecommendSucc)

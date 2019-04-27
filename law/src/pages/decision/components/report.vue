@@ -42,7 +42,7 @@
 
 <script>
 import axios from 'axios'
-import ReportHeader from 'common/Header'
+import ReportHeader from 'common/fixHeader'
 import ReportLaw from './law'
 import ReportName from './nameAndCase'
 import ReportPunishment from './reportPunishment'
@@ -79,7 +79,7 @@ export default {
   methods: {
     getReportInfo () {
       if (this.isSpinShow === false) {
-        // this.isSpinShow = true
+        this.isSpinShow = true
         this.getAccusation()
         // this.getImpr()
         // this.getLaw()
@@ -98,7 +98,7 @@ export default {
     },
     getLaw () {
       axios.request({ // 向django发送请求
-        url: 'http://47.101.221.46:8051/predict',
+        url: 'http://47.101.221.46:8050/predict',
         method: 'post',
         data: this.$route.params.fact
       }).then(this.getLawSuc)
@@ -111,14 +111,14 @@ export default {
         const data = res.data
         this.tiaoli = data.tiaoli
         this.getLawContent()
-        this.isSpinShow = false
+        // this.isSpinShow = false
         // this.count = this.count + 1
       }
     },
     getLawContent () {
       this.tiaoli.forEach((item, index) => {
         axios.request({ // 向django发送请求,获取推荐内容
-          url: 'http://47.101.221.46:8000/xingfa',
+          url: 'http://47.101.221.46:8050/xingfa',
           method: 'post',
           data: item
         }).then((res) => {
@@ -130,7 +130,6 @@ export default {
             console.log(response)
           })
       })
-      this.isSpinShow = false
     },
     getAccusation () {
       axios.request({ // 向django发送请求
@@ -145,7 +144,7 @@ export default {
     getAccusationSuc (res) {
       if (res && res.data) {
         const data = res.data
-        this.accu_rele = data.accu_rele
+        this.accu_rele = data.accu_rele // 获取accu
         this.oneCase = this.accu_rele[0][0]
         console.log(this.oneCase)
         this.accu_rele.forEach((item, index) => {
@@ -170,6 +169,9 @@ export default {
         }
         let probStr = JSON.stringify(this.seriesData)
         sessionStorage.setItem('prob', probStr)
+        this.tiaoli = data.tiaoli // 获取law
+        this.getLawContent()
+        this.impr = data.impr // 获取刑期
         // this.accu = data.accu
         // this.seriesData = []
         // if (data.accu_prob) { // 先判断是否存在，否则会出现无法读取未定义的accu_prob

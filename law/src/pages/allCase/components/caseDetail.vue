@@ -137,7 +137,7 @@ export default {
       const newMeta = this.newItem.meta
       newMeta.relevant_articles.forEach((item, index) => {
         axios.request({ // 向django发送请求,获取推荐内容
-          url: 'http://47.101.221.46:8000/xingfa',
+          url: 'http://47.101.221.46:8050/xingfa',
           method: 'post',
           data: item
         }).then((res) => {

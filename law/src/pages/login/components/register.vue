@@ -1,6 +1,9 @@
 <template>
   <div class="register">
     <!-- <login-header :title="title"></login-header> -->
+    <Alert class="err" type="error" show-icon v-if="registerErrTip">用户名已存在</Alert>
+    <Alert class="err" type="error" show-icon v-show="pswErrTip">两次密码不同</Alert>
+    <Alert class="err" type="success" show-icon v-show="registerSucc">注册成功</Alert>
     <div class="register-name">
        <Input type="text" size="large" v-model="userName" placeholder="用户名" clearable/>
     </div>
@@ -10,9 +13,6 @@
     <div class="register-second-psw">
       <Input type="password" size="large" v-model="confirmPsw" placeholder="确认密码" clearable/>
     </div>
-    <Alert class="err" type="error" show-icon v-if="registerErrTip">用户名已存在</Alert>
-    <Alert class="err" type="error" show-icon v-show="pswErrTip">两次密码不同</Alert>
-    <Alert class="err" type="success" show-icon v-show="registerSucc">注册成功</Alert>
     <div class="register-btn">
       <i-button type="success" class="btn" :disabled="userName.length <= 0 || userPsw.length <= 0 || confirmPsw.length <= 0" long @click="register">注   册</i-button>
     </div>
@@ -32,7 +32,8 @@ export default {
       confirmPsw: '',
       registerSucc: false,
       registerErrTip: false,
-      pswErrTip: false
+      pswErrTip: false,
+      timer: null
     }
   },
   computed: {
@@ -67,7 +68,7 @@ export default {
           // headers: {
           //   'deviceCode': 'A95ZEF1-47B5-AC90BF3'
           // }, 不添加该语句直接用Qs是可以成功的
-          url: 'http://148.70.210.143:8000/register',
+          url: 'http://47.101.221.46:8050/register',
           method: 'post',
           data: Qs.stringify(this.param)
         }).then(this.registerSuccessful)
@@ -81,6 +82,12 @@ export default {
       if (data.status === 1) {
         this.registerSucc = true
         this.registerErrTip = false
+        if (this.timer) { // 做一个节流处理,提高性能
+          clearTimeout(this.timer)
+        }
+        this.timer = setTimeout(() => {
+          this.$emit('changeTab') // 转到登陆界面
+        }, 500)
       } else {
         this.registerSucc = false
         this.registerErrTip = true

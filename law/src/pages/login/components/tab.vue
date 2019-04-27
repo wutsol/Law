@@ -1,14 +1,16 @@
 <template>
   <div class="wrapper">
-    <div class="home-border"></div>
-    <Tabs size="default" class="tab">
-      <TabPane label="登录">
-        <login></login>
-      </TabPane>
-      <TabPane label="注册">
-        <register></register>
-      </TabPane>
-    </Tabs>
+    <!-- <div class="home-border"></div> -->
+    <div class="wrapper-bgc">
+      <Tabs size="default" class="tab" v-model="tabName">
+        <TabPane label="登录" name="login">
+          <login></login>
+        </TabPane>
+        <TabPane label="注册" name="register">
+          <register @changeTab="updateTab"></register>
+        </TabPane>
+      </Tabs>
+    </div>
   </div>
 </template>
 
@@ -20,6 +22,16 @@ export default {
   components: {
     Login,
     Register
+  },
+  data () {
+    return {
+      tabName: ''
+    }
+  },
+  methods: {
+    updateTab () {
+      this.tabName = 'login'
+    }
   }
 }
 </script>
@@ -35,14 +47,20 @@ export default {
     border-bottom 0
     margin-left .2rem
   .wrapper
-    background-color: #FFF
-    .home-border
-      width 100%
-      height 1rem
-      border-top .02rem solid #ccc
-      border-radius .4rem
-    .tab
-      margin-top -.8rem
+    height 100%
+    margin-top .3rem
+    // .home-border
+    //   width 100%
+    //   height 1rem
+    //   border-top .02rem solid #ccc
+    //   border-radius .4rem
+    .wrapper-bgc
+      background-color: #FFF
+      .tab
+        background-color: #FFF
+        border-top .02rem solid #ccc
+        border-radius .4rem
+        margin -.8rem .1rem .1rem .1rem
     .myTab
       width 100%
       height 1.2rem
