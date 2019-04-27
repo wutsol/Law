@@ -147,7 +147,7 @@ export default {
           label: {
             normal: {
               formatter: '{d}%\n\n', // \n\n让文字再视觉引导线的上面
-              padding: [0, -40],
+              padding: [15, -35, 5, -35],
               position: 'outer',
               fontSize: '1rem'
             }

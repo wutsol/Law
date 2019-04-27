@@ -28,10 +28,12 @@ export default {
   // #app
   //   height 100%
   button
-    font-family: Arial, "Microsoft Yahei", "Helvetica Neue", Helvetica, sans-serif
+    font-family: Arial, "Microsoft Yahei", "Helvetica Neue", Helvetica, sans-serif !important
   input // 改变组件中的字体
-    font-family: Arial, "Microsoft Yahei", "Helvetica Neue", Helvetica, sans-serif
-    height .72rem!important
+    font-family: Arial, "Microsoft Yahei", "Helvetica Neue", Helvetica, sans-serif !important
+    height .72rem !important
+  .ivu-divider-horizontal // divider
+    margin-top .22rem !important
   .ivu-divider
   .ivu-divider-vertical
     margin 0 .06rem
@@ -39,8 +41,12 @@ export default {
     ellipsis()
   .ivu-input // 搜索框字体
     font-size .28rem
+  .ivu-input-icon
+    width .72rem
+    height .72rem
+    line-height .72rem
   .ivu-select-item // 搜索框下拉字体
-    font-size .265rem!important
+    font-size .265rem !important
   .ivu-btn-success // 按钮可点击状态的颜色
     background-color: #5db1ff
     border-color #5db1ff
@@ -49,9 +55,9 @@ export default {
   .ivu-back-top-inner // 回到顶部的样式
     height .8rem
     width .8rem
-    border-radius 50%
+    border-radius 50% !important
     i
-      padding .16rem
+      padding .16rem !important
   .fade-enter, // 过渡动画
   .fade-leave-to
     opacity 0

@@ -241,13 +241,13 @@ export default {
   },
   mounted () {
     this.contentList = []
-    this.accuSucc = false
+    this.isSpinShow = false
     this.fact = this.$route.params.fact
     this.count = 0
     this.getReportInfo()
   },
   activated () { // 防止缓存后无法重新发送ajax
-    this.accuSucc = false
+    this.isSpinShow = false
     if (this.fact !== this.$route.params.fact) {
       this.fact = this.$route.params.fact
       this.count = 0
