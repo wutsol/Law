@@ -83,7 +83,7 @@ export default {
   .recommend
     margin-top .2rem
     position relative
-    height 13.15rem
+    height 13rem
     // border-top .02rem solid #ccc
     // border-radius .4rem
     .title

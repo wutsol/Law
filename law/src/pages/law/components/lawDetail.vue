@@ -107,7 +107,7 @@ export default {
     },
     getDetailInfoSucc (res) {
       if (res && res.data) {
-        console.log(res.data)
+        // console.log(res.data)
         const data = res.data[0]
         this.chinese_name = data.chinese_name
         this.department = data.department // 发布部门
@@ -141,8 +141,8 @@ export default {
 <style lang="stylus" scoped>
   @import '~styles/variables.styl'
   @import '~styles/mixins.styl'
-  // .law span
-  //   font-weight bold
+  .law span
+    font-weight bold
   .container
     margin-top $headerHeight
     .law-special
@@ -179,17 +179,18 @@ export default {
             float left
             flex 1
     .law-text
+      padding 0 .25rem
       border-top .02rem solid #999
       border-radius .2rem
       box-shadow 0 -.01rem .015rem #8b8b8bd6
+      textJustify()
       .law-detail
         font-size .3rem
-        padding 0 .35rem
         text-indent 2em
+        margin .3rem 0
         span
           font-weight bold
         .law-one
-          margin .3rem 0
           line-height .53rem
   //   .item
   //     padding: .4rem

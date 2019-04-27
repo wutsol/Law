@@ -48,8 +48,8 @@
           {{item}}
         </Tag>
         <div class="btn" v-show="showBtn">
-          <i-button class="clear-btn" :size="buttonSize" type="success" icon="md-close" @click="handleClearAll">清除</i-button>
-          <i-button class="search-btn" :size="buttonSize" type="success" icon="ios-search" @click="handleSearchAll">搜索</i-button>
+          <i-button class="clear-btn" :size="buttonSize" type="primary" icon="md-close" @click="handleClearAll">清除</i-button>
+          <i-button class="search-btn" :size="buttonSize" type="primary" icon="ios-search" @click="handleSearchAll">搜索</i-button>
         </div>
         <loading :isSpinShow="isSpinShow"></loading>
       </div>
@@ -181,7 +181,7 @@ export default{
     min-width 1.8rem
     width 2rem
     font-size .28rem
-  .all > .header-middle >>> .ivu-input // input
+  .header-middle >>> .ivu-input // input
     background-color: #f7f7f7
   .header
     display flex

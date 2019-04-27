@@ -40,7 +40,7 @@
             {{oneCase.summary}}
           </p>
           <div
-            v-if="oneCase.meta && oneCase.meta.accusation"
+            v-if="oneCase.meta"
             class="item-labels"
             v-for="(labelsItem, labelsIndex) of oneCase.meta.accusation"
             :key="labelsIndex"
@@ -173,6 +173,7 @@ export default {
   .report
     // margin-top $headerHeight
     background-color: #4a42d8bd
+    padding-bottom .5rem
     .title
       padding-top .1rem
       height 1rem

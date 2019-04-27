@@ -93,7 +93,6 @@ export default {
       }
     },
     getDetailInfoSucc (res) {
-      console.log(res)
       if (res && res.data.length > 0) {
         const data = res.data[0] // 由于数据是个只包含一个对象的数组，所以加【0】
         this.bigTitle = data.accu_belong_to

@@ -139,7 +139,7 @@ export default {
         series: [{
           name: 'law', // 必须加了才能获取后台数据,待解
           type: 'pie',
-          // color: ['#f09542', '#42a3d8', '#6ec290', '#da6184'],
+          color: ['#6ec290', '#da6184', '#f09542', '#42a3d8', '#d17b20', '#3d20d1', '#7620d1cf', '#209fd1cf', '#d16320f2', '#d12058f2', '#d15b20cc', '#b4d120f2'],
           center: ['50%', '35%'],
           radius: '55%',
           avoidLabelOverlap: false, // 默认防止标签重叠

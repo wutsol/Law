@@ -35,7 +35,7 @@
         <i-button type="success" class="btn" :disabled="userName.length <= 0 || userPsw.length <= 0" long @click="login">登   录</i-button>
       </div> -->
       <div class="decision-submit">
-        <i-button type="success" class="btn" :disabled="fact.length <= 5" long @click="handleSubmit">提   交</i-button>
+        <i-button type="primary" class="btn" :disabled="fact.length <= 5" long @click="handleSubmit">提   交</i-button>
       </div>
     </div>
     <!-- <Alert type="error" show-icon >

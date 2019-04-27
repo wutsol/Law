@@ -134,7 +134,10 @@ export default {
     width 30%
     text-align center
     padding 8px 0
-  // .wrapper >>> .ivu-tabs-tab-active
+    color #666
+  .wrapper >>> .ivu-tabs-tab-active
+    color #333
+    font-weight bold
   // .wrapper >>> .ivu-tabs-tab-focused
   //   width 20%
   //   float left

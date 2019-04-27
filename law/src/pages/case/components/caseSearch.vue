@@ -92,7 +92,7 @@ export default {
         //   count: 10600
         // }
         // ]}
-        '诈骗罪', '盗窃罪', '走私罪'
+        '诈骗罪', '盗窃罪', '抢劫罪'
       ]}
   },
   methods: {
@@ -202,7 +202,7 @@ export default {
     bottom 0
     left 0
     right 0
-    background-color: #ccc
+    background-color: #f8f8f9
     .search-item
       height 1rem
       line-height 1rem

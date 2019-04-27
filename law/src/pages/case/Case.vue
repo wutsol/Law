@@ -48,7 +48,7 @@ export default {
     getCaseInfoSucc (res) { // 数据的获取
       if (res && res.data) {
         res.data.forEach((item, index) => {
-          if (index !== 0) { // 去掉那个null
+          if (index !== 4) { // 去掉那个null
             this.classifyList.push(item)
           }
         })

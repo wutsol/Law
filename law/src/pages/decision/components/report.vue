@@ -146,7 +146,6 @@ export default {
         const data = res.data
         this.accu_rele = data.accu_rele // 获取accu
         this.oneCase = this.accu_rele[0][0]
-        console.log(this.oneCase)
         this.accu_rele.forEach((item, index) => {
           item.forEach((littleItem, littleIndex) => {
             littleItem['fact2'] = littleItem.fact.slice(0, 50)

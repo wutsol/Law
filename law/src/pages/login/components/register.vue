@@ -14,7 +14,7 @@
       <Input type="password" size="large" v-model="confirmPsw" placeholder="确认密码" clearable/>
     </div>
     <div class="register-btn">
-      <i-button type="success" class="btn" :disabled="userName.length <= 0 || userPsw.length <= 0 || confirmPsw.length <= 0" long @click="register">注   册</i-button>
+      <i-button type="primary" class="btn" :disabled="userName.length <= 0 || userPsw.length <= 0 || confirmPsw.length <= 0" long @click="register">注   册</i-button>
     </div>
   </div>
 </template>

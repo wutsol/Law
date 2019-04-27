@@ -46,6 +46,6 @@ export default{
 
 <style lang="stylus" scoped>
   .home-info
-    height 1rem
-    background-color: #d2d2d2
+    height .5rem
+    background-color: #f2f2f2
 </style>

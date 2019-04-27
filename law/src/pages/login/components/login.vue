@@ -9,7 +9,7 @@
       <Input type="password" size="large" v-model="userPsw" placeholder="密码" clearable/>
     </div>
     <div class="login-btn">
-      <i-button type="success" class="btn" :disabled="userName.length <= 0 || userPsw.length <= 0" long @click="login">登   录</i-button>
+      <i-button type="primary" class="btn" :disabled="userName.length <= 0 || userPsw.length <= 0" long @click="login">登   录</i-button>
     </div>
   </div>
 </template>

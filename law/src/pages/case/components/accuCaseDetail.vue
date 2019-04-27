@@ -36,6 +36,7 @@
         </div>
       </div>
     </div>
+    <BackTop :height="100" :bottom="50" :right="15"></BackTop>
   </div>
 </template>
 
@@ -94,11 +95,12 @@ export default {
     line-height 1rem !important
   .wraper
     background-color: #fff
+    padding-bottom .4rem
     .title
       margin-top $headerHeight + .1rem
-      padding .1rem .12rem
-      font-size .35rem
-      color #414141
+      padding .1rem .2rem
+      font-size .38rem
+      color #333
       line-height .4rem
     .case
     .law
@@ -107,13 +109,22 @@ export default {
       .case-title
       .law-title
       .judge-title
-        height .7rem
-        line-height .7rem
-        font-size .355rem
-        text-align left
-        padding-left .2rem
-        color: #2c3e50
-        font-weight: bold
+        height .65rem
+        line-height .65rem
+        font-size .32rem
+        text-align center
+        // padding-left .2rem
+        color: #f2f2f2
+        // font-weight: bold
+        margin-left .2rem
+        border-radius .1rem
+        background-color: #2d8cf0
+      .case-title
+      .accusation-title
+        width 1.5rem
+      .law-title
+      .judge-title
+        width 2rem
       .case-text
       .law-text
       .judge-text
@@ -121,6 +132,7 @@ export default {
         padding .25rem .35rem
         margin-top .1rem
         line-height .53rem
+        textJustify()
         border()
     .law-text
       padding 0 !important

@@ -49,7 +49,7 @@
 
 <script> // 二级标题
 import axios from 'axios'
-import { mapMutations } from 'vuex' // vuex高级一些的API
+// import { mapMutations } from 'vuex' // vuex高级一些的API
 // import LawHeader from 'common/Header'
 // import LawBanner from './lawBanner'
 import Loading from 'common/Loading'
@@ -136,9 +136,9 @@ export default {
         this.caseList = data
         this.isSpinShow = false
       }
-    },
-    ...mapMutations(['setCase']), // 该方法相当于commit一个请求
-    ...mapMutations(['setContentList']) // 该方法相当于commit一个请求
+    }
+    // ...mapMutations(['setCase']), // 该方法相当于commit一个请求
+    // ...mapMutations(['setContentList']) // 该方法相当于commit一个请求
   },
   computed: { // 实现多余的icon出现在第二张page上
     pages () {
@@ -171,7 +171,7 @@ export default {
       // border-top .01rem solid #ccc
       // border-bottom .01rem solid #ccc
       // border-radius .15rem
-      padding .1rem 0
+      // padding .1rem 0
       .item
         padding .1rem 0 .2rem 0
         margin .15rem .1rem 0 .1rem

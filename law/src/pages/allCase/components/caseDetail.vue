@@ -76,11 +76,12 @@
         </div>
       </div>
     </div>
+    <BackTop :height="100" :bottom="50" :right="15"></BackTop>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex' // vuex高级一些的API
+// import { mapState } from 'vuex' // vuex高级一些的API
 import axios from 'axios'
 import CaseHeader from 'common/NewHeader'
 export default {
@@ -100,9 +101,9 @@ export default {
       newItem: {}
     }
   },
-  computed: {
-    ...mapState(['article']) // 将vuex公用数据映射给计算属性并命名为city,用this.city取代html中this.$store.state.city
-  },
+  // computed: {
+  //   ...mapState(['article']) // 将vuex公用数据映射给计算属性并命名为city,用this.city取代html中this.$store.state.city
+  // },
   // watch: { // 本来是解决vuex读取问题的，但傻逼的我忘记前面detail的方法了
   //   article () {
   //     // if (this.article && this.article.meta) {
@@ -233,11 +234,12 @@ export default {
     line-height 1rem !important
   .wraper
     background-color: #fff
+    padding-bottom .4rem
     .title
       margin-top $headerHeight + .1rem
-      padding .1rem .12rem
-      font-size .35rem
-      color #414141
+      padding .1rem .2rem
+      font-size .38rem
+      color #333
       line-height .4rem
     .case
     .accusation
@@ -248,21 +250,35 @@ export default {
       .accusation-title
       .law-title
       .judge-title
-        height .7rem
-        line-height .7rem
-        font-size .355rem
-        text-align left
-        padding-left .2rem
-        color: #2c3e50
-        font-weight: bold
+        height .65rem
+        line-height .65rem
+        font-size .32rem
+        text-align center
+        // padding-left .2rem
+        color: #f2f2f2
+        // font-weight: bold
+        margin-left .2rem
+        border-radius .1rem
+        background-color: #2d8cf0
+      // .case-text
+      //   text-indent 2em
+      .case-title
+      .accusation-title
+        width 1.5rem
+      .law-title
+      .judge-title
+        width 2rem
       .case-text
       .accusation-text
       .law-text
       .judge-text
-        font-size .3rem
+        background-color: #FFF
+        font-size .29rem
         padding .25rem .35rem
-        margin-top .1rem
+        margin .1rem
+        // margin-top .1rem
         line-height .53rem
+        textJustify()
         border()
     .accusation-li
       margin .1rem 0
@@ -276,6 +292,6 @@ export default {
       .law-down
         line-height .5rem
         font-size .28rem
-        color #666666e8
+        color #999
         text-indent 2em
 </style>

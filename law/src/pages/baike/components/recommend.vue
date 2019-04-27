@@ -16,6 +16,14 @@
           <img class="item-img" :src="item.imageUrl">
           <div class="item-info">
             <p class="item-title">{{item.articleTitle}}</p>
+            <div
+              class="baike-labels"
+              v-for="(labelsItem, labelsIndex) of item.contentLabels"
+              :key="labelsIndex"
+            >
+              <Tag class="lables-tag" color="primary"
+              :name="labelsItem.value">{{labelsItem.value}}</Tag>
+            </div>
             <!-- <p class="item-label">{{item.contentLabels[0]}}{{item.contentLabels[1]}}</p> -->
             <p class="item-desc">{{item.publishDate}}</p>
           </div>
@@ -77,7 +85,7 @@ export default {
   .recommend
     background-color: #FFF
     // position relative
-    height 12.5rem
+    height 13.5rem
     .bank
       height .3rem
       background-color: #eee
@@ -91,19 +99,25 @@ export default {
       .case-title-icon
         font-size .42rem
     .wrapper
+      margin-top .13rem
       background-color: #FFF
       .wrapper-border
-        border-top .01rem solid #ccc
+        // border-top .01rem solid #ccc
         border-bottom .01rem solid #ccc
         border-radius .15rem
         .wrapper-item
-          padding .08rem .1rem .05rem .08rem
+          padding .12rem .1rem .08rem .08rem
           position relative
           margin-top .08rem
           width 100%
-          height 2.05rem
+          height 2.15rem
           overflow hidden
           display flex
+        .baike-labels
+          margin-top .1rem
+          display inline-block
+          .lables-tag
+            margin-right .08rem
         .item-img
           height 1.8rem
           width 1.8rem
@@ -111,7 +125,7 @@ export default {
           border-radius .2rem
         .item-info
           flex 1
-          padding .08rem .1rem 0 .2rem
+          padding .04rem .1rem 0 .2rem
           min-width 0 // 使省略号正常显示
           .item-title
             line-height .45rem
@@ -119,13 +133,7 @@ export default {
           .item-desc
             position absolute
             right .2rem
-            bottom .3rem
+            bottom 0
             line-height .44rem
             color #ccc
-    // .item-more
-    //     height .9rem
-    //     line-height .9rem
-    //     text-align center
-    //     font-size .3rem
-    //     color #666
 </style>

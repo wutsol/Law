@@ -34,7 +34,7 @@
 
 <script>
 // import axios from 'axios'
-import LoginHeader from 'common/fixHeader'
+import LoginHeader from 'common/Header'
 import Tab from './components/tab'
 // import { mapMutations } from 'vuex' // vuex高级一些的API
 // import Qs from 'qs' // 这种方法只能在chrome上有效果

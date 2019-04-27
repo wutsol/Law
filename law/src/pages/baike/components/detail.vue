@@ -165,10 +165,10 @@ export default {
     margin-top $headerHeight
     .baike-title
       margin-top $headerHeight + .1rem
-      padding .2rem
+      padding .2rem .3rem
       min-height 1rem
       line-height .6rem
-      text-align justify
+      // text-align center
       font-size .35rem
       color #4C4D4E
     .baike-labels
@@ -201,4 +201,5 @@ export default {
       line-height .6rem
       text-align justify
       text-indent 2em
+      textJustify()
 </style>

@@ -1,12 +1,14 @@
 <template>
   <div id="app">
     <transition
-      :duration="{enter: 50, leave: 80}"
       name="fade"
+      :duration="{enter: 100, leave: 50}"
       mode="out-in"
       enter-active-class="animated fadeIn fade-enter-active"
-      leave-active-class="animated fadeOut fade-leave-active"
     >
+      <!-- leave-active-class="animated fadeOutLeft fade-leave-active" -->
+      <!-- :duration="{enter: 1000, leave: 50}" -->
+      <!-- name="fade" -->
       <keep-alive exclude="BaikeDetail"> <!-- 和router-view之间不能隔任何东西 -->
       <router-view></router-view>
       </keep-alive>
@@ -36,7 +38,7 @@ export default {
   .ivu-breadcrumb
     ellipsis()
   .ivu-input // 搜索框字体
-    font-size .275rem
+    font-size .28rem
   .ivu-select-item // 搜索框下拉字体
     font-size .265rem!important
   .ivu-btn-success // 按钮可点击状态的颜色
@@ -55,7 +57,7 @@ export default {
     opacity 0
   .fade-enter-active,
   .fade-leave-active
-    transition: opacity .08s
+    transition: opacity .5s
   .vertical-center-modal // 会话框居中
     display: flex
     align-items: center

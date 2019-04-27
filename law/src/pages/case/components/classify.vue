@@ -16,10 +16,10 @@
           >
             <div class="item-title">
               {{item._id}}
+              <p class="item-count">
+                共{{item.count}}个
+              </p>
             </div>
-            <span class="item-count">
-              共{{item.count}}个
-            </span>
           </router-link>
         </swiper-slide>
         <!-- Optional controls -->
@@ -107,15 +107,18 @@ export default {
         width 100%
         height 1rem
         line-height 1rem
-        padding-left .4rem
+        padding 0 .4rem 0 .4rem
         font-size .3rem
       .item-count
-        height .8rem
-        line-height .8rem
-        position absolute
-        top .2rem
-        bottom 0
-        right .7rem
+        display inline
+        padding-top .2rem
+        height .5rem
+        // line-height .8rem
+        float right
+        // position absolute
+        // top .2rem
+        // bottom 0
+        // right .7rem
         font-size .2rem
         color #aaa
       .swiper-pagination
