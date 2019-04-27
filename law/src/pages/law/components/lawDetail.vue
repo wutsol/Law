@@ -27,10 +27,10 @@
         </div>
       </div>
       <div class="law-text">
-        <div class="law-detail" v-for="(item, index) in articleArr" :key="index">
+        <div class="law-detail" v-for="(value, key, index) of article" :key="index">
           <!-- <div class="law-detail-title">正文</div> v-for="(value, key, index) in article"-->
           <div v-if="article" class="law-one">
-            <span>{{item}}</span>    &ensp; {{this.article[item]}}
+            <span>第{{index+1}}条</span>    &ensp; {{article[key]}} <!-- 顺序有问题 -->
           </div>
         </div>
       </div>
@@ -118,6 +118,9 @@ export default {
         this.level = data.level // 效力级别
         this.article = data.article // 法条
         this.articleArr = Object.keys(this.article)
+        // this.articleArr.sort()
+        // console.log(this.article)
+        // console.log(this.articleArr)
         this.isSpinShow = false
       }
     }

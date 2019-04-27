@@ -40,7 +40,7 @@
         <div class="swiper-pagination"  slot="pagination"></div>
       </swiper>
     </div>
-    <loading :isSpinShow="isSpinShow"></loading>
+    <!-- <loading :isSpinShow="isSpinShow"></loading> -->
   </div>
 </template>
 
@@ -48,13 +48,16 @@
 import axios from 'axios'
 // import LawHeader from 'common/Header'
 // import LawBanner from './lawBanner'
-import Loading from 'common/Loading'
+// import Loading from 'common/Loading'
 export default {
   name: 'LawName',
-  components: {
-    // LawHeader,
-    // LawBanner,
-    Loading
+  // components: {
+  //   // LawHeader,
+  //   // LawBanner,
+  //   Loading
+  // },
+  props: {
+    lawList: Array
   },
   data () {
     return {
@@ -64,12 +67,12 @@ export default {
         observeParents: true, // 下面两行解决加载时尺寸出错的问题
         observer: true
       },
-      lawList: [],
+      // lawList: [],
       headerTitle: '法条库',
       lawTitle: '条例',
-      bigTitle: '',
+      bigTitle: ''
       // lastId: '',
-      isSpinShow: false
+      // isSpinShow: false
     }
   },
   methods: {
@@ -94,7 +97,7 @@ export default {
       if (res && res.data) {
         console.log(res.data)
         const data = res.data
-        this.lawList = data
+        this.lawList = data.slice(0, 30)
         // data.forEach((item, index) => {
         //   if (index <= 100)
         //   {
@@ -134,7 +137,7 @@ export default {
   mounted () {
   //   this.bigTitle = this.$route.params._id
   //   this.lastId = this.$route.params._id
-    this.getDetailInfo()
+    // this.getDetailInfo()
   }
   // activated () { // 当城市发生变化时要重新发送ajax请求
   //   // if (this.lastId !== this.$route.params._id) {

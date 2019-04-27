@@ -54,12 +54,15 @@ const options = {
 }
 export default {
   name: 'LawSearch',
+  props: {
+    nameList: Array
+  },
   data () {
     return {
       keyword: '',
       list: [],
       timer: null,
-      nameList: [],
+      // nameList: [],
       data4: ['中华人民共和国刑法', '中华人民共和国民法总则', '中华人民共和国劳动法']
     }
   },
@@ -80,6 +83,7 @@ export default {
     },
     getNameInfoSucc (res) {
       if (res && res.data) {
+        console.log(res.data)
         this.nameList = res.data
       }
     }
@@ -113,7 +117,7 @@ export default {
   },
   mounted () {
     this.scroll = new Bscroll(this.$refs.search, options) // 加载搜索列表中的滑动条
-    this.getNameinfo()
+    // this.getNameinfo()
   },
   activated () { // 防止回到该页面时留有搜索字
     this.keyword = ''
