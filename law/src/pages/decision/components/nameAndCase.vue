@@ -1,6 +1,58 @@
 <template>
-  <div class="name">
-    <!-- <div class="title border-bottom">罪名预测与案例推荐</div> -->
+  <div class="report">
+    <div class="title">案件分析</div>
+    <div class="name">
+      <p class="name-title">罪名预测</p>
+      <Divider></Divider>
+      <my-echart
+        :titleText="titleText"
+      >
+      </my-echart>
+    </div>
+    <div class="punish">
+      <p class="punish-title">刑期预测</p>
+      <Divider></Divider>
+      <report-punishment :list="impr"></report-punishment>
+    </div>
+    <div class="law">
+      <p class="law-title">相关法规</p>
+      <Divider></Divider>
+      <div class="law-content">
+        <p class="law-content-title">{{tiaoli[0]}}</p>
+      </div>
+    </div>
+    <div class="case">
+      <div class="case-title">
+        相似案例
+        <p class="case-more" @click="handleCase">更多</p>
+      </div>
+      <Divider></Divider>
+      <div class="item">
+        <div class="item-info">
+          <p
+            class="item-desc"
+            @click="handleCaseDetail"
+          >
+            {{oneCase.summary}}
+          </p>
+          <div
+            class="item-labels"
+            v-for="(labelsItem, labelsIndex) of oneCase.meta.accusation"
+            :key="labelsIndex"
+          >
+            <Tag
+              class="lables-tag"
+              color="blue"
+              :name="labelsItem"
+            >
+              <!-- 刑法第{{labelsItem}}条 -->
+              {{labelsItem}}
+            </Tag>
+          </div>
+          <p class="item-init">{{oneCase.fact2}}</p>
+        </div>
+      </div>
+    </div>
     <!-- <Collapse simple accordion> --> <!-- 折叠面板 -->
       <!-- <Panel
         v-for="(item, index) of accu_rele"
@@ -58,9 +110,6 @@
         <div class="case-detail-border"></div>
       </li>
     </ul> -->
-    <my-echart
-      :titleText="titleText"
-    ></my-echart>
       <!-- :opinion="accu"
       :opinionData="seriesData" -->
   </div>
@@ -69,20 +118,31 @@
 <script>
 import ReportCase from './caseList'
 import MyEchart from 'common/myEcharts'
+import ReportPunishment from './reportPunishment'
 export default {
   name: 'ReportName',
-  // props: {
-  //   accu: Array,
-  //   accu_rele: Array,
-  //   seriesData: Array
-  // },
+  props: {
+    impr: Array,
+    contentList: Array,
+    tiaoli: Array,
+    oneCase: Object
+    // accu: Array,
+    // accu_rele: Array,
+    // seriesData: Array
+  },
   components: {
     MyEchart,
-    ReportCase
+    ReportCase,
+    ReportPunishment
   },
   data () {
     return {
       titleText: '相关罪名概率'
+    }
+  },
+  methods: {
+    handleCase () {
+
     }
   }
 }
@@ -91,38 +151,83 @@ export default {
 <style lang="stylus" scoped>
   @import '~styles/variables.styl'
   @import '~styles/mixins.styl'
-  .name
-    margin-top $headerHeight
-    background-color: #FFF
-    .test
-      display inline-block
-      margin-left -.15rem
-      font-size .32rem
-      color #333
-    .ivu-chart-circle
-      float right
-      .demo-Circle-custom
-        margin-top .5rem
-        & span
-          display block
-          color #657180
-          font-size .2rem
+  .report >>> .ivu-divider
+    background-color #e3e5e899
+  .report
+    // margin-top $headerHeight
+    background-color: #4a42d8bd
+    // .test
+    //   display inline-block
+    //   margin-left -.15rem
+    //   font-size .32rem
+    //   color #333
+    // .ivu-chart-circle
+    //   float right
+    //   .demo-Circle-custom
+    //     margin-top .5rem
+    //     & span
+    //       display block
+    //       color #657180
+    //       font-size .2rem
     .title
-      height 1.2rem
-      line-height 1.2rem
+      padding-top .1rem
+      height 1rem
+      line-height 1rem
       font-size .4rem
       font-weight 400
       text-align center
-    .item-info
-      // height 1.25rem
-      line-height 1.1rem
-      background-color: #fff
-      ellipsis()
-      .item-name
-        padding-left .4rem
-        height .8rem
+      color #fff
+    .name
+    .punish
+    .law
+    .case
+      background-color: #FFF
+      margin .15rem
+      padding .2rem
+      border 20px solid red
+      border-radius .15rem
+      .name-title
+      .punish-title
+      .law-title
+      .case-title
+        font-weight bold
         font-size .32rem
-        font-weight 450
+        padding 0 .1rem
+        height .4rem
+        line-height .4rem
+        margin .1rem 0 .15rem 0
+        color #333
+        .case-more
+          font-weight normal
+          font-size .28rem
+          display inline
+          float right
+          color rgba(62, 53, 212, 0.99)
+    .item
+      padding .1rem 0
+      // margin .15rem .1rem 0 .1rem
+      .item-info
+        min-height 1rem
+        padding .15rem .12rem 0 .12rem
+        line-height .45rem
+        font-size .3rem
+        .item-desc
+          // margin-top .17rem
+          color #414141
+          // line-height 1.1rem
+          // height 1.1rem
+          // ellipsis()
+        .item-labels
+          margin-top .1rem
+          display inline-block
+          .lables-tag
+            margin-right .08rem
+    .item-init
+      padding 0 .05rem
+      margin-top .15rem
+      font-size .26rem
+      color #999
+      line-height .4rem
   // @import '~styles/mixins.styl'
   // .case
   //   margin .37rem 0 1rem

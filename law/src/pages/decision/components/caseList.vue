@@ -32,7 +32,7 @@
                   {{labelsItem}}
                 </Tag>
               </div>
-              <!-- <p class="item-init">{{item.fact2}}</p> -->
+              <p class="item-init">{{smallItem.fact2}}</p>
             </div>
           </li>
         </ul>

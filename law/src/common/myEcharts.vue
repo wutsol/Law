@@ -134,7 +134,7 @@ export default {
         series: [{
           name: 'law', // 必须加了才能获取后台数据,待解
           type: 'pie',
-          color: ['#f09542', '#42a3d8', '#6ec290', '#da6184'],
+          // color: ['#f09542', '#42a3d8', '#6ec290', '#da6184'],
           center: ['50%', '35%'],
           radius: '55%',
           avoidLabelOverlap: false, // 默认防止标签重叠
@@ -164,5 +164,5 @@ export default {
 <style lang="stylus" scoped>
 #chart
   width: 100%
-  height: 8rem
+  min-height: 8rem
 </style>

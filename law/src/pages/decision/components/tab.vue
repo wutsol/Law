@@ -2,18 +2,24 @@
   <div class="wrapper">
     <!-- <div class="home-border"></div> -->
     <Tabs size="default" class="tab">
-      <TabPane label="罪名预测">
-        <report-name>
+      <TabPane label="分析报告">
+        <report-name
+          :impr="impr"
+          :tiaoli="tiaoli"
+          :contentList="contentList"
+          :oneCase="oneCase"
+        >
         </report-name>
           <!-- :accu="accu"
           :accu_prob="accu_prob"
           :accu_rele="accu_rele"
           :seriesData="seriesData" -->
       </TabPane>
-      <TabPane label="刑期预测">
-      </TabPane>
+      <!-- <TabPane label="刑期预测">
+        <report-punishment :list="impr"></report-punishment>
+      </TabPane> -->
       <TabPane label="相关法规">
-        <report-law></report-law>
+        <report-law :tiaoli="tiaoli" :contentList="contentList"></report-law>
       </TabPane>
       <TabPane label="相似案例">
         <case-list :accu_rele="accu_rele"></case-list>
@@ -27,17 +33,23 @@ import ReportName from './nameAndCase'
 import ReportLaw from './law'
 import axios from 'axios'
 import CaseList from './caseList'
+import ReportPunishment from './reportPunishment'
 export default {
   name: 'DecisionTab',
   components: {
     ReportName,
     ReportLaw,
-    CaseList
+    CaseList,
+    ReportPunishment
     // Login,
     // Register
   },
   props: {
-    accu_rele: Array
+    accu_rele: Array,
+    impr: Array,
+    contentList: Array,
+    tiaoli: Array,
+    oneCase: Object
   },
   data () {
     return {
@@ -89,7 +101,7 @@ export default {
     // this.accu_rele = JSON.parse(sessionStorage.getItem('accu_rele'))
     // console.log(this.accu_rele)
     // console.log('t')
-    // this.getAccusation()
+  //   this.getAccusation()
   }
   // props: {
   //   accu: Array,
@@ -102,19 +114,19 @@ export default {
 
 <style lang="stylus" scoped>
   @import '~styles/variables.styl'
-  .wrapper >>> .ivu-tabs-tab
-  .wrapper >>> .ivu-tabs-tab-active
-  .wrapper >>> .ivu-tabs-tab-focused
-    width 20%
-    float left
+  // .wrapper >>> .ivu-tabs-tab
+  // .wrapper >>> .ivu-tabs-tab-active
+  // .wrapper >>> .ivu-tabs-tab-focused
+  //   width 20%
+  //   float left
   // .wrapper >>> .ivu-tabs
   //   width 100%
   //   margin-top $headerHeight
   // .wrapper >>> .ivu-tabs-bar
-  .wrapper >>> .ivu-tabs-nav-container
-  .wrapper >>> .ivu-tabs-nav-scroll
-  .wrapper >>> .ivu-tabs-nav-wrap
-    width 100%
+  // .wrapper >>> .ivu-tabs-nav-container
+  // .wrapper >>> .ivu-tabs-nav-scroll
+  // .wrapper >>> .ivu-tabs-nav-wrap
+  //   width 100%
   // .wrapper >>> .ivu-tabs-tab // tab
   // .wrapper >>> .ivu-tabs-ink-bar
   //   color #9a9a9b

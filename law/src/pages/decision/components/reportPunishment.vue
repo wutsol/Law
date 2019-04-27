@@ -1,9 +1,9 @@
 <template>
   <div class="wraper">
     <div class="punishment">
-      <div class="punishment-title border-bottom">刑期预测</div>
+      <!-- <div class="punishment-title border-bottom">刑期预测</div> -->
       <div class="punishment-content">
-        <p v-if="this.punishment > 0">刑期： {{this.punishment}}  个月</p>
+        <p v-if="this.punishment > 0">{{this.punishment}}  个月</p>
         <p v-if="this.death">死刑</p>
         <p v-if="this.life">无期徒刑</p>
       </div>
@@ -27,7 +27,7 @@ export default {
   watch: { // 获取刑期
     list () {
       if (this.list[0] > 0) {
-        this.punishment = this.list[0]
+        this.punishment = Math.ceil(this.list[0])
         // this.punishment = Math.round(this.punishment)
       } else if (this.list[1] === true) { // 死刑
         this.death = this.list[1]
@@ -41,11 +41,11 @@ export default {
 
 <style lang="stylus" scoped>
   @import '~styles/mixins.styl'
-  .wraper
-    background-color: #eee
-    .punishment
-      background-color: #FFF
-      margin-top .2rem
+  // .wraper
+  //   background-color: #eee
+  //   .punishment
+  //     background-color: #FFF
+  //     margin-top .2rem
       .punishment-title
         height 1.2rem
         line-height 1.2rem
@@ -53,7 +53,7 @@ export default {
         font-weight 400
         text-align center
       .punishment-content
-        padding .4rem
-        font-size .3rem
+        padding .1rem .1rem .1rem .2rem
+        font-size .28rem
         line-height .55rem
 </style>

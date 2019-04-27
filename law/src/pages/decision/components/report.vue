@@ -25,6 +25,10 @@
     </ul> -->
     <decision-tab
       :accu_rele="accu_rele"
+      :impr="impr"
+      :contentList="contentList"
+      :tiaoli="tiaoli"
+      :oneCase="oneCase"
     >
     </decision-tab>
       <!-- :accu="accu"
@@ -67,15 +71,17 @@ export default {
       tiaoli_prob: [], // 法条概率
       count: 0,
       accuSucc: false,
-      seriesData: []
+      seriesData: [],
+      oneCase: {}, // 报告中的预览
+      contentList: [] // 法条具体内容
     }
   },
   methods: {
     getReportInfo () {
       if (this.isSpinShow === false) {
-        this.isSpinShow = true
+        // this.isSpinShow = true
         this.getAccusation()
-        // this.getImpr()
+        this.getImpr()
         // this.getLaw()
         // if (this.count === 3) {
         //   this.isSpinShow = false
@@ -102,21 +108,33 @@ export default {
     },
     getLawSuc (res) {
       if (res && res.data) {
-        console.log(res.data)
         const data = res.data
         this.tiaoli = data.tiaoli
-        if (data.tiaoli_prob) { // 先判断是否存在，否则会出现无法读取未定义的tiaoli_prob
-          data.tiaoli_prob.forEach((item, index) => {
-            this.tiaoli_prob[index] = parseInt((item * 100))
-          }) // 对概率做数据操作
-        }
+        this.getLawContent()
         this.isSpinShow = false
         // this.count = this.count + 1
       }
     },
+    getLawContent () {
+      this.tiaoli.forEach((item, index) => {
+        axios.request({ // 向django发送请求,获取推荐内容
+          url: 'http://47.101.221.46:8000/xingfa',
+          method: 'post',
+          data: item
+        }).then((res) => {
+          const data = res.data[0]
+          this.contentList.push(data.content) // 用push的话要在初始时置空
+          // console.log(this.contentList[index])
+        })
+          .catch((response) => {
+            console.log(response)
+          })
+      })
+      this.isSpinShow = false
+    },
     getAccusation () {
       axios.request({ // 向django发送请求
-        url: 'http://35.226.111.16:8000/predict',
+        url: 'http://47.101.221.46:8050/predict',
         method: 'post',
         data: this.$route.params.fact
       }).then(this.getAccusationSuc)
@@ -126,9 +144,15 @@ export default {
     },
     getAccusationSuc (res) {
       if (res && res.data) {
-        console.log(res.data)
         const data = res.data
         this.accu_rele = data.accu_rele
+        this.oneCase = this.accu_rele[0][0]
+        console.log(this.oneCase)
+        this.accu_rele.forEach((item, index) => {
+          item.forEach((littleItem, littleIndex) => {
+            littleItem['fact2'] = littleItem.fact.slice(0, 50)
+          })
+        })
         this.accu = []
         data.accu.forEach((item, index) => {
           this.accu[index] = item + '罪'
@@ -215,6 +239,7 @@ export default {
     // }
   },
   mounted () {
+    this.contentList = []
     this.accuSucc = false
     this.fact = this.$route.params.fact
     this.count = 0
