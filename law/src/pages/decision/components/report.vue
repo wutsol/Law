@@ -68,9 +68,9 @@ export default {
       accu_rele: [], // 每个罪名相关案例
       impr: [], // 刑期
       tiaoli: [], // 法条
-      tiaoli_prob: [], // 法条概率
-      count: 0,
-      accuSucc: false,
+      // tiaoli_prob: [], // 法条概率
+      // count: 0,
+      // accuSucc: false,
       seriesData: [],
       oneCase: {}, // 报告中的预览
       contentList: [] // 法条具体内容
@@ -96,25 +96,25 @@ export default {
         //   })
       }
     },
-    getLaw () {
-      axios.request({ // 向django发送请求
-        url: 'http://47.101.221.46:8050/predict',
-        method: 'post',
-        data: this.$route.params.fact
-      }).then(this.getLawSuc)
-        .catch((response) => {
-          console.log(response)
-        })
-    },
-    getLawSuc (res) {
-      if (res && res.data) {
-        const data = res.data
-        this.tiaoli = data.tiaoli
-        this.getLawContent()
-        // this.isSpinShow = false
-        // this.count = this.count + 1
-      }
-    },
+    // getLaw () {
+    //   axios.request({ // 向django发送请求
+    //     url: 'http://47.101.221.46:8050/predict',
+    //     method: 'post',
+    //     data: this.$route.params.fact
+    //   }).then(this.getLawSuc)
+    //     .catch((response) => {
+    //       console.log(response)
+    //     })
+    // },
+    // getLawSuc (res) {
+    //   if (res && res.data) {
+    //     const data = res.data
+    //     this.tiaoli = data.tiaoli
+    //     this.getLawContent()
+    //     // this.isSpinShow = false
+    //     // this.count = this.count + 1
+    //   }
+    // },
     getLawContent () {
       this.tiaoli.forEach((item, index) => {
         axios.request({ // 向django发送请求,获取推荐内容
@@ -171,6 +171,7 @@ export default {
         this.tiaoli = data.tiaoli // 获取law
         this.getLawContent()
         this.impr = data.impr // 获取刑期
+        this.impr[0] = Math.ceil(this.impr[0])
         // this.accu = data.accu
         // this.seriesData = []
         // if (data.accu_prob) { // 先判断是否存在，否则会出现无法读取未定义的accu_prob
@@ -185,26 +186,26 @@ export default {
         // this.accuSucc = true
         this.isSpinShow = false
       }
-    },
-    getImpr () {
-      axios.request({ // 向django发送请求 3.16.128.130:8050
-        url: 'http://35.201.136.253:8000/predict',
-        method: 'post',
-        data: this.$route.params.fact
-      }).then(this.getImprSuc)
-        .catch((response) => {
-          console.log(response)
-        })
-    },
-    getImprSuc (res) {
-      if (res && res.data) {
-        console.log(res.data)
-        const data = res.data
-        this.impr = data.impr
-        // this.count = this.count + 1
-        this.isSpinShow = false
-      }
     }
+    // getImpr () {
+    //   axios.request({ // 向django发送请求 3.16.128.130:8050
+    //     url: 'http://35.201.136.253:8000/predict',
+    //     method: 'post',
+    //     data: this.$route.params.fact
+    //   }).then(this.getImprSuc)
+    //     .catch((response) => {
+    //       console.log(response)
+    //     })
+    // },
+    // getImprSuc (res) {
+    //   if (res && res.data) {
+    //     console.log(res.data)
+    //     const data = res.data
+    //     this.impr = data.impr
+    //     // this.count = this.count + 1
+    //     this.isSpinShow = false
+    //   }
+    // }
     // getReportInfoSuc (res) {
     //   console.log(res)
     //   // if (res.status === 200) {
@@ -243,14 +244,14 @@ export default {
     this.contentList = []
     this.isSpinShow = false
     this.fact = this.$route.params.fact
-    this.count = 0
+    // this.count = 0
     this.getReportInfo()
   },
   activated () { // 防止缓存后无法重新发送ajax
-    this.isSpinShow = false
+    // this.isSpinShow = false
     if (this.fact !== this.$route.params.fact) {
       this.fact = this.$route.params.fact
-      this.count = 0
+      // this.count = 0
       this.getReportInfo()
     }
   }

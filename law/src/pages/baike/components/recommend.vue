@@ -3,7 +3,7 @@
     <div class="bank"></div>
     <div class="title border-bottom">
       <span class="iconfont case-title-icon">&#xe611;</span>
-      干货推荐
+      相关法律知识
     </div>
     <div class="wrapper">
       <ul class="wrapper-border">
