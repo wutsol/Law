@@ -7,16 +7,16 @@
 智能辅助决策层面致力于给法律工作者提供判案的科学参考，包括智能判案、案件推荐功能；
 #### 1.2法律服务
 为减轻法律工作者在法律服务过程中的工作量，提供法条查询、罪名查询、案例查询、以及法律知识阅览功能。
-![主要功能](https://img-blog.csdnimg.cn/20200304005008135.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzE3MTEwNg==,size_16,color_FFFFFF,t_70)
+![主要功能](https://img-blog.csdnimg.cn/20200304005008135.png)
 ### 2.主要界面效果展示
 这里主要展示主界面、分析报告界面与法律知识推荐的界面效果。
 #### 2.1主界面
-![主界面](https://img-blog.csdnimg.cn/20200304005617184.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzE3MTEwNg==,size_16,color_FFFFFF,t_70)
+![主界面](https://img-blog.csdnimg.cn/20200304005617184.png)
 #### 2.2 分析报告界面
-![分析报告](https://img-blog.csdnimg.cn/2020030410174241.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzE3MTEwNg==,size_16,color_FFFFFF,t_70)
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200304101818212.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzE3MTEwNg==,size_16,color_FFFFFF,t_70)
+![分析报告](https://img-blog.csdnimg.cn/2020030410174241.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200304101818212.png)
 #### 2.3 法律知识界面
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200304102256327.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzE3MTEwNg==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200304102256327.png)
 #### 3.核心技术
 本项目实现的核心还是深度学习技术，但不在本仓库，由另一名队友负责，主要说一下用到的技术。
 
